@@ -6,18 +6,20 @@ require('dotenv').config();
 
 // Error Handler
 const handleErrors = (err) => {
+    // Declaration of Extra Properties of Error Object
     let errors = { email: '', password: '', typeofuser: ''};
     
-    // Incorrect Email
+    // Incorrect Email Error
     if (err.message === 'Incorrect email.') {
         errors.email = 'Email entered is not yet registered.';
     }
 
+    // Incorrect Password Error
     if (err.message === 'Incorrect password.') {
         errors.password = 'Password entered is incorrect.'
     }
 
-    // Duplicate Error Code
+    // Duplicate Error Code Message
     if (err.code === 11000) {
         errors.email = 'That email is already taken.'
     }
@@ -28,48 +30,32 @@ const handleErrors = (err) => {
         })
     }
 
+    console.log(errors)
     return errors;
 };
 
 // Token Generation Function
 const tokenValidityDuration = 3 * 24 * 60 * 60;
 const createToken = (id) => {
-    return jwt.sign({ id }, process.env.KEY, {
+    return jwt.sign({ id }, process.env.JWT_KEY, {
         expiresIn: tokenValidityDuration
     });
 };
 
 // Registation Function for Job Seekers
-const registerUserA = async (req, res) => {
-    const {email, name, password} = req.body;
-    const typeofuser = 'jobseeker';
+const registerUser = async (req, res) => {
+    const {email, name, password, typeofuser} = req.body;
     try {
         const user = await UserCredential.create({email, password, typeofuser});
-        const jobseeker = await JobSeeker.create({name, email});
-
+        if (typeofuser === 'jobseeker') {
+            const jobseeker = await JobSeeker.create({name, email});
+        }
+        else if (typeofuser === 'employer') {
+            const employer = await Employer.create({name, email});
+        }
         // Optional code snippet to allow direct login after registration.
         //const token = createToken(user._id);
         //res.cookie('userToken', token, { httpOnly: true, maxAge: maxAge * 1000});
-
-        res.status(201).send("Successfully Registered");
-    } catch (err){
-        const errors = handleErrors(err);
-        res.status(400).json({errors});
-    };
-};
-
-// Registration Function for Employers
-const registerUserB = async (req, res) => {
-    const {email, name, password} = req.body;
-    const typeofuser = 'employer';
-    try {
-        const user = await UserCredential.create({email, password, typeofuser});
-        const employer = await Employer.create({name, email});
-
-        // Optional code snippet to allow direct login after registration.
-        //const token = createToken(user._id);
-        //res.cookie('userToken', token, { httpOnly: true, maxAge: maxAge * 1000});
-
         res.status(201).send("Successfully Registered");
     } catch (err){
         const errors = handleErrors(err);
@@ -90,7 +76,6 @@ const loginUser = async (req, res) => {
 };
 
 module.exports = {
-    registerUserA,
-    registerUserB, 
+    registerUser,
     loginUser
 };

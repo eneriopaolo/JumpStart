@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+require('dotenv').config();
 
 // Importing of Routers:
 const userAuthRoutes = require('./routes/userauth.route');
@@ -14,8 +15,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Connect to MongoDB & Listen for Requests
-const port = 3000;
-const dbURI = "mongodb+srv://paoloenerio:om77nRNxfqImealf@backenddb.2wehfx7.mongodb.net/OurDatabase";
+const port = process.env.PORT;
+const dbURI = process.env.DB_URI;
     // This is the Connection String
     // mongodb+srv://<username>:<password>
 mongoose.connect(dbURI)
