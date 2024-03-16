@@ -10,13 +10,19 @@ const jobOfferSchema = new Schema({
         type: String,
         required: true
     },
-    salary: {
+    salaryPerMonth: {
         type: Number,
         required: true
     },
     offeredBy: {
-        type: String,
-        required: true
+        employerName: {
+            type: String,
+            required: true
+        },
+        employerID: {
+            type: String,
+            required: true
+        }
     },
 });
 
