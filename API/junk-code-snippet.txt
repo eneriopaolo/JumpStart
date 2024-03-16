@@ -61,3 +61,10 @@ app.delete('/api/jobseeker/:id', async(req,res) =>{
         res.status(500).send("Something went wrong.");
     }
 });
+
+// Optional code snippet to allow direct login after registration.
+const token = createToken(user._id);
+res.cookie('userToken', token, { httpOnly: true, maxAge: maxAge * 1000});
+
+// Fetching Token from Browser cookie
+const token = req.cookies.TOKEN_VAR_NAME

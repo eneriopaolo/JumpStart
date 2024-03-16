@@ -53,9 +53,6 @@ const registerUser = async (req, res) => {
         else if (typeofuser === 'employer') {
             const employer = await Employer.create({name, email});
         }
-        // Optional code snippet to allow direct login after registration.
-        //const token = createToken(user._id);
-        //res.cookie('userToken', token, { httpOnly: true, maxAge: maxAge * 1000});
         res.status(201).send("Successfully Registered");
     } catch (err){
         const errors = handleErrors(err);
