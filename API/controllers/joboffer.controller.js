@@ -28,10 +28,12 @@ const postJobOffer = async (req, res) => {
 const editJobOffer = async (req, res) => {
     try {
         const { id } = req.params;
-        const {jobdesc, salary} = req.body;
+        const {jobdesc, salary, category, skills} = req.body;
         const jobOffer = await JobOffer.findByIdAndUpdate(id, {
             jobDescription: jobdesc,
-            salaryPerMonth: salary
+            salaryPerMonth: salary,
+            jobCategory: category,
+            skillsRequired: skills
         });
 
         if (!jobOffer) {
@@ -67,7 +69,29 @@ const viewJobOffer = async (req, res) => {
         const jobOffers = await JobOffer.find({});
         res.json(jobOffers.filter(jobOffers => jobOffers.offeredBy.employerEmail === userEmail))
     } catch (err) {
-        console.error(err) //For Debugging Purposes
+        console.error(err);  //For Debugging Purposes
+        res.status(500).send('Something went wrong.');
+    }
+};
+
+// Function for Viewing Specific Job Offer
+const viewSpecificJobOffer = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const jobOffer = await JobOffer.findById(id);
+
+        if (!jobOffer) {
+            return res.status(404).send("Job offer to be viewed does not exist.");
+        }
+
+        if (req.userID !== jobOffer.offeredBy.employerID) {
+            return res.status(403)
+        }
+
+        res.json(jobOffer);
+    } catch (err) {
+        console.error(err);  //For Debugging Purposes
+        res.status(500).send('Something went wrong.');
     }
 };
 
@@ -75,5 +99,6 @@ module.exports = {
     postJobOffer,
     editJobOffer,
     deleteJobOffer,
-    viewJobOffer
+    viewJobOffer,
+    viewSpecificJobOffer
 };
