@@ -36,8 +36,8 @@ const handleErrors = (err) => {
 
 // Token Generation Function
 const tokenValidityDuration = 3 * 24 * 60 * 60;
-const createToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_KEY, {
+const createToken = (email) => {
+    return jwt.sign({ email }, process.env.JWT_KEY, {
         expiresIn: tokenValidityDuration
     });
 };
@@ -64,7 +64,7 @@ const loginUser = async (req, res) => {
     const {email, password} = req.body; 
     try {
         const user = await UserCredential.login(email, password);
-        const token = createToken(user._id);
+        const token = createToken(user.email);
         res.status(200).send(token);
     } catch (err) {
         const errors = handleErrors(err);

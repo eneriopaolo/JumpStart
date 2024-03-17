@@ -1,4 +1,4 @@
-// Middleware for Authenticating Tokens
+// Middleware for Authenticating Tokens & Returning User Email
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -10,14 +10,13 @@ const authenticateToken = (req, res, next) => {
         return res.sendStatus(401);
     }
     
-    jwt.verify(token, process.env.JWT_KEY, (err, id) => {
-        if (err) {
-            return res.sendStatus(403)
-        } else {
-            req.id = id;
-            next();
-        }
-    })
-}
+    try {
+        const decodedToken = jwt.verify(token, process.env.JWT_KEY);
+        userEmail = decodedToken.email;
+        next();
+    } catch (err) {
+        return res.sendStatus(403)
+    };
+};
 
 module.exports = { authenticateToken }

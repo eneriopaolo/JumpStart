@@ -2,7 +2,9 @@ const JobOffer = require('../models/joboffer.model');
 
 // Function for Creation of New Job Offer
 const postJobOffer = async (req, res) => {
-    const {jobtitle, jobdesc, salary, empname, empid} = req.body
+    const {jobtitle, jobdesc, salary} = req.body;
+    const empid = req.userID;
+    const empname = req.userName;
     try {
         const jobOffer = await JobOffer.create({
             jobTitle: jobtitle,
