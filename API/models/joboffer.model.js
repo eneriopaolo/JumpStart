@@ -14,14 +14,29 @@ const jobOfferSchema = new Schema({
         type: Number,
         required: true
     },
+    jobCategory: {
+        type: String,
+        enum: {
+            values: ["Entry", "Intermediate", "Expert"],
+            message: "Invalid Category."
+        }
+    },
+    skillsRequired: [String],
     offeredBy: {
         employerName: {
             type: String,
-            required: true
+            required: true,
+            immutable: true
         },
         employerID: {
             type: String,
-            required: true
+            required: true,
+            immutable: true
+        },
+        employerEmail: {
+            type: String,
+            required: true,
+            immutable: true
         }
     },
 });

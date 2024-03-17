@@ -18,6 +18,14 @@ const jobApplicationSchema = new Schema({
         type: Date,
         immutable: true,
         default: () => Date.now()
+    },
+    applicationStatus: {
+        type: String,
+        enum: {
+            values: ["Pending", "Denied", "Accepted"],
+            message: "Invalid Status.",
+            default: "Pending"
+        }
     }
 });
 
