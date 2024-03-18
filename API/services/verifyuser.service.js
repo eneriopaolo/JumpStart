@@ -7,7 +7,7 @@ const verifyEmployer = async(req, res, next) => {
     const user = await Employer.findOne({email: userEmail})
     userData = user;
     if (!user) {
-        return res.status(403).json({msg: "Not an employer."})
+        return res.status(403).json({msg: "Unauthorized Access: Not an employer."})
     }
     next();
     } catch (err) {
@@ -20,7 +20,7 @@ const verifyJobSeeker = async(req, res, next) => {
     const user = await JobSeeker.findOne({ email: userEmail })
     userData = user;
     if (!user) {
-        return res.status(403).json({msg: "Not a job seeker."})
+        return res.status(403).json({msg: "Unauthorized Access: Not a job seeker."})
     }
     next();
     } catch (err) {

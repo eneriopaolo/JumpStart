@@ -25,7 +25,8 @@ const jobOfferSchema = new Schema({
     offeredBy: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "Employer",
-        required: true
+        required: true,
+        immutable: true
     }
 });
 

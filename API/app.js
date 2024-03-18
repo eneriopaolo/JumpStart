@@ -40,4 +40,4 @@ app.get('/api/', (req, res) => {
 app.use('/api/auth', userAuthRoutes);
 app.use('/api/job', jobOfferRoutes);
 app.use('/api/profile', profileRoutes);
-app.use('/api/apply', jobApplicationRoutes);
+app.use('/api/application', jobApplicationRoutes);

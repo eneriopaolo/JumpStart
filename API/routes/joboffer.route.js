@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {postJobOffer, editJobOffer, deleteJobOffer, viewJobOffers, viewJobOffer} = require('../controllers/joboffer.controller');
 const {authenticateToken} = require('../services/authtoken.service')
-const {verifyEmployer, verifyJobSeeker} = require('../services/verifyuser.service')
+const {verifyEmployer} = require('../services/verifyuser.service')
 
 // Employer Specfic Routes
 router.post('/', authenticateToken, verifyEmployer, postJobOffer);

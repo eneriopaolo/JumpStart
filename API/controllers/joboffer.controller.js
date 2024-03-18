@@ -60,17 +60,18 @@ const editJobOffer = async (req, res) => {
             return res.status(404).json({msg: "Job offer to be updated does not exist."})
         }
 
-        if (id !== userData._id.toString()) {
-            return res.status(403).json({msg: "Unauthorized Access."})
+        const offer = await JobOffer.findById(id)
+        if (!offer) {
+            return res.status(404).json({msg: "Job offer to be updated does not exist."});
+        }
+        if (offer.offeredBy._id.toString() !== userData._id.toString()) {
+            return res.status(403).json({msg: "Unauthorized Access"})
         }
 
         const jobOffer = await JobOffer.findOneAndUpdate({_id: id}, {
             ...req.body
         });
 
-        if (!jobOffer) {
-            return res.status(404).json({msg: "Job offer to be updated does not exist."});
-        }
         res.status(200).json({msg: "Successfully Updated Details of a Job Offer."})
     } catch (err) {
         console.error(err);  //For Debugging Purposes
@@ -87,15 +88,16 @@ const deleteJobOffer = async (req, res) => {
             return res.status(404).json({msg: "Job offer to be deleted does not exist."})
         }
 
-        if (id !== userData._id.toString()) {
-            return res.status(403).json({msg: "Unauthorized Access."})
+        const offer = await JobOffer.findById(id)
+        if (!offer) {
+            return res.status(404).json({msg: "Job offer to be deleted does not exist."});
+        }
+        if (offer.offeredBy._id.toString() !== userData._id.toString()) {
+            return res.status(403).json({msg: "Unauthorized Access"})
         }
 
         const jobOffer = await JobOffer.findByIdAndDelete(id);
 
-        if (!jobOffer) {
-            return res.status(404).json({msg: "Job offer to be deleted does not exist."});
-        }
         res.status(200).json({msg: "Successfully Deleted a Job Offer."});
     } catch (err) {
         console.error(err);  //For Debugging Purposes
