@@ -11,11 +11,13 @@ const employerSchema = new Schema({
         required: true,
         immutable: true
     },
-    address: {
-        type: String
-    },
-    description: {
-        type: String
+    profile: {
+        address: {
+            type: String
+        },
+        description: {
+            type: String
+        }
     }
 });
 
