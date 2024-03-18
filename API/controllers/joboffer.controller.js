@@ -34,6 +34,17 @@ const viewJobOffer = async (req, res) => {
     }
 };
 
+// Function for Viewing Own Job Offers
+const viewOwnOffers = async (req, res) => {
+    try {
+        const jobOffers = await JobOffer.find().populate("offeredBy").populate("applicants");
+        res.json(jobOffers.filter(jobOffers => jobOffers.offeredBy._id === userData._id))
+    } catch (err) {
+        console.error(err);  //For Debugging Purposes
+        res.status(500).json({msg: 'Something went wrong.'});
+    }
+};
+
 // Function for Creation of New Job Offer
 const postJobOffer = async (req, res) => {
     const {jobtitle, jobdesc, salary} = req.body;
@@ -111,5 +122,6 @@ module.exports = {
     editJobOffer,
     deleteJobOffer,
     viewJobOffers,
-    viewJobOffer
+    viewJobOffer,
+    viewOwnOffers
 };
