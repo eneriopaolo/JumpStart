@@ -1,10 +1,11 @@
 const JobOffer = require('../models/joboffer.model');
+const mongoose = require('mongoose');
 
-// Function for Viewing Employers' Job Offers
+// Function for Viewing All Job Offers
 const viewJobOffers = async (req, res) => {
     try {
-        const jobOffers = await JobOffer.find({});
-        res.json(jobOffers.filter(jobOffers => jobOffers.offeredBy.employerEmail === userEmail))
+        const jobOffers = await JobOffer.find().populate("offeredBy");
+        res.json(jobOffers);
     } catch (err) {
         console.error(err);  //For Debugging Purposes
         res.status(500).json({msg: 'Something went wrong.'});
@@ -15,14 +16,15 @@ const viewJobOffers = async (req, res) => {
 const viewJobOffer = async (req, res) => {
     try {
         const { id } = req.params;
-        const jobOffer = await JobOffer.findById(id);
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({msg: "Job offer to be viewed does not exist."})
+        }
+
+        const jobOffer = await JobOffer.findById(id).populate("offeredBy");
 
         if (!jobOffer) {
             return res.status(404).json({msg: "Job offer to be viewed does not exist."});
-        }
-
-        if (req.userID !== jobOffer.offeredBy.employerID) {
-            return res.status(403).json({msg: 'Unauthorized Access'});
         }
 
         res.json(jobOffer);
@@ -35,19 +37,12 @@ const viewJobOffer = async (req, res) => {
 // Function for Creation of New Job Offer
 const postJobOffer = async (req, res) => {
     const {jobtitle, jobdesc, salary} = req.body;
-    const empid = req.userID;
-    const empname = req.userName;
-    const empEmail = userEmail;
     try {
         const jobOffer = await JobOffer.create({
             jobTitle: jobtitle,
             jobDescription: jobdesc,
             salaryPerMonth: salary,
-            offeredBy: {
-                employerName: empname,
-                employerID: empid,
-                employerEmail: empEmail
-            }
+            offeredBy: userData._id.toString()
         });
         res.status(201).json({msg: 'Successfully Posted a Job Offer.'})
     } catch (err) {
@@ -60,12 +55,17 @@ const postJobOffer = async (req, res) => {
 const editJobOffer = async (req, res) => {
     try {
         const { id } = req.params;
-        const {jobdesc, salary, category, skills} = req.body;
-        const jobOffer = await JobOffer.findByIdAndUpdate(id, {
-            jobDescription: jobdesc,
-            salaryPerMonth: salary,
-            jobCategory: category,
-            skillsRequired: skills
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({msg: "Job offer to be updated does not exist."})
+        }
+
+        if (id !== userData._id.toString()) {
+            return res.status(403).json({msg: "Unauthorized Access."})
+        }
+
+        const jobOffer = await JobOffer.findOneAndUpdate({_id: id}, {
+            ...req.body
         });
 
         if (!jobOffer) {
@@ -82,6 +82,15 @@ const editJobOffer = async (req, res) => {
 const deleteJobOffer = async (req, res) => {
     try {
         const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({msg: "Job offer to be deleted does not exist."})
+        }
+
+        if (id !== userData._id.toString()) {
+            return res.status(403).json({msg: "Unauthorized Access."})
+        }
+
         const jobOffer = await JobOffer.findByIdAndDelete(id);
 
         if (!jobOffer) {

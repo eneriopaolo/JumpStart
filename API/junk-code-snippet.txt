@@ -71,3 +71,7 @@ const token = req.cookies.TOKEN_VAR_NAME
 
 req.userID = user._id.toString();
     req.userName = user.name;
+
+const { ObjectId } = require('mongodb');
+
+res.json(jobOffers.filter(jobOffers => jobOffers.offeredBy.name === userData.name))

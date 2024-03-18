@@ -38,7 +38,7 @@ const editJobSeekerProfile = async(req, res) => {
 
         const userProfile = await JobSeeker.findOneAndUpdate({_id: id}, {
             ...req.body
-        })
+        });
 
         res.status(201).json({msg: "Successfully edited profile."})
     } catch (err) {

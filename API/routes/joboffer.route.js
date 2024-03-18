@@ -4,10 +4,13 @@ const {postJobOffer, editJobOffer, deleteJobOffer, viewJobOffers, viewJobOffer} 
 const {authenticateToken} = require('../services/authtoken.service')
 const {verifyEmployer, verifyJobSeeker} = require('../services/verifyuser.service')
 
+// Employer Specfic Routes
 router.post('/', authenticateToken, verifyEmployer, postJobOffer);
 router.patch('/:id', authenticateToken, verifyEmployer, editJobOffer);
 router.delete('/:id', authenticateToken, verifyEmployer, deleteJobOffer);
-router.get('/', authenticateToken, verifyEmployer, viewJobOffers);
-router.get('/:id', authenticateToken, verifyEmployer, viewJobOffer)
+
+// Common Routes
+router.get('/', authenticateToken, viewJobOffers);
+router.get('/:id', authenticateToken, viewJobOffer);
 
 module.exports = router;

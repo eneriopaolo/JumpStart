@@ -9,6 +9,7 @@ require('dotenv').config();
 const userAuthRoutes = require('./routes/userauth.route');
 const jobOfferRoutes = require('./routes/joboffer.route');
 const profileRoutes = require('./routes/profile.route');
+const jobApplicationRoutes = require('./routes/jobapplication.route');
 
 // Middlewares
 const app = express();
@@ -39,3 +40,4 @@ app.get('/api/', (req, res) => {
 app.use('/api/auth', userAuthRoutes);
 app.use('/api/job', jobOfferRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/api/apply', jobApplicationRoutes);
