@@ -68,3 +68,6 @@ res.cookie('userToken', token, { httpOnly: true, maxAge: maxAge * 1000});
 
 // Fetching Token from Browser cookie
 const token = req.cookies.TOKEN_VAR_NAME
+
+req.userID = user._id.toString();
+    req.userName = user.name;

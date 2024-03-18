@@ -1,11 +1,16 @@
 const JobSeeker = require('../models/jobseeker.model');
 const Employer = require('../models/employer.model');
-
+const mongoose = require('mongoose');
 
 // Function for Viewing a Job Seeker's Profile
 const viewJobSeekerProfile = async(req, res) => {
     try {
         const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({msg: "Job Seeker does not exist."})
+        }
+
         const userProfile = await JobSeeker.findById(id);
 
         if (!userProfile) {
@@ -22,12 +27,22 @@ const viewJobSeekerProfile = async(req, res) => {
 const editJobSeekerProfile = async(req, res) => {
     try {
         const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({msg: "Job Seeker does not exist."})
+        }
+
+        if (id !== userData._id.toString()) {
+            return res.status(403).json({msg: "Unauthorized Access."})
+        }
+
         const userProfile = await JobSeeker.findOneAndUpdate({_id: id}, {
             ...req.body
         })
 
         res.status(201).json({msg: "Successfully edited profile."})
     } catch (err) {
+        console.error(err);
         res.status(500).json({msg: "Something went wrong."})
     };
 };
@@ -36,6 +51,11 @@ const editJobSeekerProfile = async(req, res) => {
 const viewEmployerProfile = async(req, res) => {
     try {
         const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({msg: "Employer does not exist."})
+        }
+
         const userProfile =  await Employer.findById(id);
 
         if (!userProfile) {
@@ -52,6 +72,15 @@ const viewEmployerProfile = async(req, res) => {
 const editEmployerProfile = async(req, res) => {
     try {
         const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({msg: "Employer does not exist."})
+        }
+
+        if (id !== userData._id.toString()) {
+            return res.status(403).json({msg: "Unauthorized Access."})
+        }
+
         const userProfile = await Employer.findOneAndUpdate({_id: id}, {
             ...req.body
         })

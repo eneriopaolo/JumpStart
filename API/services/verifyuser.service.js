@@ -5,11 +5,10 @@ const JobSeeker = require('../models/jobseeker.model');
 const verifyEmployer = async(req, res, next) => {
     try {
     const user = await Employer.findOne({email: userEmail})
+    userData = user;
     if (!user) {
-        return res.status(403).json({msg: "Invalid User."})
+        return res.status(403).json({msg: "Not an employer."})
     }
-    req.userID = user._id.toString();
-    req.userName = user.name;
     next();
     } catch (err) {
         return res.status(403).json({msg: "Invalid User."})
@@ -19,11 +18,10 @@ const verifyEmployer = async(req, res, next) => {
 const verifyJobSeeker = async(req, res, next) => {
     try {
     const user = await JobSeeker.findOne({ email: userEmail })
+    userData = user;
     if (!user) {
-        return res.status(403).json({msg: "Invalid User."})
+        return res.status(403).json({msg: "Not a job seeker."})
     }
-    req.userID = user._id.toString();
-    req.userName = user.name;
     next();
     } catch (err) {
         return res.status(403).json({msg: "Invalid User."})
