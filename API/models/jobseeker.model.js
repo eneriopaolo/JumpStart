@@ -19,7 +19,11 @@ const jobSeekerSchema = new Schema({
         },
         education: {
             type: String
-        }
+        },
+        experience: {
+            type: String
+        },
+        skills: [String]
     }
 });
 
