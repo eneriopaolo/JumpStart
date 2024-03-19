@@ -7,7 +7,6 @@ const viewJobOffers = async (req, res) => {
         const jobOffers = await JobOffer.find().populate("offeredBy");
         res.json(jobOffers);
     } catch (err) {
-        console.error(err);  //For Debugging Purposes
         res.status(500).json({msg: 'Something went wrong.'});
     }
 };
@@ -29,23 +28,21 @@ const viewJobOffer = async (req, res) => {
 
         res.json(jobOffer);
     } catch (err) {
-        console.error(err);  //For Debugging Purposes
         res.status(500).json({msg: 'Something went wrong.'});
     }
 };
 
-// Function for Viewing Own Job Offers
+// EMPLOYER: Function for Viewing Own Job Offers
 const viewOwnOffers = async (req, res) => {
     try {
-        const jobOffers = await JobOffer.find().populate("offeredBy").populate("applicants");
+        const jobOffers = await JobOffer.find().populate("offeredBy");
         res.json(jobOffers.filter(jobOffers => jobOffers.offeredBy._id === userData._id))
     } catch (err) {
-        console.error(err);  //For Debugging Purposes
         res.status(500).json({msg: 'Something went wrong.'});
     }
 };
 
-// Function for Creation of New Job Offer
+// EMPLOYER: Function for Creation of New Job Offer
 const postJobOffer = async (req, res) => {
     const {jobtitle, jobdesc, salary} = req.body;
     try {
@@ -57,12 +54,11 @@ const postJobOffer = async (req, res) => {
         });
         res.status(201).json({msg: 'Successfully Posted a Job Offer.'})
     } catch (err) {
-        console.error(err)  //For Debugging Purposes
         res.status(500).json({msg: 'Something went wrong.'})
     };
 };
 
-// Function for Editing An Existing Job Offer
+// EMPLOYER: Function for Editing An Existing Job Offer
 const editJobOffer = async (req, res) => {
     try {
         const { id } = req.params;
@@ -70,7 +66,7 @@ const editJobOffer = async (req, res) => {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(404).json({msg: "Job offer to be updated does not exist."})
         }
-
+        
         const offer = await JobOffer.findById(id)
         if (!offer) {
             return res.status(404).json({msg: "Job offer to be updated does not exist."});
@@ -85,12 +81,11 @@ const editJobOffer = async (req, res) => {
 
         res.status(200).json({msg: "Successfully Updated Details of a Job Offer."})
     } catch (err) {
-        console.error(err);  //For Debugging Purposes
         res.status(500).json({msg: 'Something went wrong.'});
     }
 };
 
-// Function for Deleting An Existing Job Offer
+// EMPLOYER: Function for Deleting An Existing Job Offer
 const deleteJobOffer = async (req, res) => {
     try {
         const { id } = req.params;
@@ -111,7 +106,6 @@ const deleteJobOffer = async (req, res) => {
 
         res.status(200).json({msg: "Successfully Deleted a Job Offer."});
     } catch (err) {
-        console.error(err);  //For Debugging Purposes
         res.status(500).json({msg: 'Something went wrong.'});
     };
 

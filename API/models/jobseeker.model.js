@@ -27,7 +27,7 @@ const jobSeekerSchema = new Schema({
     }
 });
 
-// Adds function for querying/searching particular job seekers
+// Function for querying/searching particular job seekers
 jobSeekerSchema.statics.findByName = function (name) {
     return this.find({name: new RegExp(name, "i")})
 };

@@ -21,7 +21,7 @@ const employerSchema = new Schema({
     }
 });
 
-// Adds function for querying/searching specific employers
+// Function for querying/searching specific employers
 employerSchema.statics.findByName = function (name) {
     return this.find({name: new RegExp(name, "i")})
 };
