@@ -88,11 +88,11 @@ const approveApplication = async (req, res) => {
             return res.status(404).json({msg: "Application does not exist."})
         }
 
-        const application = await JobApplication.findById(applicationid)
+        const application = await JobApplication.findById(applicationid).populate("jobOffer")
         if (!application) {
             return res.status(404).json({msg: "Application does not exist."})
         }
-        if (application.offeredBy._id.toString() !== userData._id.toString()) {
+        if (application.jobOffer.offeredBy._id.toString() !== userData._id.toString()) {
             return res.status(403).json({msg: "Unauthorized Access"})
         }
 
@@ -115,11 +115,11 @@ const denyApplication = async (req, res) => {
             return res.status(404).json({msg: "Application does not exist."})
         }
 
-        const application = await JobApplication.findById(applicationid)
+        const application = await JobApplication.findById(applicationid).populate("jobOffer")
         if (!application) {
             return res.status(404).json({msg: "Application does not exist."})
         }
-        if (application.offeredBy._id.toString() !== userData._id.toString()) {
+        if (application.jobOffer.offeredBy._id.toString() !== userData._id.toString()) {
             return res.status(403).json({msg: "Unauthorized Access"})
         }
 

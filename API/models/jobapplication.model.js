@@ -20,10 +20,10 @@ const jobApplicationSchema = new Schema({
     },
     applicationStatus: {
         type: String,
+        default: "Pending",
         enum: {
             values: ["Pending", "Denied", "Accepted"],
-            message: "Invalid Status.",
-            default: "Pending"
+            message: "Invalid Status."
         }
     }
 });

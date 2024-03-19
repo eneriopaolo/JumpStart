@@ -36,7 +36,7 @@ const viewJobOffer = async (req, res) => {
 const viewOwnOffers = async (req, res) => {
     try {
         const jobOffers = await JobOffer.find().populate("offeredBy");
-        res.json(jobOffers.filter(jobOffers => jobOffers.offeredBy._id === userData._id))
+        res.json(jobOffers.filter(jobOffers => jobOffers.offeredBy._id.toString() === userData._id.toString()))
     } catch (err) {
         res.status(500).json({msg: 'Something went wrong.'});
     }
