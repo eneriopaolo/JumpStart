@@ -1,17 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const JobOffer = require('./joboffer.model');
 
 const jobApplicationSchema = new Schema({
-    jobTitle: {
-        type: String,
+    applicant: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "JobSeeker",
         required: true
     },
-    offeredBy: {
-        type: String,
-        required: true
-    },
-    applicantName: {
-        type: String,
+    jobOffer: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "JobOffer",
         required: true
     },
     applicationDate: {
@@ -27,6 +26,14 @@ const jobApplicationSchema = new Schema({
             default: "Pending"
         }
     }
+});
+
+// Method for appending job application to job offer applications field
+jobApplicationSchema.pre('save', async function (next){
+    const apply = await JobOffer.findByIdAndUpdate(this.jobOffer._id.toString(), {
+        $push: {"applications": this._id.toString()}
+    })
+    next();
 });
 
 const JobApplication = mongoose.model('JobApplication', jobApplicationSchema);
