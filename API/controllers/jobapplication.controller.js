@@ -16,18 +16,21 @@ const viewMyApplications = async (req, res) => {
 const viewMyApplication = async (req, res) => {
     try {
         const { applicationid } = req.params;
-
+        
         if (!mongoose.Types.ObjectId.isValid(applicationid)) {
             return res.status(404).json({msg: "Application does not exist"})
         }
-
+        
         const application = await JobApplication.findById(applicationid)
         
         if (!application) {
             return res.status(404).json({msg: "Application does not exist"})
         }
+        if (application.applicant._id.toString() !== userData._id.toString()) {
+            return res.status(403).json({msg: "Unauthorized Access"})
+        }
 
-        res.json(application.filter(application => applications.applicant._id.toString() === userData._id.toString()))
+        res.json(application)
     } catch (err) {
         res.status(500).json({msg: "Something went wrong."})
     }
