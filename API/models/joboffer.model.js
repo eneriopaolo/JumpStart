@@ -27,18 +27,23 @@ const jobOfferSchema = new Schema({
         ref: "Employer",
         required: true
     },
-    applicants: [{
+    applications: [{
         type: mongoose.SchemaTypes.ObjectId,
-        ref: "JobSeeker"
-    }]
+        ref: "JobApplication"
+    }],
+    dateOffered: {
+        type: Date,
+        immutable: true,
+        default: () => Date.now()
+    }
 });
 
-// Adds function for querying/searching a particular job offer
+// Function for querying/searching a particular job offer
 jobOfferSchema.statics.findByJobTitle = function (jobTitle) {
     return this.find({jobTitle: new RegExp(jobTitle, "i")})
 };
 
-// Adds function for querying/searching a job offer based on salary
+// Function for querying/searching a job offer based on salary
 jobOfferSchema.statics.findBySalaryRange = function (min, max) {
     return this.find().where("salaryPerMonth").gte(min).lte(max)
 }
