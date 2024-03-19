@@ -2,7 +2,6 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 // Importing of Routers:
@@ -15,7 +14,6 @@ const jobApplicationRoutes = require('./routes/jobapplication.route');
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(cookieParser());
 
 // Connect to MongoDB & Listen for Requests
 const port = process.env.PORT;
