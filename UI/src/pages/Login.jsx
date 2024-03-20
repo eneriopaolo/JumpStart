@@ -1,8 +1,8 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-    return (
+  return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-500">
 
       <div className="w-full max-w-md px-8 py-12 bg-white rounded-lg shadow-md">
@@ -10,7 +10,7 @@ const Login = () => {
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800">Log in to HireIndex</h1>
         </div>
-        
+
         <form className="space-y-4">
 
           <div className="flex flex-col space-y-2">
@@ -52,8 +52,8 @@ const Login = () => {
 
           <div className="text-center mt-12">
             <p className="text-sm text-gray-500">
-              Don't have an account? 
-              <Link to ="/signup" className="text-red-700 hover:underline">
+              Don't have an account?
+              <Link to="/signup" className="text-red-700 hover:underline">
                 Sign Up
               </Link>
             </p>
@@ -61,7 +61,7 @@ const Login = () => {
         </form>
       </div>
     </div>
-    );
+  );
 };
 
 
