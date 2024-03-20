@@ -26,7 +26,7 @@ const App = () => {
       <div className="container mx-auto">
         <Routes>
           <Route path="/signup" element={<TypeofUser />} />
-          <Route path="/" element={<Login />} />
+          <Route exact path="/" element={<Login />} />
         </Routes>
       </div>
     </BrowserRouter>

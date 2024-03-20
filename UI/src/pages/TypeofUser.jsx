@@ -42,7 +42,7 @@ const TypeofUser = () => {
             <div className="text-center mt-12">
               {selectedUser ? ( //if selectedUser has a value, display "Apply as a", else then null
                 <a href="#" className="text-red-700 hover:underline">
-                  Apply as a {selectedUser === "jobSeeker" ? "Job Seeker" : "Employer"} 
+                  Apply as {selectedUser === "jobSeeker" ? " a Job Seeker" : " an Employer"} 
                 </a>//if selectedUser value is equal to jobSeeker, "Job Seeker" text will be added, else then "Emplyoer"
                 //*******change anchor tag according to link based on selected selectedUser value signup page
               ) : null}
