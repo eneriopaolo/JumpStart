@@ -2,6 +2,8 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const swaggerUI = require('swagger-ui-express');
+const swaggerDoc = require('./docs/openapi.json');
 require('dotenv').config();
 
 // Importing of Routers:
@@ -39,3 +41,6 @@ app.use('/api/auth', userAuthRoutes);
 app.use('/api/job', jobOfferRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/application', jobApplicationRoutes);
+
+// Swagger UI Doc Route:
+app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));

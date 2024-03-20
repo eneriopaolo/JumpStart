@@ -17,7 +17,7 @@ const viewJobSeekerProfile = async(req, res) => {
             return res.status(404).json({msg: "Job Seeker does not exist."})
         }
     
-        res.json(userProfile);
+        res.status(200).json(userProfile);
     } catch (err) {
         res.status(500).json({msg: "Something went wrong."})
     }
@@ -62,7 +62,7 @@ const viewEmployerProfile = async(req, res) => {
             return res.status(404).json({msg: "Employer does not exist."})
         }
 
-        res.json(userProfile);
+        res.status(200).json(userProfile);
     } catch (err) {
         res.status(500).json({msg: "Something went wrong."})
     }

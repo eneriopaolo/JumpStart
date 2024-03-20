@@ -1,8 +1,815 @@
 {
-    "openapi": "3.1.0",
-    "info": {
-      "title": "Test",
-      "description": "API Documentation",
-      "version": "0.0.1"
+  "openapi": "3.1.0",
+  "info": {
+    "title": "HireIndex",
+    "description": "Documentation for the REST Routes of HireIndex",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/"
     }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "JobSeeker": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "type": "object",
+            "properties": {
+              "skills": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "example": "JavaScript"
+                }
+              },
+              "bio": {
+                "type": "string",
+                "example": "I am a CS student"
+              },
+              "education": {
+                "type": "string",
+                "example": "I studied at MMCL"
+              },
+              "experience": {
+                "type": "string",
+                "example": "MERN Stack Web Development"
+              }
+            }
+          },
+          "_id": {
+            "type": "string",
+            "example": "65f98c9332880435a5ba22f6"
+          },
+          "name": {
+            "type": "string",
+            "example": "Paolo Enerio"
+          },
+          "email": {
+            "type": "string",
+            "example": "paoloenerio@gmail.com"
+          },
+          "__v": {
+            "type": "number",
+            "example": 0
+          }
+        }
+      },
+      "Employer": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string",
+                "example": "Philippines"
+              },
+              "description": {
+                "type": "string",
+                "example": "We develop games"
+              }
+            }
+          },
+          "_id": {
+            "type": "string",
+            "example": "65f98c9332880435a5ba22f6"
+          },
+          "name": {
+            "type": "string",
+            "example": "Enerio Corporation"
+          },
+          "email": {
+            "type": "string",
+            "example": "eneriopaolo@gmail.com"
+          },
+          "__v": {
+            "type": "number",
+            "example": 0
+          }
+        }
+      },
+      "JobOffer": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65f98ff732880435a5ba2327"
+          },
+          "jobTitle": {
+            "type": "string",
+            "example": "Game Developer"
+          },
+          "jobDescription": {
+            "type": "string",
+            "example": "You develop games."
+          },
+          "salaryPerMonth": {
+            "type": "number",
+            "example": 40000
+          },
+          "skillsRequired": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "Unity Development"
+            }
+          },
+          "offeredBy": {
+            "type": "object",
+            "properties": {
+              "profile": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "example": "Philippines"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "We develop games"
+                  },
+                  "_id": {
+                    "type": "string",
+                    "example": "65f98c9332880435a5ba22f6"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Enerio Corporation"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "eneriopaolo@gmail.com"
+                  },
+                  "__v": {
+                    "type": "number",
+                    "example": 0
+                  }
+                }
+              }
+            }
+          },
+          "applications": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "65f995f8c54ba67c22b62c6f"
+            }
+          }
+        }
+      },
+      "JobApplication": {
+        "type": "object"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Test",
+      "description": "Test Endpoint"
+    },
+    {
+      "name": "Authentication",
+      "description": "Authentication Endpoints"
+    },
+    {
+      "name": "Profile",
+      "description": "Profile Endpoints"
+    },
+    {
+      "name": "Job Offer",
+      "description": "Job Offer Endpoints"
+    },
+    {
+      "name": "Job Application",
+      "description": "Job Application Endpoints"
+    }
+  ],
+  "paths": {
+    "/api": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Test endpoint",
+        "description": "This is used to test if the API is up and running.",
+        "responses": {
+          "200": {
+            "description": "The API is up and running.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Hello World! Server is running."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Registration Endpoint",
+        "description": "This is used to either register as a jobseeker or as an employer. The request body must include either \"jobseeker\" or \"employer\" on the 'typeofuser' property.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "paoloenerio@gmail.com"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Paolo Enerio"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "test123"
+                  },
+                  "typeofuser": {
+                    "type": "string",
+                    "example": "jobseeker"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Registration",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Successfully Registered"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error for invalid user inputs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "example": "That email is already taken."
+                        },
+                        "password": {
+                          "type": "string",
+                          "example": "Minimum password length is 6 characters."
+                        },
+                        "typeofuser": {
+                          "type": "string",
+                          "example": "Type of user is invalid."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login Endpoint",
+        "description": "This is used to login users. It will send a JWT token as response in string format if user credentials entered are valid.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "paoloenerio@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "test123"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Login",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhb2xvZW5lcmlvQGdtYWlsLmNvbSIsImlhdCI6MTcxMDkwMzAzMywiZXhwIjoxNzExMTYyMjMzfQ.YAbEmCLou7O--zm-DKDwkxUSUQ_J6eIQ7-PtIt"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error for invalid credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "example": "Email entered is not yet registered."
+                        },
+                        "password": {
+                          "type": "string",
+                          "example": "Password entered is incorrect."
+                        },
+                        "typeofuser": {
+                          "type": "string",
+                          "example": ""
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/profile/jobseeker/{id}": {
+      "get": {
+        "tags": [
+          "Profile"
+        ],
+        "summary": "View Job Seeker Profile Endpoint",
+        "description": "Retrieves data about the profile of a particular job seeker.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Object ID of a job seeker from database.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully fetched job seeker profile data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobSeeker"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access. Token value is null."
+          },
+          "403": {
+            "description": "Unauthorized Access. Token value is invalid."
+          },
+          "500": {
+            "description": "Generic Error. Could be caused by network issue or failed connection to database.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Something went wrong."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Profile"
+        ],
+        "summary": "Edit Job Seeker Profile Endpoint",
+        "description": "Job seekers can edit their own profile with this endpoint.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Andrei Enerio"
+                  },
+                  "profile.bio": {
+                    "type": "string",
+                    "example": "I am an IT student."
+                  },
+                  "profile.education": {
+                    "type": "string",
+                    "example": "I studied at MCL."
+                  },
+                  "profile.experience": {
+                    "type": "string",
+                    "example": null
+                  },
+                  "profile.skills": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "example": "Tailwind CSS"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Editing of Profile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Successfully edited profile"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access. Token value is null."
+          },
+          "403": {
+            "description": "Unauthorized Access. Invalid Token / Invalid User / Invalid User Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Unauthorized Access."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic Error. Could be caused by network issue or failed connection to database.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Something went wrong."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Object ID of a job seeker from database.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/profile/employer/{id}": {
+      "get": {
+        "tags": [
+          "Profile"
+        ],
+        "summary": "View Employer Profile Endpoint",
+        "description": "Retrieves data about the profile of a particular employer.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Object ID of an employer from database.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully fetched employer profile data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access. Token value is null."
+          },
+          "403": {
+            "description": "Unauthorized Access. Token value is invalid."
+          },
+          "500": {
+            "description": "Generic Error. Could be caused by network issue or failed connection to database.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Something went wrong."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Profile"
+        ],
+        "summary": "Edit Employer Profile Endpoint",
+        "description": "Employers can edit their own profile with this endpoint.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Gamers Inc."
+                  },
+                  "profile.address": {
+                    "type": "string",
+                    "example": "California"
+                  },
+                  "profile.description": {
+                    "type": "string",
+                    "example": "We specialize in creating transaction processing systems."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Editing of Profile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Successfully edited profile"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access. Token value is null."
+          },
+          "403": {
+            "description": "Unauthorized Access. Invalid Token / Invalid User / Invalid User Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Unauthorized Access."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic Error. Could be caused by network issue or failed connection to database.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Something went wrong."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Object ID of an employer from database.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/job": {
+      "get": {
+        "tags": [
+          "Job Offer"
+        ],
+        "summary": "View All Job Offers Endpoint",
+        "description": "Retrieves all existing job offers' data."
+      },
+      "post": {
+        "tags": [
+          "Job Offer"
+        ],
+        "summary": "Post a Job Offer Endpoint",
+        "description": "EMPLOYERS ONLY. Allows employer to post a job offer. 'jobTitle', 'jobDescription' and 'salaryPerMonth' should be filled in the request body."
+      }
+    },
+    "/api/job/{id}": {
+      "get": {
+        "tags": [
+          "Job Offer"
+        ],
+        "summary": "View Specific Job Offer Endpoint",
+        "description": "Retrieves a specific job offer's data."
+      },
+      "patch": {
+        "tags": [
+          "Job Offer"
+        ],
+        "summary": "Edit a Job Offer's Details Endpoint",
+        "description": "EMPLOYERS ONLY. Allows employer to edit a job offer. Employers cannot edit details of job offers that are not theirs."
+      },
+      "delete": {
+        "tags": [
+          "Job Offer"
+        ],
+        "summary": "Delete a Job Offer Endpoint",
+        "description": "EMPLOYERS ONLY. Allows employer to delete a job offer. Employers cannot delete a job offer that are not theirs."
+      }
+    },
+    "/api/job/myoffer": {
+      "get": {
+        "tags": [
+          "Job Offer"
+        ],
+        "summary": "View Own Job Offers Endpoint"
+      }
+    },
+    "/api/job/search/title={title}": {
+      "get": {
+        "tags": [
+          "Job Offer"
+        ],
+        "summary": "Search Job Offers by Title Endpoint"
+      }
+    },
+    "/api/job/search/category={category}": {
+      "get": {
+        "tags": [
+          "Job Offer"
+        ],
+        "summary": "Search Job Offers by Category Endpoint"
+      }
+    },
+    "/api/job/search/salary={min}-{max}": {
+      "get": {
+        "tags": [
+          "Job Offer"
+        ],
+        "summary": "Search Job Offers by Salary Endpoint"
+      }
+    },
+    "/api/application": {
+      "get": {
+        "tags": [
+          "Job Application"
+        ],
+        "summary": "View Own Applications Endpoint"
+      }
+    },
+    "/api/application/{applicationid}": {
+      "get": {
+        "tags": [
+          "Job Application"
+        ],
+        "summary": "View One Application Endpoint"
+      }
+    },
+    "/api/application/{offerid}": {
+      "get": {
+        "tags": [
+          "Job Application"
+        ],
+        "summary": "View Applications on a Job Offer Endpoint"
+      },
+      "post": {
+        "tags": [
+          "Job Application"
+        ],
+        "summary": "Send Application to a Job Offer Endpoint"
+      }
+    },
+    "/api/application/approve/{applicationid}": {
+      "patch": {
+        "tags": [
+          "Job Application"
+        ],
+        "summary": "Approve an Application Endpoint"
+      }
+    },
+    "/api/application/deny/{applicationid}": {
+      "patch": {
+        "tags": [
+          "Job Application"
+        ],
+        "summary": "Deny an Application Endpoint"
+      }
+    }
+  }
 }
