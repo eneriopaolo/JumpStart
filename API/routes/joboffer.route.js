@@ -1,6 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const {postJobOffer, editJobOffer, deleteJobOffer, viewJobOffers, viewJobOffer, viewOwnOffers} = require('../controllers/joboffer.controller');
+const {
+    postJobOffer,
+    editJobOffer,
+    deleteJobOffer,
+    viewJobOffers, viewJobOffer,
+    viewOwnOffers,
+    searchJobOfferByTitle,
+    searchJobOfferByCategory,
+    searchJobOfferBySalary
+} = require('../controllers/joboffer.controller');
 const {authenticateToken} = require('../services/authtoken.service')
 const {verifyEmployer} = require('../services/verifyuser.service')
 
@@ -13,5 +22,8 @@ router.delete('/:id', authenticateToken, verifyEmployer, deleteJobOffer);
 // Common Routes
 router.get('/', authenticateToken, viewJobOffers);
 router.get('/:id', authenticateToken, viewJobOffer);
+router.get('/search/title=:title', authenticateToken, searchJobOfferByTitle);
+router.get('/search/category=:category', authenticateToken, searchJobOfferByCategory);
+router.get('/search/salary=:min-:max', authenticateToken, searchJobOfferBySalary);
 
 module.exports = router;

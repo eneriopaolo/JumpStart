@@ -38,15 +38,20 @@ const jobOfferSchema = new Schema({
     }
 });
 
-// Function for querying/searching a particular job offer
+// Function for querying/searching a particular job offer based on job title
 jobOfferSchema.statics.findByJobTitle = function (jobTitle) {
     return this.find({jobTitle: new RegExp(jobTitle, "i")})
+};
+
+// Function for querying/searching a particular job offer based on job category
+jobOfferSchema.statics.findByJobCategory = function (jobCategory) {
+    return this.find({jobCategory: new RegExp(jobCategory, "i")})
 };
 
 // Function for querying/searching a job offer based on salary
 jobOfferSchema.statics.findBySalaryRange = function (min, max) {
     return this.find().where("salaryPerMonth").gte(min).lte(max)
-}
+};
 
 const JobOffer = mongoose.model('JobOffer', jobOfferSchema);
 module.exports = JobOffer;

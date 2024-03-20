@@ -1,5 +1,6 @@
 const JobOffer = require('../models/joboffer.model');
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 // Function for Viewing All Job Offers
 const viewJobOffers = async (req, res) => {
@@ -8,7 +9,7 @@ const viewJobOffers = async (req, res) => {
         res.json(jobOffers);
     } catch (err) {
         res.status(500).json({msg: 'Something went wrong.'});
-    }
+    };
 };
 
 // Function for Viewing Specific Job Offer
@@ -29,7 +30,47 @@ const viewJobOffer = async (req, res) => {
         res.json(jobOffer);
     } catch (err) {
         res.status(500).json({msg: 'Something went wrong.'});
-    }
+    };
+};
+
+// Function for Searching Job Offers Based on Job Title
+const searchJobOfferByTitle = async (req, res) => {
+    try {
+        const { title } = req.params;
+        const jobOffers = await JobOffer.findByJobTitle(title).populate("offeredBy");
+        res.json(jobOffers);
+    } catch (err) {
+        res.status(500).json({msg: 'Something went wrong.'});
+    };
+};
+
+// Function for Searching Job Offers Based on Job Category
+const searchJobOfferByCategory = async (req, res) => {
+    try {
+        const { category } = req.params;
+        const jobOffers = await JobOffer.findByJobCategory(category).populate("offeredBy");
+        res.json(jobOffers);
+    } catch (err) {
+        res.status(500).json({msg: 'Something went wrong.'});
+    };
+};
+
+// Function for Searching Job Offers Based on Salary Range
+const searchJobOfferBySalary = async (req, res) => {
+    try {
+        const { min, max} = req.params
+        if (validator.isNumeric(min) === false) {
+            return res.status(400).json({msg: "Invalid input. Salary value should be numeric."})
+        }
+
+        if (validator.isNumeric(max) === false) {
+            return res.status(400).json({msg: "Invalid input. Salary value should be numeric."})
+        }
+        const jobOffers = await JobOffer.findByJobSalary(min, max).populate("offeredBy");
+        res.json(jobOffers)
+    } catch (err) {
+        res.status(500).json({msg: 'Something went wrong.'});
+    };
 };
 
 // EMPLOYER: Function for Viewing Own Job Offers
@@ -39,7 +80,7 @@ const viewOwnOffers = async (req, res) => {
         res.json(jobOffers.filter(jobOffers => jobOffers.offeredBy._id.toString() === userData._id.toString()))
     } catch (err) {
         res.status(500).json({msg: 'Something went wrong.'});
-    }
+    };
 };
 
 // EMPLOYER: Function for Creation of New Job Offer
@@ -82,7 +123,7 @@ const editJobOffer = async (req, res) => {
         res.status(200).json({msg: "Successfully Updated Details of a Job Offer."})
     } catch (err) {
         res.status(500).json({msg: 'Something went wrong.'});
-    }
+    };
 };
 
 // EMPLOYER: Function for Deleting An Existing Job Offer
@@ -117,5 +158,8 @@ module.exports = {
     deleteJobOffer,
     viewJobOffers,
     viewJobOffer,
-    viewOwnOffers
+    viewOwnOffers,
+    searchJobOfferByTitle,
+    searchJobOfferByCategory,
+    searchJobOfferBySalary
 };

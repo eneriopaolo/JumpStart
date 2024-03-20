@@ -31,7 +31,7 @@ mongoose.connect(dbURI)
 
 // Default Route
 app.get('/api/', (req, res) => {
-    res.send("Hello World! Server is running.");
+    res.status(200).send("Hello World! Server is running.");
 });
 
 // Custom Routes:
