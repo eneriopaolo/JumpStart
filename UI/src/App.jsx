@@ -5,6 +5,7 @@ import TypeofUser from "./pages/TypeofUser";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignUpEmployer from "./pages/SignUpEmployer";
 import SignUpJobSeeker from "./pages/SignUpJobSeeker";
+import JobSeekerHomePage from "./pages/JobSeekerNavBar";
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
           <Route exact path="/" element={<Login />} />
           <Route path="/signup-employer" element={<SignUpEmployer />} />
           <Route path="/signup-jobseeker"element={<SignUpJobSeeker />} />
+          <Route path="/jobseeker-home-page" element= {<JobSeekerHomePage/>} />
         </Routes>
       </div>
     </BrowserRouter>
