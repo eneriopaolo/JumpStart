@@ -22,8 +22,8 @@ router.delete('/:id', authenticateToken, verifyEmployer, deleteJobOffer);
 // Common Routes
 router.get('/', authenticateToken, viewJobOffers);
 router.get('/:id', authenticateToken, viewJobOffer);
-router.get('/search/title', authenticateToken, searchJobOfferByTitle);
-router.get('/search/category', authenticateToken, searchJobOfferByCategory);
-router.get('/search/salary', authenticateToken, searchJobOfferBySalary);
+router.post('/search/title', authenticateToken, searchJobOfferByTitle);
+router.post('/search/category', authenticateToken, searchJobOfferByCategory);
+router.post('/search/salary', authenticateToken, searchJobOfferBySalary);
 
 module.exports = router;

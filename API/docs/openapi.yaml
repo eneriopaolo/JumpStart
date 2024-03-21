@@ -536,6 +536,7 @@ paths:
                 salary:
                   type: number
                   example: 25000
+        required: true
       responses:
         '201':
           description: Successful Posting of a Job Offer.
@@ -763,39 +764,226 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericErrorRes'
-  /api/job/search/title={title}:
-    get:
+  /api/job/search/title:
+    post:
       tags:
         - Job Offer
       summary: Search Job Offers by Title Endpoint
-      description: Lorem ipsum
+      description: Retrieves job offers' data based on job title entered in the request body. This operation functions similarly to SQL's LIKE keyword.
       security:
         - bearerAuth: []
-      parameters:
-        - name: title
-          in: path
-          description: Job Title of a job offer from database.
-          required: true
-          schema:
-            type: "string"
-            example: Game Developer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jobTitle:
+                  type: string
+                  example: game dev
+        required: true
       responses:
-  /api/job/search/category={category}:
-    get:
+        '200':
+          description: Successful retrieval job offer data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JobOffer'
+        '401':
+          description: Unauthorized Access. Token value is null.
+        '403':
+          description: Unauthorized Access. Token value is invalid.
+        '500':
+          description: Generic Error. Could be caused by network issue or failed connection to database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorRes'
+  /api/job/search/category:
+    post:
       tags:
         - Job Offer
       summary: Search Job Offers by Category Endpoint
-      description: Lorem ipsum
+      description: Retrieves job offers' data based on job category entered in the request body.
       security:
         - bearerAuth: []
-  /api/job/search/salary={min}-{max}:
-    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jobCategory:
+                  type: string
+                  example: Entry
+        required: true
+      responses:
+        '200':
+          description: Successful retrieval job offer data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      example: 65fbbebeffdd48d8967662fc
+                    jobTitle:
+                      type: string
+                      example: Software Engineer
+                    jobDescription:
+                      type: string
+                      example: You develop software
+                    salaryPerMonth:
+                      type: number
+                      example: 50000
+                    skillsRequired:
+                      type: array
+                      items:
+                        type: string
+                        example: Object Oriented Programming
+                    offeredBy:
+                      type: object
+                      properties:
+                        profile:
+                          type: object
+                          properties:
+                            address:
+                              type: string
+                              example: Philippines
+                            description:
+                              type: string
+                              example: We develop games
+                            _id:
+                              type: string
+                              example: 65f98cbb32880435a5ba2302
+                            name:
+                              type: string
+                              example: Enerio Corporation 2
+                            email:
+                              type: string
+                              example: eneriopaolo2@gmail.com
+                            __v:
+                              type: number
+                              example: 0
+                    applications:
+                      type: array
+                      items:
+                        type: string
+                    dateOffered:
+                      type: string
+                      example: '2024-03-21T04:59:42.578Z'
+                    __v:
+                      type: number
+                      example: 0
+                    jobCategory:
+                      type: string
+                      example: Entry
+        '401':
+          description: Unauthorized Access. Token value is null.
+        '403':
+          description: Unauthorized Access. Token value is invalid.
+        '500':
+          description: Generic Error. Could be caused by network issue or failed connection to database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorRes'
+  /api/job/search/salary:
+    post:
       tags:
         - Job Offer
-      summary: Search Job Offers by Salary Endpoint
-      description: Lorem ipsum
+      summary: Search Job Offers by Salary Range Endpoint
+      description: Retrieves job offers' data based on salary range entered in the request body. This retrieves job offer by salary = gte(min) and lte(max).
       security:
         - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                min:
+                  type: string
+                  example: 20000
+                max:
+                  type: string
+                  example: 35000
+        required: true
+      responses:
+        '200':
+          description: Successful retrieval job offer data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      example: 65f98fe532880435a5ba2324
+                    jobTitle:
+                      type: string
+                      example: Marketing Specialist
+                    jobDescription:
+                      type: string
+                      example: You market our products
+                    salaryPerMonth:
+                      type: number
+                      example: 35000
+                    skillsRequired:
+                      type: array
+                      items:
+                        type: string
+                    offeredBy:
+                      type: object
+                      properties:
+                        profile:
+                          type: object
+                          properties:
+                            address:
+                              type: string
+                              example: Philippines
+                            description:
+                              type: string
+                              example: We develop games
+                            _id:
+                              type: string
+                              example: 65f98cb032880435a5ba22fe
+                            name:
+                              type: string
+                              example: Enerio Corporation
+                            email:
+                              type: string
+                              example: eneriopaolo@gmail.com
+                            __v:
+                              type: number
+                              example: 0
+                    applications:
+                      type: array
+                      items:
+                        type: string
+                    dateOffered:
+                      type: string
+                      example: '2024-03-19T13:15:17.365Z'
+                    __v:
+                      type: number
+                      example: 0
+        '401':
+          description: Unauthorized Access. Token value is null.
+        '403':
+          description: Unauthorized Access. Token value is invalid.
+        '500':
+          description: Generic Error. Could be caused by network issue or failed connection to database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorRes'
   /api/application:
     get:
       tags:

@@ -38,7 +38,7 @@ const searchJobOfferByTitle = async (req, res) => {
     try {
         const { jobTitle } = req.body;
         const jobOffers = await JobOffer.findByJobTitle(jobTitle).populate("offeredBy");
-        res.json(jobOffers);
+        res.status(200).json(jobOffers);
     } catch (err) { 
         res.status(500).json({msg: 'Something went wrong.'});
     };
@@ -49,7 +49,7 @@ const searchJobOfferByCategory = async (req, res) => {
     try {
         const { jobCategory } = req.body;
         const jobOffers = await JobOffer.findByJobCategory(jobCategory).populate("offeredBy");
-        res.json(jobOffers);
+        res.status(200).json(jobOffers);
     } catch (err) {
         res.status(500).json({msg: 'Something went wrong.'});
     };
@@ -67,7 +67,7 @@ const searchJobOfferBySalary = async (req, res) => {
             return res.status(400).json({msg: "Invalid input. Salary value should be numeric."})
         }
         const jobOffers = await JobOffer.findBySalaryRange(min, max).populate("offeredBy");
-        res.json(jobOffers)
+        res.status(200).json(jobOffers)
     } catch (err) {
         console.log(err)
         res.status(500).json({msg: 'Something went wrong.'});
