@@ -6,7 +6,7 @@ const validator = require('validator');
 const viewJobOffers = async (req, res) => {
     try {
         const jobOffers = await JobOffer.find().populate("offeredBy");
-        res.json(jobOffers);
+        res.status(200).json(jobOffers);
     } catch (err) {
         res.status(500).json({msg: 'Something went wrong.'});
     };
@@ -27,7 +27,7 @@ const viewJobOffer = async (req, res) => {
             return res.status(404).json({msg: "Job offer to be viewed does not exist."});
         }
 
-        res.json(jobOffer);
+        res.status(200).json(jobOffer);
     } catch (err) {
         res.status(500).json({msg: 'Something went wrong.'});
     };
@@ -77,7 +77,7 @@ const searchJobOfferBySalary = async (req, res) => {
 const viewOwnOffers = async (req, res) => {
     try {
         const jobOffers = await JobOffer.find().populate("offeredBy");
-        res.json(jobOffers.filter(jobOffers => jobOffers.offeredBy._id.toString() === userData._id.toString()))
+        res.status(200).json(jobOffers.filter(jobOffers => jobOffers.offeredBy._id.toString() === userData._id.toString()))
     } catch (err) {
         res.status(500).json({msg: 'Something went wrong.'});
     };
