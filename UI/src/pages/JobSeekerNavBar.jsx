@@ -6,7 +6,7 @@ const JobSeekerNavBar = () => {
         <div className="flex items-center justify-between bg-white border-b border-gray-300">
             <div className="flex items-center">
                 {/* <img src="/logo.png" alt="Logo" className="h-8 mr-4" /> */}
-                <p className="p-4 cursor-pointer text-gray-800 hover:text-red-900 hover:bg-blue-500"><Link to="/" classname="">Logo</Link></p>
+                <p className="p-4 cursor-pointer text-gray-800 hover:text-red-900 hover:bg-blue-500"><Link to="/" className="">Logo</Link></p>
                 <p className="p-4 cursor-pointer text-gray-800 hover:text-red-900 hover:bg-blue-500"><Link to="/" className="text-gray-800 hover:text-gray-900">Find Jobs</Link></p>
             </div>
             <div className="flex justify-center">
