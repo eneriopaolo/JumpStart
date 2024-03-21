@@ -36,10 +36,10 @@ const viewJobOffer = async (req, res) => {
 // Function for Searching Job Offers Based on Job Title
 const searchJobOfferByTitle = async (req, res) => {
     try {
-        const { title } = req.params;
-        const jobOffers = await JobOffer.findByJobTitle(title).populate("offeredBy");
+        const { jobTitle } = req.body;
+        const jobOffers = await JobOffer.findByJobTitle(jobTitle).populate("offeredBy");
         res.json(jobOffers);
-    } catch (err) {
+    } catch (err) { 
         res.status(500).json({msg: 'Something went wrong.'});
     };
 };
@@ -47,8 +47,8 @@ const searchJobOfferByTitle = async (req, res) => {
 // Function for Searching Job Offers Based on Job Category
 const searchJobOfferByCategory = async (req, res) => {
     try {
-        const { category } = req.params;
-        const jobOffers = await JobOffer.findByJobCategory(category).populate("offeredBy");
+        const { jobCategory } = req.body;
+        const jobOffers = await JobOffer.findByJobCategory(jobCategory).populate("offeredBy");
         res.json(jobOffers);
     } catch (err) {
         res.status(500).json({msg: 'Something went wrong.'});
@@ -58,7 +58,7 @@ const searchJobOfferByCategory = async (req, res) => {
 // Function for Searching Job Offers Based on Salary Range
 const searchJobOfferBySalary = async (req, res) => {
     try {
-        const { min, max} = req.params
+        const { min, max} = req.body;
         if (validator.isNumeric(min) === false) {
             return res.status(400).json({msg: "Invalid input. Salary value should be numeric."})
         }
@@ -66,9 +66,10 @@ const searchJobOfferBySalary = async (req, res) => {
         if (validator.isNumeric(max) === false) {
             return res.status(400).json({msg: "Invalid input. Salary value should be numeric."})
         }
-        const jobOffers = await JobOffer.findByJobSalary(min, max).populate("offeredBy");
+        const jobOffers = await JobOffer.findBySalaryRange(min, max).populate("offeredBy");
         res.json(jobOffers)
     } catch (err) {
+        console.log(err)
         res.status(500).json({msg: 'Something went wrong.'});
     };
 };
