@@ -74,14 +74,36 @@ const searchJobOfferBySalary = async (req, res) => {
     };
 };
 
-// EMPLOYER: Function for Viewing Own Job Offers
+// EMPLOYER: Function for Viewing Own Job Offers & Applications
 const viewOwnOffers = async (req, res) => {
     try {
-        const jobOffers = await JobOffer.find().populate("offeredBy");
+        const jobOffers = await JobOffer.find().populate("offeredBy").populate("applications");
         res.status(200).json(jobOffers.filter(jobOffers => jobOffers.offeredBy._id.toString() === userData._id.toString()))
     } catch (err) {
         res.status(500).json({msg: 'Something went wrong.'});
     };
+};
+
+// EMPLOYER: Function for Viewing One Job Offer & Applications
+const viewOneOffer = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({msg: "Job offer to be viewed does not exist."})
+        }
+
+        const jobOffer = await JobOffer.findById(id).populate("offeredBy").populate("applications");
+        if (!jobOffer) {
+            return res.status(404).json({msg: "Job offer to be viewed does not exist."});
+        }
+        if (jobOffer.offeredBy._id.toString() !== userData._id.toString()) {
+            return res.status(403).json({msg: "Unauthorized Access"})
+        }
+        res.status(200).json(jobOffer);
+    } catch (err) {
+        res.status(500).json({msg: "Something went wrong."})
+    }
 };
 
 // EMPLOYER: Function for Creation of New Job Offer
@@ -160,6 +182,7 @@ module.exports = {
     viewJobOffers,
     viewJobOffer,
     viewOwnOffers,
+    viewOneOffer,
     searchJobOfferByTitle,
     searchJobOfferByCategory,
     searchJobOfferBySalary

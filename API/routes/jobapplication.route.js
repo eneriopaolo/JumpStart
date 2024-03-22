@@ -10,7 +10,6 @@ router.get('/:applicationid', authenticateToken, verifyJobSeeker, viewMyApplicat
 router.post('/:offerid', authenticateToken, verifyJobSeeker, sendApplication);
 
 // Employer Specfic Routes
-router.get('/:offerid', authenticateToken, verifyEmployer, viewApplications);
 router.patch('/approve/:applicationid', authenticateToken, verifyEmployer, approveApplication);
 router.patch('/deny/:applicationid', authenticateToken, verifyEmployer, denyApplication);
 

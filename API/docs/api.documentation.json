@@ -176,7 +176,207 @@
         }
       },
       "JobApplication": {
-        "type": "object"
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65f995f8c54ba67c22b62c6f"
+          },
+          "applicant": {
+            "type": "object",
+            "properties": {
+              "profile": {
+                "type": "object",
+                "properties": {
+                  "skills": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "example": "Javascript Programming"
+                    }
+                  },
+                  "bio": {
+                    "type": "string",
+                    "example": "I am a CS student."
+                  }
+                }
+              },
+              "_id": {
+                "type": "string",
+                "example": "65f98c9332880435a5ba22f6"
+              },
+              "name": {
+                "type": "string",
+                "example": "Paolo Enerio"
+              },
+              "email": {
+                "type": "string",
+                "example": "paoloenerio@gmail.com"
+              },
+              "__v": {
+                "type": "number",
+                "example": 0
+              }
+            }
+          },
+          "jobOffer": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "65f98c9332880435a5ba22f6"
+              },
+              "jobTitle": {
+                "type": "string",
+                "example": "Game Developer"
+              },
+              "jobDescription": {
+                "type": "string",
+                "example": "You make games"
+              },
+              "salaryPerMonth": {
+                "type": "number",
+                "example": 40000
+              },
+              "skillsRequired": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "example": "Object Oriented Programming"
+                }
+              },
+              "offeredBy": {
+                "type": "string",
+                "example": "65f98cb032880435a5ba22fe"
+              },
+              "applications": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "example": "65f995f8c54ba67c22b62c6f"
+                }
+              },
+              "dateOffered": {
+                "type": "string",
+                "example": "2024-03-19T13:15:35.202Z"
+              },
+              "__v": {
+                "type": "number",
+                "example": 0
+              }
+            }
+          },
+          "applicationDate": {
+            "type": "string",
+            "example": "2024-03-19T13:41:12.352Z"
+          },
+          "__v": {
+            "type": "number",
+            "example": 0
+          },
+          "applicationStatus": {
+            "type": "string",
+            "example": "Accepted"
+          }
+        }
+      },
+      "JobOfferApplication": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65f98ff732880435a5ba2327"
+          },
+          "jobTitle": {
+            "type": "string",
+            "example": "Game Developer"
+          },
+          "jobDescription": {
+            "type": "string",
+            "example": "You develop games."
+          },
+          "salaryPerMonth": {
+            "type": "number",
+            "example": 40000
+          },
+          "skillsRequired": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "Unity Development"
+            }
+          },
+          "offeredBy": {
+            "type": "object",
+            "properties": {
+              "profile": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "example": "Philippines"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "We develop games"
+                  },
+                  "_id": {
+                    "type": "string",
+                    "example": "65f98c9332880435a5ba22f6"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Enerio Corporation"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "eneriopaolo@gmail.com"
+                  },
+                  "__v": {
+                    "type": "number",
+                    "example": 0
+                  }
+                }
+              }
+            }
+          },
+          "applications": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "65f995f8c54ba67c22b62c6f"
+                },
+                "applicant": {
+                  "type": "string",
+                  "example": "65f98c9332880435a5ba22f6"
+                },
+                "jobOffer": {
+                  "type": "string",
+                  "example": "65f98ff732880435a5ba2327"
+                },
+                "applicationDate": {
+                  "type": "string",
+                  "example": "2024-03-19T13:41:12.352Z"
+                },
+                "__v": {
+                  "type": "number",
+                  "example": 0
+                }
+              }
+            }
+          },
+          "dateOffered": {
+            "type": "string",
+            "example": "2024-03-19T13:15:35.202Z"
+          },
+          "__v": {
+            "type": "number",
+            "example": 0
+          }
+        }
       },
       "GenericErrorRes": {
         "type": "object",
@@ -384,7 +584,7 @@
         }
       }
     },
-    "/api/profile/jobseeker/{id}": {
+    "/api/profile/jobseeker/:id": {
       "get": {
         "tags": [
           "Profile"
@@ -575,7 +775,7 @@
         ]
       }
     },
-    "/api/profile/employer/{id}": {
+    "/api/profile/employer/:id": {
       "get": {
         "tags": [
           "Profile"
@@ -883,7 +1083,7 @@
         }
       }
     },
-    "/api/job/{id}": {
+    "/api/job/:id": {
       "get": {
         "tags": [
           "Job Offer"
@@ -914,6 +1114,121 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/JobOffer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access. Token value is null."
+          },
+          "403": {
+            "description": "Unauthorized Access. Token value is invalid."
+          },
+          "404": {
+            "description": "Error. Job offer does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Job offer to be viewed does not exist."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic Error. Could be caused by network issue or failed connection to database.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericErrorRes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/job/myoffer": {
+      "get": {
+        "tags": [
+          "Job Offer"
+        ],
+        "summary": "View Own Job Offers Endpoint",
+        "description": "EMPLOYERS ONLY. Retrieves all own job offers with applications.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched own job offers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JobOfferApplication"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access. Token value is null."
+          },
+          "403": {
+            "description": "Unauthorized Access. Token value is invalid."
+          },
+          "500": {
+            "description": "Generic Error. Could be caused by network issue or failed connection to database.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericErrorRes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/job/myoffer/:id": {
+      "get": {
+        "tags": [
+          "Job Offer"
+        ],
+        "summary": "View One Job Offer Endpoint",
+        "description": "EMPLOYERS ONLY. Retrieves one job offer with applications.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Object ID of a job offer from database.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65f98ff732880435a5ba2327"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched one job offer.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobOfferApplication"
                 }
               }
             }
@@ -1143,51 +1458,6 @@
                 }
               }
             }
-          },
-          "500": {
-            "description": "Generic Error. Could be caused by network issue or failed connection to database.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GenericErrorRes"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/job/myoffer": {
-      "get": {
-        "tags": [
-          "Job Offer"
-        ],
-        "summary": "View Own Job Offers Endpoint",
-        "description": "Retrieves all own job offers.",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful fetched own job offers.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/JobOffer"
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized Access. Token value is null."
-          },
-          "403": {
-            "description": "Unauthorized Access. Token value is invalid."
           },
           "500": {
             "description": "Generic Error. Could be caused by network issue or failed connection to database.",
@@ -1544,80 +1814,410 @@
           "Job Application"
         ],
         "summary": "View Own Applications Endpoint",
-        "description": "Lorem ipsum",
+        "description": "JOB SEEKER ONLY. Retrieves all own job applications",
         "security": [
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of own job applications",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JobApplication"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access. Token value is null."
+          },
+          "403": {
+            "description": "Unauthorized Access. Token value is invalid."
+          },
+          "500": {
+            "description": "Generic Error. Could be caused by network issue or failed connection to database.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericErrorRes"
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/api/application/{applicationid}": {
+    "/api/application/:applicationid": {
       "get": {
         "tags": [
           "Job Application"
         ],
         "summary": "View One Application Endpoint",
-        "description": "Lorem ipsum",
+        "description": "JOB SEEKER ONLY. Retrieves one job application",
         "security": [
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "parameters": [
+          {
+            "name": "applicationid",
+            "in": "path",
+            "description": "Object ID of a job application from database.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65f995f8c54ba67c22b62c6f"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of one job application",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "65f995f8c54ba67c22b62c6f"
+                    },
+                    "applicant": {
+                      "type": "string",
+                      "example": "65f995f8c54ba67c22b62c6f"
+                    },
+                    "jobOffer": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "65f98c9332880435a5ba22f6"
+                        },
+                        "jobTitle": {
+                          "type": "string",
+                          "example": "Game Developer"
+                        },
+                        "jobDescription": {
+                          "type": "string",
+                          "example": "You make games"
+                        },
+                        "salaryPerMonth": {
+                          "type": "number",
+                          "example": 40000
+                        },
+                        "skillsRequired": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "Object Oriented Programming"
+                          }
+                        },
+                        "offeredBy": {
+                          "type": "string",
+                          "example": "65f98cb032880435a5ba22fe"
+                        },
+                        "applications": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "65f995f8c54ba67c22b62c6f"
+                          }
+                        },
+                        "dateOffered": {
+                          "type": "string",
+                          "example": "2024-03-19T13:15:35.202Z"
+                        },
+                        "__v": {
+                          "type": "number",
+                          "example": 0
+                        }
+                      }
+                    },
+                    "applicationDate": {
+                      "type": "string",
+                      "example": "2024-03-19T13:41:12.352Z"
+                    },
+                    "__v": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "applicationStatus": {
+                      "type": "string",
+                      "example": "Accepted"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access. Token value is null."
+          },
+          "403": {
+            "description": "Unauthorized Access. Token value is invalid."
+          },
+          "404": {
+            "description": "Error. Job application does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Application does not exist"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic Error. Could be caused by network issue or failed connection to database.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericErrorRes"
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/api/application/{offerid}": {
-      "get": {
-        "tags": [
-          "Job Application"
-        ],
-        "summary": "View Applications on a Job Offer Endpoint",
-        "description": "Lorem ipsum",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      },
+    "/api/application/:offerid": {
       "post": {
         "tags": [
           "Job Application"
         ],
         "summary": "Send Application to a Job Offer Endpoint",
-        "description": "Lorem ipsum",
+        "description": "JOB SEEKER ONLY. Allows job seekers to send an application to a particular job offer",
         "security": [
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "parameters": [
+          {
+            "name": "offerid",
+            "in": "path",
+            "description": "Object ID of a job offer from database.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65f98ff732880435a5ba2327"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully sent an application to a job offer.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Successfully sent a job application."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access. Token value is null."
+          },
+          "403": {
+            "description": "Unauthorized Access. Token value is invalid."
+          },
+          "404": {
+            "description": "Error. Job offer does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Job offer does not exist."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic Error. Could be caused by network issue or failed connection to database.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericErrorRes"
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/api/application/approve/{applicationid}": {
+    "/api/application/approve/:applicationid": {
       "patch": {
         "tags": [
           "Job Application"
         ],
         "summary": "Approve an Application Endpoint",
-        "description": "Lorem ipsum",
+        "description": "EMPLOYERS ONLY. Allows employer to approve a particular job application.",
         "security": [
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "parameters": [
+          {
+            "name": "applicationid",
+            "in": "path",
+            "description": "Object ID of a job application from database.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65f98ff732880435a5ba2327"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful approval of a job application.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Successfully approved the application."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access. Token value is null."
+          },
+          "403": {
+            "description": "Unauthorized Access. Token value is invalid."
+          },
+          "404": {
+            "description": "Error. Job application does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Application does not exist."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic Error. Could be caused by network issue or failed connection to database.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericErrorRes"
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/api/application/deny/{applicationid}": {
+    "/api/application/deny/:applicationid": {
       "patch": {
         "tags": [
           "Job Application"
         ],
         "summary": "Deny an Application Endpoint",
-        "description": "Lorem ipsum",
+        "description": "EMPLOYERS ONLY. Allows employer to deny a particular job application.",
         "security": [
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "parameters": [
+          {
+            "name": "applicationid",
+            "in": "path",
+            "description": "Object ID of a job application from database.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65f98ff732880435a5ba2327"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful denial of a job application.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Successfully denied the application."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access. Token value is null."
+          },
+          "403": {
+            "description": "Unauthorized Access. Token value is invalid."
+          },
+          "404": {
+            "description": "Error. Job application does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Application does not exist."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic Error. Could be caused by network issue or failed connection to database.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericErrorRes"
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

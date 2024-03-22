@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const swaggerUI = require('swagger-ui-express');
-const swaggerDoc = require('./docs/openapi.json');
+const swaggerDoc = require('./docs/api.documentation.json');
 require('dotenv').config();
 
 // Importing of Routers:
