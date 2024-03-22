@@ -11,7 +11,7 @@ const SignUpEmployer = () => {
     const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent default form submission
 
-        const usernameValidity = /^([a-zA-Z0-9]){3,16}$/.test(username);
+        const usernameValidity = /^([a-zA-Z0-9\s]){3,16}$/.test(username);
         const passwordMatching = password === confirmPassword;
 
         if (!usernameValidity) {
