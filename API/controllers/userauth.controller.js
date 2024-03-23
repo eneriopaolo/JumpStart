@@ -65,10 +65,18 @@ const loginUser = async (req, res) => {
     try {
         const user = await UserCredential.login(email, password);
         const token = createToken(user.email);
+        let data = {}
         const userType = user.typeofuser;
+        if (userType === 'jobseeker') {
+            data = await JobSeeker.findOne({email: email});
+        }
+        if (userType === 'employer') {
+            data = await Employer.findOne({email: email});
+        }
         res.status(200).json({
             token: token,
-            userType: userType
+            userType: userType,
+            userData: data
         });
     } catch (err) {
         const errors = handleErrors(err);
