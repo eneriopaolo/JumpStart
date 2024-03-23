@@ -15,13 +15,13 @@ const viewJobOffers = async (req, res) => {
 // Function for Viewing Specific Job Offer
 const viewJobOffer = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { offerid } = req.params;
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!mongoose.Types.ObjectId.isValid(offerid)) {
             return res.status(404).json({msg: "Job offer to be viewed does not exist."})
         }
 
-        const jobOffer = await JobOffer.findById(id).populate("offeredBy");
+        const jobOffer = await JobOffer.findById(offerid).populate("offeredBy");
 
         if (!jobOffer) {
             return res.status(404).json({msg: "Job offer to be viewed does not exist."});
@@ -87,13 +87,13 @@ const viewOwnOffers = async (req, res) => {
 // EMPLOYER: Function for Viewing One Job Offer & Applications
 const viewOneOffer = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { offerid } = req.params;
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!mongoose.Types.ObjectId.isValid(offerid)) {
             return res.status(404).json({msg: "Job offer to be viewed does not exist."})
         }
 
-        const jobOffer = await JobOffer.findById(id).populate("offeredBy").populate("applications");
+        const jobOffer = await JobOffer.findById(offerid).populate("offeredBy").populate("applications");
         if (!jobOffer) {
             return res.status(404).json({msg: "Job offer to be viewed does not exist."});
         }
@@ -125,13 +125,13 @@ const postJobOffer = async (req, res) => {
 // EMPLOYER: Function for Editing An Existing Job Offer
 const editJobOffer = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { offerid } = req.params;
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!mongoose.Types.ObjectId.isValid(offerid)) {
             return res.status(404).json({msg: "Job offer to be updated does not exist."})
         }
         
-        const offer = await JobOffer.findById(id)
+        const offer = await JobOffer.findById(offerid)
         if (!offer) {
             return res.status(404).json({msg: "Job offer to be updated does not exist."});
         }
@@ -139,7 +139,7 @@ const editJobOffer = async (req, res) => {
             return res.status(403).json({msg: "Unauthorized Access"})
         }
 
-        const jobOffer = await JobOffer.findOneAndUpdate({_id: id}, {
+        const jobOffer = await JobOffer.findOneAndUpdate({_id: offerid}, {
             ...req.body
         });
 
@@ -152,13 +152,13 @@ const editJobOffer = async (req, res) => {
 // EMPLOYER: Function for Deleting An Existing Job Offer
 const deleteJobOffer = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { offerid } = req.params;
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!mongoose.Types.ObjectId.isValid(offerid)) {
             return res.status(404).json({msg: "Job offer to be deleted does not exist."})
         }
 
-        const offer = await JobOffer.findById(id)
+        const offer = await JobOffer.findById(offerid)
         if (!offer) {
             return res.status(404).json({msg: "Job offer to be deleted does not exist."});
         }
@@ -166,7 +166,7 @@ const deleteJobOffer = async (req, res) => {
             return res.status(403).json({msg: "Unauthorized Access"})
         }
 
-        const jobOffer = await JobOffer.findByIdAndDelete(id);
+        const jobOffer = await JobOffer.findByIdAndDelete(offerid);
 
         res.status(200).json({msg: "Successfully Deleted a Job Offer."});
     } catch (err) {

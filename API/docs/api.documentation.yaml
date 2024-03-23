@@ -268,6 +268,18 @@ components:
         __v:
           type: number
           example: 0
+    NullTokenRes:
+      type: object
+      properties:
+        msg:
+          type: string
+          example: 'Unauthorized Access: Token is null.'
+    InvalidTokenRes:
+      type: object
+      properties:
+        msg:
+          type: string
+          example: 'Unauthorized Access: Token value is invalid.'
     GenericErrorRes:
       type: object
       properties:
@@ -459,8 +471,16 @@ paths:
                 $ref: '#/components/schemas/JobSeeker'
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: Unauthorized Access. Token value is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidTokenRes'
         '404':
           description: Error. Job seeker does not exist.
           content:
@@ -522,6 +542,10 @@ paths:
                     example: Successfully edited profile.
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: >-
             Unauthorized Access. Invalid Token / Invalid User / Invalid User
@@ -585,8 +609,16 @@ paths:
                 $ref: '#/components/schemas/Employer'
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: Unauthorized Access. Token value is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidTokenRes'
         '404':
           description: Error. Employer does not exist.
           content:
@@ -640,6 +672,10 @@ paths:
                     example: Successfully edited profile.
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: >-
             Unauthorized Access. Invalid Token / Invalid User / Invalid User
@@ -697,8 +733,16 @@ paths:
                   $ref: '#/components/schemas/JobOffer'
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: Unauthorized Access. Token value is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidTokenRes'
         '500':
           description: >-
             Generic Error. Could be caused by network issue or failed connection
@@ -749,6 +793,10 @@ paths:
                     example: Successfully Posted a Job Offer.
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: >-
             Unauthorized Access. Invalid Token / Invalid User / Invalid User
@@ -769,7 +817,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericErrorRes'
-  /api/job/:id:
+  /api/job/:offerid:
     get:
       tags:
         - Job Offer
@@ -794,8 +842,16 @@ paths:
                 $ref: '#/components/schemas/JobOffer'
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: Unauthorized Access. Token value is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidTokenRes'
         '404':
           description: Error. Job offer does not exist.
           content:
@@ -833,8 +889,16 @@ paths:
                   $ref: '#/components/schemas/JobOfferApplication'
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: Unauthorized Access. Token value is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidTokenRes'
         '500':
           description: >-
             Generic Error. Could be caused by network issue or failed connection
@@ -843,7 +907,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericErrorRes'
-  /api/job/myoffer/:id:
+  /api/job/myoffer/:offerid:
     get:
       tags:
         - Job Offer
@@ -868,8 +932,16 @@ paths:
                 $ref: '#/components/schemas/JobOfferApplication'
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: Unauthorized Access. Token value is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidTokenRes'
         '404':
           description: Error. Job offer does not exist.
           content:
@@ -938,6 +1010,10 @@ paths:
                     example: Successfully Updated Details of a Job Offer.
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: >-
             Unauthorized Access. Invalid Token / Invalid User / Invalid User
@@ -998,6 +1074,10 @@ paths:
                     example: Successfully Deleted a Job Offer.
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: >-
             Unauthorized Access. Invalid Token / Invalid User / Invalid User
@@ -1059,8 +1139,16 @@ paths:
                   $ref: '#/components/schemas/JobOffer'
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: Unauthorized Access. Token value is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidTokenRes'
         '500':
           description: >-
             Generic Error. Could be caused by network issue or failed connection
@@ -1155,8 +1243,16 @@ paths:
                       example: Entry
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: Unauthorized Access. Token value is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidTokenRes'
         '500':
           description: >-
             Generic Error. Could be caused by network issue or failed connection
@@ -1250,8 +1346,16 @@ paths:
                       example: 0
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: Unauthorized Access. Token value is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidTokenRes'
         '500':
           description: >-
             Generic Error. Could be caused by network issue or failed connection
@@ -1279,8 +1383,16 @@ paths:
                   $ref: '#/components/schemas/JobApplication'
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: Unauthorized Access. Token value is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidTokenRes'
         '500':
           description: >-
             Generic Error. Could be caused by network issue or failed connection
@@ -1364,8 +1476,16 @@ paths:
                     example: Accepted
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: Unauthorized Access. Token value is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidTokenRes'
         '404':
           description: Error. Job application does not exist.
           content:
@@ -1415,8 +1535,16 @@ paths:
                     example: Successfully sent a job application.
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: Unauthorized Access. Token value is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidTokenRes'
         '404':
           description: Error. Job offer does not exist.
           content:
@@ -1464,8 +1592,16 @@ paths:
                     example: Successfully approved the application.
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: Unauthorized Access. Token value is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidTokenRes'
         '404':
           description: Error. Job application does not exist.
           content:
@@ -1513,8 +1649,16 @@ paths:
                     example: Successfully denied the application.
         '401':
           description: Unauthorized Access. Token value is null.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NullTokenRes'
         '403':
           description: Unauthorized Access. Token value is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidTokenRes'
         '404':
           description: Error. Job application does not exist.
           content:

@@ -60,6 +60,7 @@ const registerUser = async (req, res) => {
     };
 };
 
+// Login Function for Both Users. Returns Token, userType, and userData.
 const loginUser = async (req, res) => {
     const {email, password} = req.body; 
     try {

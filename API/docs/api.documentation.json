@@ -378,6 +378,24 @@
           }
         }
       },
+      "NullTokenRes": {
+        "type": "object",
+        "properties": {
+          "msg": {
+            "type": "string",
+            "example": "Unauthorized Access: Token is null."
+          }
+        }
+      },
+      "InvalidTokenRes": {
+        "type": "object",
+        "properties": {
+          "msg": {
+            "type": "string",
+            "example": "Unauthorized Access: Token value is invalid."
+          }
+        }
+      },
       "GenericErrorRes": {
         "type": "object",
         "properties": {
@@ -666,10 +684,24 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Unauthorized Access. Token value is invalid."
+            "description": "Unauthorized Access. Token value is invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidTokenRes"
+                }
+              }
+            }
           },
           "404": {
             "description": "Error. Job seeker does not exist.",
@@ -762,7 +794,14 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
             "description": "Unauthorized Access. Invalid Token / Invalid User / Invalid User Type",
@@ -857,10 +896,24 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Unauthorized Access. Token value is invalid."
+            "description": "Unauthorized Access. Token value is invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidTokenRes"
+                }
+              }
+            }
           },
           "404": {
             "description": "Error. Employer does not exist.",
@@ -942,7 +995,14 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
             "description": "Unauthorized Access. Invalid Token / Invalid User / Invalid User Type",
@@ -1028,10 +1088,24 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Unauthorized Access. Token value is invalid."
+            "description": "Unauthorized Access. Token value is invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidTokenRes"
+                }
+              }
+            }
           },
           "500": {
             "description": "Generic Error. Could be caused by network issue or failed connection to database.",
@@ -1098,7 +1172,14 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
             "description": "Unauthorized Access. Invalid Token / Invalid User / Invalid User Type",
@@ -1129,7 +1210,7 @@
         }
       }
     },
-    "/api/job/:id": {
+    "/api/job/:offerid": {
       "get": {
         "tags": [
           "Job Offer"
@@ -1165,10 +1246,24 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Unauthorized Access. Token value is invalid."
+            "description": "Unauthorized Access. Token value is invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidTokenRes"
+                }
+              }
+            }
           },
           "404": {
             "description": "Error. Job offer does not exist.",
@@ -1226,10 +1321,24 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Unauthorized Access. Token value is invalid."
+            "description": "Unauthorized Access. Token value is invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidTokenRes"
+                }
+              }
+            }
           },
           "500": {
             "description": "Generic Error. Could be caused by network issue or failed connection to database.",
@@ -1244,7 +1353,7 @@
         }
       }
     },
-    "/api/job/myoffer/:id": {
+    "/api/job/myoffer/:offerid": {
       "get": {
         "tags": [
           "Job Offer"
@@ -1280,10 +1389,24 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Unauthorized Access. Token value is invalid."
+            "description": "Unauthorized Access. Token value is invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidTokenRes"
+                }
+              }
+            }
           },
           "404": {
             "description": "Error. Job offer does not exist.",
@@ -1384,7 +1507,14 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
             "description": "Unauthorized Access. Invalid Token / Invalid User / Invalid User Type",
@@ -1471,7 +1601,14 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
             "description": "Unauthorized Access. Invalid Token / Invalid User / Invalid User Type",
@@ -1561,10 +1698,24 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Unauthorized Access. Token value is invalid."
+            "description": "Unauthorized Access. Token value is invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidTokenRes"
+                }
+              }
+            }
           },
           "500": {
             "description": "Generic Error. Could be caused by network issue or failed connection to database.",
@@ -1699,10 +1850,24 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Unauthorized Access. Token value is invalid."
+            "description": "Unauthorized Access. Token value is invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidTokenRes"
+                }
+              }
+            }
           },
           "500": {
             "description": "Generic Error. Could be caused by network issue or failed connection to database.",
@@ -1836,10 +2001,24 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Unauthorized Access. Token value is invalid."
+            "description": "Unauthorized Access. Token value is invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidTokenRes"
+                }
+              }
+            }
           },
           "500": {
             "description": "Generic Error. Could be caused by network issue or failed connection to database.",
@@ -1881,10 +2060,24 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Unauthorized Access. Token value is invalid."
+            "description": "Unauthorized Access. Token value is invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidTokenRes"
+                }
+              }
+            }
           },
           "500": {
             "description": "Generic Error. Could be caused by network issue or failed connection to database.",
@@ -2004,10 +2197,24 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Unauthorized Access. Token value is invalid."
+            "description": "Unauthorized Access. Token value is invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidTokenRes"
+                }
+              }
+            }
           },
           "404": {
             "description": "Error. Job application does not exist.",
@@ -2080,10 +2287,24 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Unauthorized Access. Token value is invalid."
+            "description": "Unauthorized Access. Token value is invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidTokenRes"
+                }
+              }
+            }
           },
           "404": {
             "description": "Error. Job offer does not exist.",
@@ -2156,10 +2377,24 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Unauthorized Access. Token value is invalid."
+            "description": "Unauthorized Access. Token value is invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidTokenRes"
+                }
+              }
+            }
           },
           "404": {
             "description": "Error. Job application does not exist.",
@@ -2232,10 +2467,24 @@
             }
           },
           "401": {
-            "description": "Unauthorized Access. Token value is null."
+            "description": "Unauthorized Access. Token value is null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullTokenRes"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Unauthorized Access. Token value is invalid."
+            "description": "Unauthorized Access. Token value is invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidTokenRes"
+                }
+              }
+            }
           },
           "404": {
             "description": "Error. Job application does not exist.",
