@@ -65,7 +65,11 @@ const loginUser = async (req, res) => {
     try {
         const user = await UserCredential.login(email, password);
         const token = createToken(user.email);
-        res.status(200).send(token);
+        const userType = user.typeofuser;
+        res.status(200).json({
+            token: token,
+            userType: userType
+        });
     } catch (err) {
         const errors = handleErrors(err);
         res.status(401).json({errors});
