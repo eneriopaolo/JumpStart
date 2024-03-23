@@ -2,12 +2,23 @@ import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 
 const Login = () => {
+
+    //I cant implement cookies. Change for later. Using localstorage for now
+
     const [usernameOrEmail, setUsernameOrEmail] = useState("");
     const [password, setPassword] = useState("");
     const [redirectToHome, setRedirectToHome] = useState(false); // State variable for redirection
 
+    const clearLocalStorage = () => {
+        localStorage.clear(); // Clear all items from localStorage
+    };
+
+    clearLocalStorage();
+
     const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent default form submission
+
+        let data; // Declare data variable outside of the if block
 
         try {
             const userData = {
@@ -24,26 +35,36 @@ const Login = () => {
             });
 
             if (response.ok) {
-                // Login successful, set redirectToHome to true for redirection
-                setRedirectToHome(true);
+                data = await response.json(); // Parse response data
+                console.log(data);
+
+                // Store all data returned by fetch in localStorage
+                for (const [key, value] of Object.entries(data)) {
+                    localStorage.setItem(key, JSON.stringify(value));
+                }
+
+                setRedirectToHome(true); // Set redirectToHome to true for redirection
             } else {
                 alert("Invalid credentials. Please try again.");
                 console.error('Login failed:', response.status);
             }
-            
-            console.log("THis is current username " + usernameOrEmail)
-            console.log("THis is current password " + password)
 
-            const data = await response.text();
-            console.log(data);
+            console.log("This is current username " + usernameOrEmail);
+            console.log("This is current password " + password);
         } catch (error) {
             console.error('Error:', error);
         }
     };
 
-    // if (redirectToHome) {
-    //     return <Navigate to="/employer-home-page" />; // Redirect to employer home page after successful login
-    // }
+    if (redirectToHome) {
+        const userType = JSON.parse(localStorage.getItem('userType'));
+
+        if (userType === 'employer') {
+            return <Navigate to="/employer-home-page" />; // Navigate to employer home page
+        } else if (userType === 'jobseeker') {
+            return <Navigate to="/jobseeker-home-page" />; // Navigate to jobseeker home page
+        }
+    }
 
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gray-500">
@@ -52,7 +73,6 @@ const Login = () => {
                     <h1 className="text-3xl font-bold text-gray-800">Log in to HireIndex</h1>
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-4">
-
                     <div className="flex flex-col space-y-2">
                         <label htmlFor="usernameOrEmail" className="text-sm font-medium text-gray-700">
                             Username or Email

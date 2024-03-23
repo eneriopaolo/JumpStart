@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import JobSeekerNavBar from "./JobSeekerNavBar";
+import EmployerNavBar from "./EmployerNavBar";
 
 const JobSeekerHomePage = () => {
     return (
         <div>
-            <JobSeekerNavBar />
+            <EmployerNavBar />
+            <h1>Hello</h1>
         </div>
     );
 };
