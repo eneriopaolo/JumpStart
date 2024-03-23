@@ -519,7 +519,7 @@
           "Authentication"
         ],
         "summary": "Login Endpoint",
-        "description": "This is used to login users. It will send a JWT token as response in string format if user credentials entered are valid.",
+        "description": "This is used to login users. It will send a JWT token, userType, and userData as a response in JSON format.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -544,10 +544,56 @@
           "200": {
             "description": "Successful Login",
             "content": {
-              "text/plain": {
+              "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhb2xvZW5lcmlvQGdtYWlsLmNvbSIsImlhdCI6MTcxMDkwMzAzMywiZXhwIjoxNzExMTYyMjMzfQ.YAbEmCLou7O--zm-DKDwkxUSUQ_J6eIQ7-PtIt"
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhb2xvZW5lcmlvQGdtYWlsLmNvbSIsImlhdCI6MTcxMTIwMTkxNCwiZXhwIjoxNzExNDYxMTE0fQ.d_dttT01_krh3ArimovKdA4U2LH74cdShIh7QIhUP4E"
+                    },
+                    "userType": {
+                      "type": "string",
+                      "example": "jobseeker"
+                    },
+                    "userData": {
+                      "type": "object",
+                      "properties": {
+                        "profile": {
+                          "type": "object",
+                          "properties": {
+                            "skills": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "example": "OOP"
+                              }
+                            },
+                            "bio": {
+                              "type": "string",
+                              "example": "I am a CS student"
+                            }
+                          }
+                        },
+                        "_id": {
+                          "type": "string",
+                          "example": "65f98c9332880435a5ba22f6"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Paolo Enerio"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "paoloenerio@gmail.com"
+                        },
+                        "__v": {
+                          "type": "number",
+                          "example": 0
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }

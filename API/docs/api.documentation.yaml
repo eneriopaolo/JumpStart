@@ -4,13 +4,13 @@ info:
   description: Documentation for the REST Routes of HireIndex
   version: 1.0.0
 servers:
-  - url: "http://localhost:3000/"
+  - url: http://localhost:3000/
 components:
   securitySchemes:
     bearerAuth:
-      type: "http"
-      scheme: "bearer"
-      bearerFormat: "JWT"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     JobSeeker:
       type: object
@@ -288,8 +288,8 @@ tags:
 paths:
   /api:
     get:
-      tags: 
-      - Test
+      tags:
+        - Test
       summary: Test endpoint
       description: This is used to test if the API is up and running.
       responses:
@@ -302,10 +302,13 @@ paths:
                 example: Hello World! Server is running.
   /api/auth/register:
     post:
-      tags: 
-      - Authentication
+      tags:
+        - Authentication
       summary: Registration Endpoint
-      description: This is used to either register as a jobseeker or as an employer. The request body must include either "jobseeker" or "employer" on the 'typeofuser' property.
+      description: >-
+        This is used to either register as a jobseeker or as an employer. The
+        request body must include either "jobseeker" or "employer" on the
+        'typeofuser' property.
       requestBody:
         content:
           application/json:
@@ -355,9 +358,10 @@ paths:
   /api/auth/login:
     post:
       tags:
-      - Authentication
+        - Authentication
       summary: Login Endpoint
-      description: This is used to login users. It will send a JWT token as response in string format if user credentials entered are valid.
+      description: >-
+        This is used to login users. It will send a JWT token, userType, and userData as a response in JSON format.
       requestBody:
         content:
           application/json:
@@ -375,10 +379,42 @@ paths:
         '200':
           description: Successful Login
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhb2xvZW5lcmlvQGdtYWlsLmNvbSIsImlhdCI6MTcxMDkwMzAzMywiZXhwIjoxNzExMTYyMjMzfQ.YAbEmCLou7O--zm-DKDwkxUSUQ_J6eIQ7-PtIt
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhb2xvZW5lcmlvQGdtYWlsLmNvbSIsImlhdCI6MTcxMTIwMTkxNCwiZXhwIjoxNzExNDYxMTE0fQ.d_dttT01_krh3ArimovKdA4U2LH74cdShIh7QIhUP4E
+                  userType:
+                    type: string
+                    example: jobseeker
+                  userData:
+                    type: object
+                    properties:
+                      profile:
+                        type: object
+                        properties:
+                          skills:
+                            type: array
+                            items:
+                              type: string
+                              example: OOP
+                          bio:
+                            type: string
+                            example: I am a CS student
+                      _id:
+                        type: string
+                        example: 65f98c9332880435a5ba22f6
+                      name:
+                        type: string
+                        example: Paolo Enerio
+                      email:
+                        type: string
+                        example: paoloenerio@gmail.com
+                      __v:
+                        type: number
+                        example: 0
         '400':
           description: Error for invalid credentials
           content:
@@ -397,8 +433,8 @@ paths:
                         example: Password entered is incorrect.
                       typeofuser:
                         type: string
-                        example: ""
-  /api/profile/jobseeker/{id}:
+                        example: ''
+  /api/profile/jobseeker/:id:
     get:
       tags:
         - Profile
@@ -436,7 +472,9 @@ paths:
                     type: string
                     example: Job Seeker does not exist.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
@@ -465,7 +503,7 @@ paths:
                   example: I studied at MCL.
                 profile.experience:
                   type: string
-                  example:
+                  example: null
                 profile.skills:
                   type: array
                   items:
@@ -485,7 +523,9 @@ paths:
         '401':
           description: Unauthorized Access. Token value is null.
         '403':
-          description: Unauthorized Access. Invalid Token / Invalid User / Invalid User Type
+          description: >-
+            Unauthorized Access. Invalid Token / Invalid User / Invalid User
+            Type
           content:
             application/json:
               schema:
@@ -505,7 +545,9 @@ paths:
                     type: string
                     example: Job Seeker does not exist.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
@@ -518,7 +560,7 @@ paths:
           schema:
             type: string
             example: 65f98c9332880435a5ba22f6
-  /api/profile/employer/{id}:
+  /api/profile/employer/:id:
     get:
       tags:
         - Profile
@@ -556,7 +598,9 @@ paths:
                     type: string
                     example: Employer does not exist.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
@@ -597,7 +641,9 @@ paths:
         '401':
           description: Unauthorized Access. Token value is null.
         '403':
-          description: Unauthorized Access. Invalid Token / Invalid User / Invalid User Type
+          description: >-
+            Unauthorized Access. Invalid Token / Invalid User / Invalid User
+            Type
           content:
             application/json:
               schema:
@@ -617,7 +663,9 @@ paths:
                     type: string
                     example: Employer does not exist.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
@@ -652,7 +700,9 @@ paths:
         '403':
           description: Unauthorized Access. Token value is invalid.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
@@ -661,7 +711,13 @@ paths:
       tags:
         - Job Offer
       summary: Post a Job Offer Endpoint
-      description: "EMPLOYERS ONLY. Allows employer to post a job offer. 'jobtitle', 'jobdesc' and 'salary' should be filled in the request body. The data extracted from the request body will then be inserted into the database into 'jobTitle', 'jobDescription' and 'salaryPerMonth' fields respectively. Optional fields include: 'jobCategory' and 'skillsRequired'."
+      description: >-
+        EMPLOYERS ONLY. Allows employer to post a job offer. 'jobtitle',
+        'jobdesc' and 'salary' should be filled in the request body. The data
+        extracted from the request body will then be inserted into the database
+        into 'jobTitle', 'jobDescription' and 'salaryPerMonth' fields
+        respectively. Optional fields include: 'jobCategory' and
+        'skillsRequired'.
       security:
         - bearerAuth: []
       requestBody:
@@ -694,7 +750,9 @@ paths:
         '401':
           description: Unauthorized Access. Token value is null.
         '403':
-          description: Unauthorized Access. Invalid Token / Invalid User / Invalid User Type
+          description: >-
+            Unauthorized Access. Invalid Token / Invalid User / Invalid User
+            Type
           content:
             application/json:
               schema:
@@ -704,12 +762,14 @@ paths:
                     type: string
                     example: Unauthorized Access.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericErrorRes'
-  /api/job/{id}:
+  /api/job/:id:
     get:
       tags:
         - Job Offer
@@ -723,7 +783,7 @@ paths:
           description: Object ID of a job offer from database.
           required: true
           schema:
-            type: "string"
+            type: string
             example: 65f98fe532880435a5ba2324
       responses:
         '200':
@@ -747,7 +807,9 @@ paths:
                     type: string
                     example: Job offer to be viewed does not exist.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
@@ -774,12 +836,14 @@ paths:
         '403':
           description: Unauthorized Access. Token value is invalid.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericErrorRes'
-  /api/job/myoffer/{id}:
+  /api/job/myoffer/:id:
     get:
       tags:
         - Job Offer
@@ -793,7 +857,7 @@ paths:
           description: Object ID of a job offer from database.
           required: true
           schema:
-            type: "string"
+            type: string
             example: 65f98ff732880435a5ba2327
       responses:
         '200':
@@ -817,7 +881,9 @@ paths:
                     type: string
                     example: Job offer to be viewed does not exist.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
@@ -826,7 +892,9 @@ paths:
       tags:
         - Job Offer
       summary: Edit a Job Offer's Details Endpoint
-      description: EMPLOYERS ONLY. Allows employer to edit a job offer. Employers cannot edit details of job offers that are not theirs.
+      description: >-
+        EMPLOYERS ONLY. Allows employer to edit a job offer. Employers cannot
+        edit details of job offers that are not theirs.
       security:
         - bearerAuth: []
       parameters:
@@ -871,7 +939,9 @@ paths:
         '401':
           description: Unauthorized Access. Token value is null.
         '403':
-          description: Unauthorized Access. Invalid Token / Invalid User / Invalid User Type
+          description: >-
+            Unauthorized Access. Invalid Token / Invalid User / Invalid User
+            Type
           content:
             application/json:
               schema:
@@ -891,7 +961,9 @@ paths:
                     type: string
                     example: Job offer to be updated does not exist.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
@@ -900,7 +972,9 @@ paths:
       tags:
         - Job Offer
       summary: Delete a Job Offer Endpoint
-      description: EMPLOYERS ONLY. Allows employer to delete a job offer. Employers cannot delete a job offer that are not theirs.
+      description: >-
+        EMPLOYERS ONLY. Allows employer to delete a job offer. Employers cannot
+        delete a job offer that are not theirs.
       security:
         - bearerAuth: []
       parameters:
@@ -909,7 +983,7 @@ paths:
           description: Object ID of a job offer from database.
           required: true
           schema:
-            type: "string"
+            type: string
             example: 65f98fe532880435a5ba2324
       responses:
         '200':
@@ -925,7 +999,9 @@ paths:
         '401':
           description: Unauthorized Access. Token value is null.
         '403':
-          description: Unauthorized Access. Invalid Token / Invalid User / Invalid User Type
+          description: >-
+            Unauthorized Access. Invalid Token / Invalid User / Invalid User
+            Type
           content:
             application/json:
               schema:
@@ -945,7 +1021,9 @@ paths:
                     type: string
                     example: Job offer to be deleted does not exist.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
@@ -955,7 +1033,9 @@ paths:
       tags:
         - Job Offer
       summary: Search Job Offers by Title Endpoint
-      description: Retrieves job offers' data based on job title entered in the request body. This operation functions similarly to SQL's LIKE keyword.
+      description: >-
+        Retrieves job offers' data based on job title entered in the request
+        body. This operation functions similarly to SQL's LIKE keyword.
       security:
         - bearerAuth: []
       requestBody:
@@ -982,7 +1062,9 @@ paths:
         '403':
           description: Unauthorized Access. Token value is invalid.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
@@ -992,7 +1074,9 @@ paths:
       tags:
         - Job Offer
       summary: Search Job Offers by Category Endpoint
-      description: Retrieves job offers' data based on job category entered in the request body.
+      description: >-
+        Retrieves job offers' data based on job category entered in the request
+        body.
       security:
         - bearerAuth: []
       requestBody:
@@ -1074,7 +1158,9 @@ paths:
         '403':
           description: Unauthorized Access. Token value is invalid.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
@@ -1084,7 +1170,9 @@ paths:
       tags:
         - Job Offer
       summary: Search Job Offers by Salary Range Endpoint
-      description: Retrieves job offers' data based on salary range entered in the request body. This retrieves job offer by salary = gte(min) and lte(max).
+      description: >-
+        Retrieves job offers' data based on salary range entered in the request
+        body. This retrieves job offer by salary = gte(min) and lte(max).
       security:
         - bearerAuth: []
       requestBody:
@@ -1165,7 +1253,9 @@ paths:
         '403':
           description: Unauthorized Access. Token value is invalid.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
@@ -1192,12 +1282,14 @@ paths:
         '403':
           description: Unauthorized Access. Token value is invalid.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericErrorRes'
-  /api/application/{applicationid}:
+  /api/application/:applicationid:
     get:
       tags:
         - Job Application
@@ -1285,17 +1377,21 @@ paths:
                     type: string
                     example: Application does not exist
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericErrorRes'
-  /api/application/{offerid}:
+  /api/application/:offerid:
     post:
       tags:
         - Job Application
       summary: Send Application to a Job Offer Endpoint
-      description: JOB SEEKER ONLY. Allows job seekers to send an application to a particular job offer
+      description: >-
+        JOB SEEKER ONLY. Allows job seekers to send an application to a
+        particular job offer
       security:
         - bearerAuth: []
       parameters:
@@ -1304,7 +1400,7 @@ paths:
           description: Object ID of a job offer from database.
           required: true
           schema:
-            type: "string"
+            type: string
             example: 65f98ff732880435a5ba2327
       responses:
         '201':
@@ -1332,12 +1428,14 @@ paths:
                     type: string
                     example: Job offer does not exist.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericErrorRes'
-  /api/application/approve/{applicationid}:
+  /api/application/approve/:applicationid:
     patch:
       tags:
         - Job Application
@@ -1351,7 +1449,7 @@ paths:
           description: Object ID of a job application from database.
           required: true
           schema:
-            type: "string"
+            type: string
             example: 65f98ff732880435a5ba2327
       responses:
         '201':
@@ -1379,12 +1477,14 @@ paths:
                     type: string
                     example: Application does not exist.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericErrorRes'
-  /api/application/deny/{applicationid}:
+  /api/application/deny/:applicationid:
     patch:
       tags:
         - Job Application
@@ -1398,7 +1498,7 @@ paths:
           description: Object ID of a job application from database.
           required: true
           schema:
-            type: "string"
+            type: string
             example: 65f98ff732880435a5ba2327
       responses:
         '201':
@@ -1426,7 +1526,9 @@ paths:
                     type: string
                     example: Application does not exist.
         '500':
-          description: Generic Error. Could be caused by network issue or failed connection to database.
+          description: >-
+            Generic Error. Could be caused by network issue or failed connection
+            to database.
           content:
             application/json:
               schema:
