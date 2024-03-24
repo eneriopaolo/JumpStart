@@ -38,10 +38,46 @@ const JobFeed = () => {
     setSelectedJob(null);
   };
 
-  const handleApplyNow = (job) => {
+  const handleApplyNow = async (job) => {
     console.log("Applying for job:", job);
-    // Implement your apply logic here
+    
+    // Log the entire job object to inspect its structure
+    console.log("Job Object:", job);
+  
+    try {
+      const token = String(localStorage.getItem("token")).replace(/['"]+/g, '');
+      
+      // Access the offerId using job.offeredBy._id
+      const offerId = String(job._id).replace(/['"]+/g, '');
+      console.log(offerId);
+      console.log(token);
+      const response = await fetch(`http://localhost:3000/api/application/${offerId}`, {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${token}`
+        },
+        // body: JSON.stringify({
+        //   jobId: offerId,
+        //   // Add any other application data you need to send
+        // })
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        console.log("Application sent successfully:", data);
+        // You can add a success message or any other action here
+      } else {
+        console.error("Error sending application:", data);
+        // You can handle the error as per your requirement
+      }
+    } catch (error) {
+      console.error("Error sending application:", error);
+    }
   };
+  
+  
+  
 
   return (
     <div className="job-feed bg-gray-100 p-4 relative">
