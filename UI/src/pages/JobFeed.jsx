@@ -16,11 +16,11 @@ const JobFeed = () => {
         });
 
         const data = await response.json();
-        console.log("NEW DATA ",data)
 
         // Check if data is an array before setting it as state
         if (Array.isArray(data)) {
-          setJobs(data);
+          // Reverse the order of jobs so that the latest job is displayed first
+          setJobs(data.reverse());
         } else {
           console.error("API response is not an array:", data);
         }
@@ -39,7 +39,7 @@ const JobFeed = () => {
 
   return (
     <div className="job-feed bg-gray-100 p-4">
-      <p className="mt-5 mb-5">Jobs You Might Like</p>
+      <p className="mt-5">Jobs You Might Like</p>
       {Array.isArray(jobs) ? (
         jobs.map((job, index) => (
           <div key={index} className="job-item bg-white rounded-lg shadow-md p-6 mb-4" onClick={() => handleClick(job)}>
@@ -47,7 +47,8 @@ const JobFeed = () => {
             <p className="text-gray-700 mb-4">{job.jobDescription}</p>
             <p className="text-gray-600">Salary: {job.salaryPerMonth}</p>
             <p className="text-gray-600">Offered By: {job.offeredBy.name}</p>
-            <p className="text-gray-600">Skills Required: {job.skillsRequired.map(skill => skill).join(", ")}</p>
+            <p className="text-gray-600">Date Offered: {new Date(job.dateOffered).toLocaleDateString()}</p>
+            <p className="text-gray-600">Skills Required: {job.skillsRequired.join(", ")}</p>
             <p className="text-gray-600">Index: {index}</p>
           </div>
         ))
