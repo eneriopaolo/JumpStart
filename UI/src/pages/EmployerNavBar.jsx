@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 const EmployerNavBar = () => {
     const userData = JSON.parse(localStorage.getItem('userData'));
 
-    console.log("userData from localStorage:", userData); // Log userData
+    // console.log("userData from localStorage:", userData); // Log userData
+    // console.log(localStorage)
 
     const userName = userData ? userData.name : "ERROR"; // Default to "ERROR" if userData is not available
     console.log("EmployerNavBar component rendered");

@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 
 const Login = () => {
-
-    //I cant implement cookies. Change for later. Using localstorage for now
-
     const [usernameOrEmail, setUsernameOrEmail] = useState("");
     const [password, setPassword] = useState("");
     const [redirectToHome, setRedirectToHome] = useState(false); // State variable for redirection
@@ -13,13 +10,10 @@ const Login = () => {
         localStorage.clear(); // Clear all items from localStorage
     };
 
-    clearLocalStorage();
+    // clearLocalStorage();
 
     const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent default form submission
-
-        let data; // Declare data variable outside of the if block
-
         try {
             const userData = {
                 email: usernameOrEmail,
@@ -35,8 +29,7 @@ const Login = () => {
             });
 
             if (response.ok) {
-                data = await response.json(); // Parse response data
-                console.log(data);
+                const data = await response.json(); // Parse response data
 
                 // Store all data returned by fetch in localStorage
                 for (const [key, value] of Object.entries(data)) {
@@ -48,9 +41,8 @@ const Login = () => {
                 alert("Invalid credentials. Please try again.");
                 console.error('Login failed:', response.status);
             }
-
-            console.log("This is current username " + usernameOrEmail);
-            console.log("This is current password " + password);
+            // console.log("This is current username " + usernameOrEmail);
+            // console.log("This is current password " + password);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -58,7 +50,7 @@ const Login = () => {
 
     if (redirectToHome) {
         const userType = JSON.parse(localStorage.getItem('userType'));
-
+        console.log(userType);
         if (userType === 'employer') {
             return <Navigate to="/employer-home-page" />; // Navigate to employer home page
         } else if (userType === 'jobseeker') {
