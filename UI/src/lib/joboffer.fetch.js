@@ -1,5 +1,5 @@
-async function searchJobsByTitle(jobTitle){
-    const jobTitle = jobTitle;
+async function searchJobsByTitle(title){
+    const jobTitle = title;
 
     let reqHeaders = new Headers();
     reqHeaders.append("Content-Type", "application/json");
