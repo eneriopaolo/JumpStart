@@ -1,4 +1,5 @@
 const JobOffer = require('../models/joboffer.model');
+const JobApplication = require('../models/jobapplication.model');
 const mongoose = require('mongoose');
 const validator = require('validator');
 
@@ -166,9 +167,8 @@ const deleteJobOffer = async (req, res) => {
         if (offer.offeredBy._id.toString() !== userData._id.toString()) {
             return res.status(403).json({msg: "Unauthorized Access"})
         }
-
+        const jobApplications = await JobApplication.deleteMany({jobOffer: offerid});
         const jobOffer = await JobOffer.findByIdAndDelete(offerid);
-
         res.status(200).json({msg: "Successfully Deleted a Job Offer."});
     } catch (err) {
         res.status(500).json({msg: 'Something went wrong.'});
