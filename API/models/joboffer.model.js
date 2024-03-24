@@ -19,7 +19,8 @@ const jobOfferSchema = new Schema({
         enum: {
             values: ["Entry", "Intermediate", "Expert"],
             message: "Invalid Category."
-        }
+        },
+        required: true
     },
     skillsRequired: [String],
     offeredBy: {
