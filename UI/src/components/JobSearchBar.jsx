@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
+import { searchJobsByTitle } from "../lib/joboffer.fetch";
 
 const JobSearchBar = () => {
+    const [searchInput, setSearchInput] = useState("")
     return (
         <div className="flex justify-center">
             <input
