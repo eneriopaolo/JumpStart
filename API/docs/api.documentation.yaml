@@ -373,7 +373,8 @@ paths:
         - Authentication
       summary: Login Endpoint
       description: >-
-        This is used to login users. It will send a JWT token, userType, and userData as a response in JSON format.
+        This is used to login users. It will send a JWT token, userType, and
+        userData as a response in JSON format.
       requestBody:
         content:
           application/json:
@@ -397,7 +398,8 @@ paths:
                 properties:
                   token:
                     type: string
-                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhb2xvZW5lcmlvQGdtYWlsLmNvbSIsImlhdCI6MTcxMTIwMTkxNCwiZXhwIjoxNzExNDYxMTE0fQ.d_dttT01_krh3ArimovKdA4U2LH74cdShIh7QIhUP4E
+                    example: >-
+                      eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhb2xvZW5lcmlvQGdtYWlsLmNvbSIsImlhdCI6MTcxMTIwMTkxNCwiZXhwIjoxNzExNDYxMTE0fQ.d_dttT01_krh3ArimovKdA4U2LH74cdShIh7QIhUP4E
                   userType:
                     type: string
                     example: jobseeker
@@ -759,7 +761,7 @@ paths:
         EMPLOYERS ONLY. Allows employer to post a job offer. 'jobtitle',
         'jobdesc' and 'salary' should be filled in the request body. The data
         extracted from the request body will then be inserted into the database
-        into 'jobTitle', 'jobDescription' and 'salaryPerMonth' fields
+        into 'jobTitle', 'jobDescription', 'jobCategory' and 'salaryPerMonth' fields
         respectively. Optional fields include: 'jobCategory' and
         'skillsRequired'.
       security:
@@ -770,15 +772,18 @@ paths:
             schema:
               type: object
               properties:
-                jobtitle:
+                jobTitle:
                   type: string
                   example: Software Engineer
-                jobdesc:
+                jobDescription:
                   type: string
                   example: You develop a software
-                salary:
+                salaryPerMonth:
                   type: number
                   example: 25000
+                jobCategory:
+                  type: string
+                  example: Entry
         required: true
       responses:
         '201':
