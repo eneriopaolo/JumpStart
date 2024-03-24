@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {viewMyApplications, viewMyApplication, sendApplication, viewApplications, approveApplication, denyApplication} = require('../controllers/jobapplication.controller');
+const {viewMyApplications, viewMyApplication, sendApplication, approveApplication, denyApplication} = require('../controllers/jobapplication.controller');
 const {authenticateToken} = require('../services/authtoken.service');
 const {verifyJobSeeker, verifyEmployer} = require('../services/verifyuser.service');
 
