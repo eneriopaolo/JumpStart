@@ -1124,7 +1124,7 @@
           "Job Offer"
         ],
         "summary": "Post a Job Offer Endpoint",
-        "description": "EMPLOYERS ONLY. Allows employer to post a job offer. 'jobtitle', 'jobdesc' and 'salary' should be filled in the request body. The data extracted from the request body will then be inserted into the database into 'jobTitle', 'jobDescription' and 'salaryPerMonth' fields respectively. Optional fields include: 'jobCategory' and 'skillsRequired'.",
+        "description": "EMPLOYERS ONLY. Allows employer to post a job offer. 'jobTitle', 'jobDescription', 'jobCategory' 'salaryPerMonth' should be filled in the request body. The data extracted from the request body will then be inserted into the database into 'jobTitle', 'jobDescription', 'jobCategory' and 'salaryPerMonth' fields respectively. Optional fields include: 'skillsRequired'.",
         "security": [
           {
             "bearerAuth": []
@@ -1136,17 +1136,21 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "jobtitle": {
+                  "jobTitle": {
                     "type": "string",
                     "example": "Software Engineer"
                   },
-                  "jobdesc": {
+                  "jobDescription": {
                     "type": "string",
                     "example": "You develop a software"
                   },
-                  "salary": {
+                  "salaryPerMonth": {
                     "type": "number",
                     "example": 25000
+                  },
+                  "jobCategory": {
+                    "type": "string",
+                    "example": "Entry"
                   }
                 }
               }
