@@ -6,6 +6,7 @@ import SignUpEmployer from "./pages/SignUpEmployer";
 import SignUpJobSeeker from "./pages/SignUpJobSeeker";
 import JobSeekerHomePage from "./pages/JobSeekerHomePage"; 
 import EmployerHomePage from "./pages/EmployerHomePage";
+import FindJobHomePage from "./pages/FindJobHomePage";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/signup-jobseeker" element={<SignUpJobSeeker />} />
           <Route path="/jobseeker-home-page" element={<JobSeekerHomePage />} />
           <Route path="/employer-home-page" element={<EmployerHomePage/>}/>
+          <Route path="/find-job-page" element={<FindJobHomePage/>}/>
         </Routes>
       </div>
     </BrowserRouter>
