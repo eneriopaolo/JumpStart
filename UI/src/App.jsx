@@ -7,6 +7,7 @@ import SignUpJobSeeker from "./pages/SignUpJobSeeker";
 import JobSeekerHomePage from "./pages/JobSeekerHomePage"; 
 import EmployerHomePage from "./pages/EmployerHomePage";
 import JobPostPage from "./pages/PostJobPage";
+import FindJobHomePage from "./pages/FindJobHomePage"
 
 const App = () => {
   return (
