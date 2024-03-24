@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 const JobFeed = () => {
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -40,45 +42,57 @@ const JobFeed = () => {
 
   const handleApplyNow = async (job) => {
     console.log("Applying for job:", job);
-    
-    // Log the entire job object to inspect its structure
     console.log("Job Object:", job);
-  
+
     try {
       const token = String(localStorage.getItem("token")).replace(/['"]+/g, '');
       
-      // Access the offerId using job.offeredBy._id
       const offerId = String(job._id).replace(/['"]+/g, '');
       console.log(offerId);
-      console.log(token);
+      
+      const applicationResponse = await fetch(`http://localhost:3000/api/application`, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+  
+      const applications = await applicationResponse.json(); 
+      const hasApplied = applications.some(application => application.jobOffer._id === offerId);
+  
+      if (hasApplied) {
+        setPopupMessage("You have already applied for this job.");
+        setShowPopup(true);
+        return;
+      }
+  
       const response = await fetch(`http://localhost:3000/api/application/${offerId}`, {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${token}`
         },
-        // body: JSON.stringify({
-        //   jobId: offerId,
-        //   // Add any other application data you need to send
-        // })
       });
   
       const data = await response.json();
   
       if (response.ok) {
-        console.log("Application sent successfully:", data);
-        // You can add a success message or any other action here
+        setPopupMessage("Application sent successfully!");
+        setShowPopup(true);
       } else {
-        console.error("Error sending application:", data);
-        // You can handle the error as per your requirement
+        setPopupMessage("Error sending application.");
+        setShowPopup(true);
       }
     } catch (error) {
+      setPopupMessage("Error sending application.");
+      setShowPopup(true);
       console.error("Error sending application:", error);
     }
   };
-  
-  
-  
 
+  const handlePopupClose = () => {
+    setShowPopup(false);
+    setPopupMessage("");
+  };
+  
   return (
     <div className="job-feed bg-gray-100 p-4 relative">
       <p className="mt-5">Jobs You Might Like</p>
@@ -140,8 +154,19 @@ const JobFeed = () => {
           </div>
         </>
       )}
+
+      {showPopup && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded shadow-md flex flex-col items-center justify-center">
+            <p className="text-xl">{popupMessage}</p>
+            <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={handlePopupClose}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
-  );
+);
 };
 
 export default JobFeed;
