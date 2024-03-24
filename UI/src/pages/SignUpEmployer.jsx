@@ -52,7 +52,7 @@ const SignUpEmployer = () => {
     };
 
     if (redirectToLogin) {
-        return <Navigate to="/jobseeker-home-page" />; // Redirect to login page after successful signup
+        return <Navigate to="/login" />; // Redirect to login page after successful signup
     }
 
     return (
