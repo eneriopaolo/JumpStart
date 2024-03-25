@@ -1,60 +1,52 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { registerUser } from "../lib/userauth.fetch";
 
 const SignUpEmployer = () => {
-    const [username, setUsername] = useState("");
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [redirectToLogin, setRedirectToLogin] = useState(false); // State variable for redirection
 
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [confirmPasswordError, setConfirmPasswordError] = useState("");
+
+    const clearState = () => {
+        setEmailError("");
+        setPasswordError("");
+        setConfirmPasswordError("")
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent default form submission
-
-        const usernameValidity = /^([a-zA-Z0-9\s]){3,16}$/.test(username);
+        clearState();   // Resets error message
         const passwordMatching = password === confirmPassword;
-
-        if (!usernameValidity) {
-            alert("Invalid username.");
-        } else if (!passwordMatching) {
-            alert("Password and Confirm Password should match.");
+        if (!passwordMatching) {
+            setConfirmPasswordError("Password and Confirm Password should match.");
         } else {
             try {
-                const userData = {
-                    email: email,
-                    name: username,                 
-                    password: password,
-                    confirmPassword: confirmPassword,
-                    typeofuser: "employer"
-                };
-
-                const response = await fetch("http://localhost:3000/api/auth/register", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(userData)
-                });
-
-                if (response.ok) {
+                const response = await registerUser(email, name, password, "employer");
+                const resMsg = await response.json();
+                if (response.status === 201) {
                     // Registration successful, set redirectToLogin to true for redirection
                     setRedirectToLogin(true);
-                } else {
-                    console.error('Registration failed:', response.status);
+                } else if (response.status === 400) {
+                    setEmailError(resMsg.errors.email);
+                    setPasswordError(resMsg.errors.password);
                 }
-
-                const data = await response.text();
-                console.log(data);
+                else {
+                    alert("Something went wrong.");
+                }
             } catch (error) {
                 console.error('Error:', error);
             }
         }
     };
-
     if (redirectToLogin) {
-        return <Navigate to="/login" />; // Redirect to login page after successful signup
+        return <Navigate to="/" />; // Redirect to login page after successful signup
     }
-
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gray-500">
             <div className="w-full max-w-md px-8 py-12 bg-white rounded-lg shadow-md">
@@ -63,16 +55,16 @@ const SignUpEmployer = () => {
                 </div>
                 <form id="signupForm" onSubmit={handleSubmit} className="w-full flex flex-col space-y-4">
                     <div className="flex flex-col space-y-2">
-                        <label htmlFor="username" className="text-sm font-medium text-gray-700">
-                            Username
+                        <label htmlFor="name" className="text-sm font-medium text-gray-700">
+                            Company Name
                         </label>
                         <input
-                            id="username"
+                            id="name"
                             type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                             className="w-full px-4 py-2 border border-gray-500 rounded-lg"
-                            placeholder="Enter your username"
+                            placeholder="Enter your company's name"
                         />
                     </div>
                     <div className="flex flex-col space-y-2">
@@ -87,6 +79,7 @@ const SignUpEmployer = () => {
                             className="w-full px-4 py-2 border border-gray-500 rounded-lg"
                             placeholder="Enter your email"
                         />
+                        {emailError && <span className="text-sm text-red-500">{emailError}</span>}
                     </div>
                     <div className="flex flex-col space-y-2">
                         <label htmlFor="password" className="text-sm font-medium text-gray-700">
@@ -100,6 +93,7 @@ const SignUpEmployer = () => {
                             className="w-full px-4 py-2 border border-gray-500 rounded-lg"
                             placeholder="Enter your password"
                         />
+                        {passwordError && <span className="text-sm text-red-500">{passwordError}</span>}
                     </div>
                     <div className="flex flex-col space-y-2">
                         <label
@@ -116,6 +110,7 @@ const SignUpEmployer = () => {
                             className="w-full px-4 py-2 border border-gray-500 rounded-lg"
                             placeholder="Confirm your password"
                         />
+                        {confirmPasswordError && <span className="text-sm text-red-500">{confirmPasswordError}</span>}
                     </div>
                     <button
                         type="submit"
@@ -126,7 +121,7 @@ const SignUpEmployer = () => {
                     <div className="text-center mt-4">
                         <p className="text-sm text-gray-500">
                             Already have an account?
-                            <Link to="/" className="text-red-700 hover:underline">
+                            <Link to="/" className="text-red-700 px-1 hover:underline">
                                 Log In
                             </Link>
                         </p>
