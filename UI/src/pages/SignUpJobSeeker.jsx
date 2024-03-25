@@ -80,7 +80,7 @@ const SignUpJobSeeker = () => {
                             className="w-full px-4 py-2 border border-gray-500 rounded-lg"
                             placeholder="Enter your email"
                         />
-                        {emailError && <span className="text-red-500">{emailError}</span>}
+                        {emailError && <span className="text-sm text-red-500">{emailError}</span>}
                     </div>
                     <div className="flex flex-col space-y-2">
                         <label htmlFor="password" className="text-sm font-medium text-gray-700">
@@ -94,7 +94,7 @@ const SignUpJobSeeker = () => {
                             className="w-full px-4 py-2 border border-gray-500 rounded-lg"
                             placeholder="Enter your password"
                         />
-                        {passwordError && <span className="text-red-500">{passwordError}</span>}
+                        {passwordError && <span className="text-sm text-red-500">{passwordError}</span>}
                     </div>
                     <div className="flex flex-col space-y-2">
                         <label
@@ -111,7 +111,7 @@ const SignUpJobSeeker = () => {
                             className="w-full px-4 py-2 border border-gray-500 rounded-lg"
                             placeholder="Confirm your password"
                         />
-                        {confirmPasswordError && <span className="text-red-500">{confirmPasswordError}</span>}
+                        {confirmPasswordError && <span className="text-sm text-red-500">{confirmPasswordError}</span>}
                     </div>
                     <button
                         type="submit"
@@ -122,7 +122,7 @@ const SignUpJobSeeker = () => {
                     <div className="text-center mt-4">
                         <p className="text-sm text-gray-500">
                             Already have an account?
-                            <Link to="/" className="text-red-700 px-2 hover:underline">
+                            <Link to="/" className="text-red-700 px-1 hover:underline">
                                 Log In
                             </Link>
                         </p>
