@@ -616,7 +616,7 @@
               }
             }
           },
-          "400": {
+          "401": {
             "description": "Error for invalid credentials",
             "content": {
               "application/json": {
