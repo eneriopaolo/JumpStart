@@ -53,7 +53,7 @@ const registerUser = async (req, res) => {
         else if (typeofuser === 'employer') {
             const employer = await Employer.create({name, email});
         }
-        res.status(201).send("Successfully Registered");
+        res.status(201).json({msg: "Successfully Registered"});
     } catch (err){
         const errors = handleErrors(err);
         res.status(400).json({errors});

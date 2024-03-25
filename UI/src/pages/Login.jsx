@@ -6,6 +6,7 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [redirectToHome, setRedirectToHome] = useState(false);
+
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
 
@@ -89,7 +90,7 @@ const Login = () => {
 
                     <div className="text-center mt-12">
                         <p className="text-sm text-gray-500">
-                            Don't have an account? 
+                            Don't have an account?
                             <Link to="/signup" className="text-red-700 px-2 hover:underline">
                                 Sign Up
                             </Link>
