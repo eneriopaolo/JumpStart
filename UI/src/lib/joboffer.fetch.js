@@ -4,7 +4,7 @@ async function searchJobsByTitle(title){
     const myHeaders = {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
-    }
+    };
 
     let reqHeaders = new Headers(myHeaders);
     let reqBody = JSON.stringify({"jobTitle": jobTitle});
@@ -15,9 +15,9 @@ async function searchJobsByTitle(title){
         body: reqBody
     };
 
-    const URI = 'http://localhost:3000/api/job/search/title'
-    const response = await fetch(URI, reqOptions)
-    return response.json()
+    const URI = 'http://localhost:3000/api/job/search/title';
+    const response = await fetch(URI, reqOptions);
+    return response.json();
 }
 
 export { 

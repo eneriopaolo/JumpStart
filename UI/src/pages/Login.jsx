@@ -1,48 +1,36 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { loginUser } from "../lib/userauth.fetch";
 
 const Login = () => {
-    const [usernameOrEmail, setUsernameOrEmail] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [redirectToHome, setRedirectToHome] = useState(false); // State variable for redirection
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
 
     const clearLocalStorage = () => {
         localStorage.clear(); // Clear all items from localStorage
     };
 
-    // clearLocalStorage();
-
     const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent default form submission
         try {
-            const userData = {
-                email: usernameOrEmail,
-                password: password
-            };
-
-            const response = await fetch("http://localhost:3000/api/auth/login", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(userData)
-            });
-
-            if (response.ok) {
-                const data = await response.json(); // Parse response data
-
+            const response = await loginUser(email, password);
+            const data = await response.json();
+            if (response.status === 200) {
                 // Store all data returned by fetch in localStorage
                 for (const [key, value] of Object.entries(data)) {
                     localStorage.setItem(key, JSON.stringify(value));
                 }
-
                 setRedirectToHome(true); // Set redirectToHome to true for redirection
-            } else {
-                alert("Invalid credentials. Please try again.");
-                console.error('Login failed:', response.status);
+            } else if (response.status === 401) {
+                setEmailError(data.errors.email)
+                setPasswordError(data.errors.password)
+            } else
+            {
+                alert("Something went wrong.");
             }
-            // console.log("This is current username " + usernameOrEmail);
-            // console.log("This is current password " + password);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -50,7 +38,6 @@ const Login = () => {
 
     if (redirectToHome) {
         const userType = JSON.parse(localStorage.getItem('userType'));
-        console.log(userType);
         if (userType === 'employer') {
             return <Navigate to="/employer-home-page" />; // Navigate to employer home page
         } else if (userType === 'jobseeker') {
@@ -66,16 +53,19 @@ const Login = () => {
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="flex flex-col space-y-2">
-                        <label htmlFor="usernameOrEmail" className="text-sm font-medium text-gray-700">
-                            Username or Email
+                        <label htmlFor="email" className="text-sm font-medium text-gray-700">
+                            Email
                         </label>
                         <input
-                            id="usernameOrEmail"
+                            id="email"
                             type="text"
-                            value={usernameOrEmail}
-                            onChange={(e) => setUsernameOrEmail(e.target.value)}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="w-full px-4 py-2 border border-gray-500 rounded-lg"
-                            placeholder="Enter your username or email"
+                            placeholder="Enter your email"
+                        />
+                        <span
+                            value={emailError}
                         />
                     </div>
 
@@ -91,6 +81,9 @@ const Login = () => {
                             className="w-full px-4 py-2 border border-gray-500 rounded-lg"
                             placeholder="Enter your password"
                         />
+                        <span
+                            value={passwordError}
+                        />
                     </div>
 
                     <button
@@ -100,16 +93,10 @@ const Login = () => {
                         Continue
                     </button>
 
-                    <div className="text-center mt-4">
-                        <a href="#" className="text-sm text-red-700 hover:underline">
-                            Forgot Password?
-                        </a>
-                    </div>
-
                     <div className="text-center mt-12">
                         <p className="text-sm text-gray-500">
-                            Don't have an account?
-                            <Link to="/signup" className="text-red-700 hover:underline">
+                            Don't have an account? 
+                            <Link to="/signup" className="text-red-700 px-2 hover:underline">
                                 Sign Up
                             </Link>
                         </p>
