@@ -5,30 +5,28 @@ import { loginUser } from "../lib/userauth.fetch";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [redirectToHome, setRedirectToHome] = useState(false); // State variable for redirection
+    const [redirectToHome, setRedirectToHome] = useState(false);
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
 
     const clearLocalStorage = () => {
-        localStorage.clear(); // Clear all items from localStorage
+        localStorage.clear();
     };
 
     const handleSubmit = async (event) => {
-        event.preventDefault(); // Prevent default form submission
+        event.preventDefault();
         try {
             const response = await loginUser(email, password);
             const data = await response.json();
             if (response.status === 200) {
-                // Store all data returned by fetch in localStorage
                 for (const [key, value] of Object.entries(data)) {
                     localStorage.setItem(key, JSON.stringify(value));
                 }
-                setRedirectToHome(true); // Set redirectToHome to true for redirection
+                setRedirectToHome(true);
             } else if (response.status === 401) {
-                setEmailError(data.errors.email)
-                setPasswordError(data.errors.password)
-            } else
-            {
+                setEmailError(data.errors.email);
+                setPasswordError(data.errors.password);
+            } else {
                 alert("Something went wrong.");
             }
         } catch (error) {
@@ -39,9 +37,9 @@ const Login = () => {
     if (redirectToHome) {
         const userType = JSON.parse(localStorage.getItem('userType'));
         if (userType === 'employer') {
-            return <Navigate to="/employer-home-page" />; // Navigate to employer home page
+            return <Navigate to="/employer-home-page" />;
         } else if (userType === 'jobseeker') {
-            return <Navigate to="/jobseeker-home-page" />; // Navigate to jobseeker home page
+            return <Navigate to="/jobseeker-home-page" />;
         }
     }
 
@@ -64,9 +62,7 @@ const Login = () => {
                             className="w-full px-4 py-2 border border-gray-500 rounded-lg"
                             placeholder="Enter your email"
                         />
-                        <span
-                            value={emailError}
-                        />
+                        {emailError && <span className="text-red-500">{emailError}</span>}
                     </div>
 
                     <div className="flex flex-col space-y-2">
@@ -81,9 +77,7 @@ const Login = () => {
                             className="w-full px-4 py-2 border border-gray-500 rounded-lg"
                             placeholder="Enter your password"
                         />
-                        <span
-                            value={passwordError}
-                        />
+                        {passwordError && <span className="text-red-500">{passwordError}</span>}
                     </div>
 
                     <button
