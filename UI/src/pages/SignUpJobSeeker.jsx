@@ -126,7 +126,7 @@ const SignUpJobSeeker = () => {
                     <div className="text-center mt-4">
                         <p className="text-sm text-gray-500">
                             Already have an account?
-                            <Link to="/login" className="text-red-700 hover:underline">
+                            <Link to="/" className="text-red-700 hover:underline">
                                 Log In
                             </Link>
                         </p>
