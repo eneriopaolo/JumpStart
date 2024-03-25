@@ -16,6 +16,8 @@ const Login = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setEmailError("");
+        setPasswordError("");
         try {
             const response = await loginUser(email, password);
             const data = await response.json();
