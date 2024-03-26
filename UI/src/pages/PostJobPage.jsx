@@ -1,8 +1,53 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import EmployerNavBar from "./EmployerNavBar";
 
 function PostJobPage() {
     const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        jobTitle: "",
+        jobDescription: "",
+        skillsRequired: "",
+        experienceLevel: "Entry",
+        salary: ""
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const token = String(localStorage.getItem("token")).replace(/['"]+/g, '');
+            const response = await fetch("http://localhost:3000/api/job", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    jobTitle: formData.jobTitle,
+                    jobDescription: formData.jobDescription,
+                    jobCategory: formData.experienceLevel, 
+                    salaryPerMonth: formData.salary,
+                    skillsRequired: formData.skillsRequired
+                })
+            });
+            if (response.ok) {
+                console.log("GUAMANA KJA NA TAKDNJAGBFJA");
+                navigate("/employer-home-page");
+            } else {
+                console.error("Failed to post job offer");
+            }
+        } catch (error) {
+            console.error("Error posting job offer:", error);
+        }
+    };
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gray-500">
 
@@ -12,7 +57,7 @@ function PostJobPage() {
                     <h1 className="text-3xl font-bold text-gray-800">Post a Job</h1>
                 </div>
 
-                <form className="flex flex-col space-y-2">
+                <form onSubmit={handleSubmit} className="flex flex-col space-y-2">
 
                     <div className="flex flex-col">
                         <label htmlFor="job-title" className="text-lg mb-2">
@@ -25,6 +70,7 @@ function PostJobPage() {
                             className="rounded-md border border-gray-300 px-3 py-2"
                             maxLength={50}
                             required
+                            onChange={handleChange}
                         />
                     </div>
 
@@ -38,6 +84,7 @@ function PostJobPage() {
                             className="rounded-md border border-gray-300 px-3 py-2"
                             required
                             style={{ resize: "none", minHeight: "120px" }}
+                            onChange={handleChange}
                         />
                     </div>
 
@@ -50,6 +97,7 @@ function PostJobPage() {
                             id="skills-required"
                             name="skillsRequired"
                             className="rounded-md border border-gray-300 px-3 py-2"
+                            onChange={handleChange}
                         />
                     </div>
 
@@ -63,6 +111,7 @@ function PostJobPage() {
                                 name="experienceLevel"
                                 className="rounded-md border border-gray-300 px-3 py-2"
                                 required
+                                onChange={handleChange}
                             >
                                 <option value="Entry">Entry Level</option>
                                 <option value="Intermediate">Intermediate Level</option>
@@ -79,6 +128,7 @@ function PostJobPage() {
                                 id="salary"
                                 name="salary"
                                 className="rounded-md border border-gray-300 px-3 py-2 w-40"
+                                onChange={handleChange}
                             />
                         </div>
                     </div>
