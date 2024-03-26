@@ -1,7 +1,8 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-function JobPostPage() {
+function PostJobPage() {
+    const navigate = useNavigate();
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gray-500">
 
@@ -36,7 +37,7 @@ function JobPostPage() {
                             name="jobDescription"
                             className="rounded-md border border-gray-300 px-3 py-2"
                             required
-                            style={{ resize: 'none', minHeight: '120px' }}
+                            style={{ resize: "none", minHeight: "120px" }}
                         />
                     </div>
 
@@ -88,10 +89,17 @@ function JobPostPage() {
                     >
                         Post Job Offer
                     </button>
+                    <button
+                        type="submit"
+                        className="w-full py-2 px-4 text-center bg-red-700 text-white rounded-lg hover:bg-red-900"
+                        onClick={() => navigate("/employer-home-page")}
+                    >
+                        Cancel
+                    </button>
                 </form>
             </div>
         </div>
     );
 }
 
-export default JobPostPage;
+export default PostJobPage;

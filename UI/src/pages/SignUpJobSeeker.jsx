@@ -45,7 +45,7 @@ const SignUpJobSeeker = () => {
     };
 
     if (redirectToLogin) {
-        return <Navigate to="/login" />; // Redirect to job seeker home page after successful signup
+        return <Navigate to="/" />; // Redirect to job seeker home page after successful signup
     }
 
     return (
