@@ -7,7 +7,7 @@ import SignUpJobSeeker from "./pages/SignUpJobSeeker";
 import JobSeekerHomePage from "./pages/JobSeekerHomePage"; 
 import JobSeekerProfilePage from "./pages/JobSeekerProfilePage"; 
 import EmployerHomePage from "./pages/EmployerHomePage";
-import JobPostPage from "./pages/PostJobPage";
+import PostJobPage from "./pages/PostJobPage";
 import FindJobHomePage from "./pages/FindJobHomePage"
 import JobProfile from "./components/JobProfile"
 import ApplicationStatusPage from "./pages/ApplicationStatusPage"
@@ -26,6 +26,7 @@ const App = () => {
           <Route path="/employer-home-page" element={<EmployerHomePage/>}/>
           <Route path="/find-job-page" element={<FindJobHomePage/>}/>
           <Route path="/view-profile-page" element={<JobProfile/>}/>
+          <Route path="/post-job-page" element={<PostJobPage/>}/>
           <Route path="/view-application-status" element={<ApplicationStatusPage/>}/>
         </Routes>
       </div>
