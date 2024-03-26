@@ -34,6 +34,7 @@ const JobSeekerNavBar = () => {
                     <div className="absolute right-0 top-full bg-white border border-gray-300 z-10">
                         {/* Add additional buttons here */}
                         <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200"><Link to="/jobseeker-profile-page" className="">Profile</Link></button>
+                        <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200"><Link to="/view-application-status" className="">Application Status</Link></button>
                         <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200"><Link to="/" className="">Logout</Link></button>
                     </div>
                 )}

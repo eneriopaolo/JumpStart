@@ -10,7 +10,7 @@ const JobFeed = () => {
     const fetchJobs = async () => {
       try {
         const token = String(localStorage.getItem("token")).replace(/['"]+/g, '');
-
+        console.log(token)
         const response = await fetch("http://localhost:3000/api/job", {
           headers: {
             "Authorization": `Bearer ${token}`
