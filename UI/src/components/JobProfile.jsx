@@ -11,8 +11,8 @@ const JobProfile = () => {
 
     const userName = userData ? userData.name : "ERROR"; // Default to "John Doe" if userData is not available
     const email = userData ? userData.email : "ERROR"; // Default to "John Doe" if userData is not available
-    const aboutMe = userData ? userData.profile.description : "ERROR"; // Default to "John Doe" if userData is not available
-    const address = userData ? userData.profile.address : "ERROR"; // Default to "John Doe" if userData is not available
+    const aboutMeBio = userData ? userData.profile.bio : "ERROR"; // Default to "John Doe" if userData is not available
+    const skills = userData ? userData.profile.skills : "ERROR"; // Default to "John Doe" if userData is not available
     console.log("JobSeekerNavBar component rendered");
 
     return (
@@ -30,11 +30,11 @@ const JobProfile = () => {
             </div>
             <div className="about-section">
                 <h3>About Me</h3>
-                <p>{aboutMe}</p>
+                <p>{aboutMeBio}</p>
             </div>
             <div className="address-section">
                 <h3>Address</h3>
-                <p>{address}</p>
+                <p>{skills}</p>
             </div>
         </div>
     );

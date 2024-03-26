@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 const EmployerContent = () => {
   const [jobs, setJobs] = useState([]);
@@ -6,6 +7,7 @@ const EmployerContent = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const fetchJobs = async () => {
     try {
@@ -67,12 +69,30 @@ const EmployerContent = () => {
     }));
   };
 
-  const handleViewProfile = (application) => {
+  const handleViewProfile = async (application) => {
+    console.log(application);
     console.log(
       "View Profile clicked for applicant:",
       application.applicantName
     );
-    // Implement the view profile functionality here
+    if (application.applicant) {
+      try {
+        const token = String(localStorage.getItem("token")).replace(/['"]+/g, "");
+        const response = await fetch(`http://localhost:3000/api/profile/jobseeker/${application.applicant}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        const data = await response.json();
+        localStorage.setItem("userData", JSON.stringify(data));
+        console.log("THIS", JSON.parse(localStorage.getItem('userData')));
+      } catch (error) {
+        console.error("Error fetching applicant data:", error);
+      }
+    }
+    console.log("Where", localStorage.getItem('userData'));
+    navigate(`/view-profile-page`);
   };
 
   const handleHire = async (application) => {
@@ -141,7 +161,6 @@ const EmployerContent = () => {
         );
         setShowPopup(true);
 
-        // Fetch updated jobs list
         fetchJobs();
       } else {
         console.error("API response:", data);
@@ -191,7 +210,6 @@ const EmployerContent = () => {
         );
         setShowPopup(true);
 
-        // Fetch updated jobs list
         fetchJobs();
       } else {
         console.error("API response:", data);
@@ -415,3 +433,4 @@ const EmployerContent = () => {
 };
 
 export default EmployerContent;
+
