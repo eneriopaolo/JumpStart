@@ -10,6 +10,7 @@ import EmployerHomePage from "./pages/EmployerHomePage";
 import PostJobPage from "./pages/PostJobPage";
 import FindJobHomePage from "./pages/FindJobHomePage"
 import JobProfile from "./components/JobProfile"
+import ApplicationStatusPage from "./pages/ApplicationStatusPage"
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/find-job-page" element={<FindJobHomePage/>}/>
           <Route path="/view-profile-page" element={<JobProfile/>}/>
           <Route path="/post-job-page" element={<PostJobPage/>}/>
+          <Route path="/view-application-status" element={<ApplicationStatusPage/>}/>
         </Routes>
       </div>
     </BrowserRouter>
