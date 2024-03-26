@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 function PostJobPage() {
@@ -50,7 +50,6 @@ function PostJobPage() {
                             id="skills-required"
                             name="skillsRequired"
                             className="rounded-md border border-gray-300 px-3 py-2"
-                            required
                         />
                     </div>
 
@@ -65,9 +64,9 @@ function PostJobPage() {
                                 className="rounded-md border border-gray-300 px-3 py-2"
                                 required
                             >
-                                <option value="entry">Entry Level</option>
-                                <option value="mid">Mid Level</option>
-                                <option value="senior">Senior Level</option>
+                                <option value="Entry">Entry Level</option>
+                                <option value="Intermediate">Intermediate Level</option>
+                                <option value="Expert">Expert Level</option>
                             </select>
                         </div>
 
@@ -76,7 +75,7 @@ function PostJobPage() {
                                 Salary:
                             </label>
                             <input
-                                type="text"
+                                type="number"
                                 id="salary"
                                 name="salary"
                                 className="rounded-md border border-gray-300 px-3 py-2 w-40"
