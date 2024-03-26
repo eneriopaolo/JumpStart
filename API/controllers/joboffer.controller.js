@@ -109,13 +109,14 @@ const viewOneOffer = async (req, res) => {
 
 // EMPLOYER: Function for Creation of New Job Offer
 const postJobOffer = async (req, res) => {
-    const {jobTitle, jobDescription, salaryPerMonth, jobCategory} = req.body;
+    const {jobTitle, jobDescription, salaryPerMonth, jobCategory, skillsRequired} = req.body;
     try {
         const jobOffer = await JobOffer.create({
             jobTitle: jobTitle,
             jobDescription: jobDescription,
             salaryPerMonth: salaryPerMonth,
             jobCategory: jobCategory,
+            skillsRequired: skillsRequired,
             offeredBy: userData._id.toString()
         });
         res.status(201).json({msg: 'Successfully Posted a Job Offer.'})
