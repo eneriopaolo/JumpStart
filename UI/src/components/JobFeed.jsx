@@ -141,7 +141,7 @@ const JobFeed = () => {
               <div className="flex justify-between text-gray-600 mb-4">
                 <span className="text-xl">Salary: {selectedJob.salaryPerMonth}</span>
                 <span className="text-xl">Skills Required: {selectedJob.skillsRequired.join(", ") || "NONE"}</span>
-                <span className="text-xl">Experience Required: {selectedJob.experienceRequired}</span>
+                <span className="text-xl">Experience Required: {selectedJob.jobCategory}</span>
               </div>
               <div className="border-b mb-8"></div>
               <button 
