@@ -344,10 +344,13 @@ paths:
         '201':
           description: Successful Registration
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                example: Successfully Registered
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: Successfully Registered
         '400':
           description: Error for invalid user inputs
           content:
@@ -355,7 +358,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  errors:
                     type: object
                     properties:
                       email:
@@ -429,14 +432,14 @@ paths:
                       __v:
                         type: number
                         example: 0
-        '400':
+        '401':
           description: Error for invalid credentials
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  error:
+                  errors:
                     type: object
                     properties:
                       email:
@@ -758,12 +761,12 @@ paths:
         - Job Offer
       summary: Post a Job Offer Endpoint
       description: >-
-        EMPLOYERS ONLY. Allows employer to post a job offer. 'jobtitle',
-        'jobdesc' and 'salary' should be filled in the request body. The data
-        extracted from the request body will then be inserted into the database
-        into 'jobTitle', 'jobDescription', 'jobCategory' and 'salaryPerMonth' fields
-        respectively. Optional fields include: 'jobCategory' and
-        'skillsRequired'.
+        EMPLOYERS ONLY. Allows employer to post a job offer. 'jobTitle',
+        'jobDescription', 'jobCategory' 'salaryPerMonth' should be filled in the
+        request body. The data extracted from the request body will then be
+        inserted into the database into 'jobTitle', 'jobDescription',
+        'jobCategory' and 'salaryPerMonth' fields respectively. Optional fields
+        include: 'skillsRequired'.
       security:
         - bearerAuth: []
       requestBody:

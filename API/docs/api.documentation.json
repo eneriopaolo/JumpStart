@@ -491,10 +491,15 @@
           "201": {
             "description": "Successful Registration",
             "content": {
-              "text/plain": {
+              "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Successfully Registered"
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "example": "Successfully Registered"
+                    }
+                  }
                 }
               }
             }
@@ -506,7 +511,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "errors": {
                       "type": "object",
                       "properties": {
                         "email": {
@@ -623,7 +628,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "errors": {
                       "type": "object",
                       "properties": {
                         "email": {
