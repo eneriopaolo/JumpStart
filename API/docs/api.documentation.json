@@ -1,8 +1,8 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "HireIndex",
-    "description": "Documentation for the REST Routes of HireIndex",
+    "title": "JumpStart",
+    "description": "Documentation for the REST APIs of JumpStart",
     "version": "1.0.0"
   },
   "servers": [
