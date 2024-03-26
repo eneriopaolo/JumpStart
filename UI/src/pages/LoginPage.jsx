@@ -14,10 +14,15 @@ const Login = () => {
         localStorage.clear();
     };
 
+    const clearState = () => {
+        setEmailError(""),
+        setPasswordError("")
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setEmailError("");
-        setPasswordError("");
+        clearState();
+
         try {
             const response = await loginUser(email, password);
             const data = await response.json();
@@ -50,7 +55,7 @@ const Login = () => {
         <div className="flex flex-col items-center justify-center h-screen bg-gray-500">
             <div className="w-full max-w-md px-8 py-12 bg-white rounded-lg shadow-md">
                 <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold text-gray-800">Log in to HireIndex</h1>
+                    <h1 className="text-3xl font-bold text-gray-800">Log in to JumpStart</h1>
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="flex flex-col space-y-2">

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import EmployerNavBar from "./EmployerNavBar";
+import { postJobOffer } from "../lib/joboffer.fetch"
 
 function PostJobPage() {
     const navigate = useNavigate();
@@ -11,6 +12,16 @@ function PostJobPage() {
         experienceLevel: "Entry",
         salary: ""
     });
+
+    const [titleError, setTitleError] = useState("");
+    const [jobDescError, setJobDescError] = useState("");
+    const [salaryError, setSalaryError] = useState("");
+
+    const clearState = () => {
+        setTitleError("");
+        setJobDescError("");
+        setSalaryError("");
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,29 +34,29 @@ function PostJobPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const token = String(localStorage.getItem("token")).replace(/['"]+/g, '');
-            const response = await fetch("http://localhost:3000/api/job", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    jobTitle: formData.jobTitle,
-                    jobDescription: formData.jobDescription,
-                    jobCategory: formData.experienceLevel, 
-                    salaryPerMonth: formData.salary,
-                    skillsRequired: formData.skillsRequired
-                })
-            });
-            if (response.ok) {
-                navigate("/employer-home-page");
-            } else {
-                console.error("Failed to post job offer");
+        clearState();
+
+        if (!formData.jobTitle) {
+            setTitleError("Please enter a Job Title.");
+        } else if (!formData.jobDescription) {
+            setJobDescError("Please enter a Job Description.");
+        } else if (!formData.salary) {
+            setSalaryError("Please enter a Salary Amount.");
+        } else if (isNaN(formData.salary)) {
+            setSalaryError("Salary should be a numeric value.");
+        } else if (Number(formData.salary) <= 0) {
+            setSalaryError("Invalid Salary Amount.");
+        } else {
+            try {
+                const response = await postJobOffer(formData.jobTitle, formData.jobDescription, formData.experienceLevel, formData.salary, formData.skillsRequired);
+                if (response.ok) {
+                    navigate("/employer-home-page");
+                } else {
+                    console.error("Failed to post job offer");
+                }
+            } catch (error) {
+                console.error("Error posting job offer:", error);
             }
-        } catch (error) {
-            console.error("Error posting job offer:", error);
         }
     };
     return (
@@ -54,7 +65,7 @@ function PostJobPage() {
             <div className="w-full max-w-3xl px-8 py-10 bg-white rounded-lg shadow-md">
 
                 <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold text-gray-800">Post a Job</h1>
+                    <h1 className="text-3xl font-bold text-gray-800">Post a Job Offer</h1>
                 </div>
 
                 <form onSubmit={handleSubmit} className="flex flex-col space-y-2">
@@ -69,9 +80,9 @@ function PostJobPage() {
                             name="jobTitle"
                             className="rounded-md border border-gray-300 px-3 py-2"
                             maxLength={50}
-                            required
                             onChange={handleChange}
                         />
+                        {titleError && <span className="text-sm text-sm text-red-500">{titleError}</span>}
                     </div>
 
                     <div className="flex flex-col">
@@ -82,10 +93,10 @@ function PostJobPage() {
                             id="job-description"
                             name="jobDescription"
                             className="rounded-md border border-gray-300 px-3 py-2"
-                            required
                             style={{ resize: "none", minHeight: "120px" }}
                             onChange={handleChange}
                         />
+                        {jobDescError && <span className="text-sm text-sm text-red-500">{jobDescError}</span>}
                     </div>
 
                     <div className="flex flex-col">
@@ -124,27 +135,29 @@ function PostJobPage() {
                                 Salary:
                             </label>
                             <input
-                                type="number"
                                 id="salary"
                                 name="salary"
                                 className="rounded-md border border-gray-300 px-3 py-2 w-40"
                                 onChange={handleChange}
                             />
+                            {salaryError && <span className="text-sm text-sm text-red-500">{salaryError}</span>}
                         </div>
                     </div>
-                    <button
-                        type="submit"
-                        className="w-full py-2 px-4 text-center bg-red-700 text-white rounded-lg hover:bg-red-900"
-                    >
-                        Post Job Offer
-                    </button>
-                    <button
-                        type="submit"
-                        className="w-full py-2 px-4 text-center bg-red-700 text-white rounded-lg hover:bg-red-900"
-                        onClick={() => navigate("/employer-home-page")}
-                    >
-                        Cancel
-                    </button>
+                    <div className="flex flex-col space-y-3 pt-5">
+                        <button
+                            type="submit"
+                            className="w-full py-2 px-4 text-center bg-red-700 text-white rounded-lg hover:bg-red-900"
+                        >
+                            Post Job Offer
+                        </button>
+                        <button
+                            type="submit"
+                            className="w-full py-2 px-4 text-center bg-red-700 text-white rounded-lg hover:bg-red-900"
+                            onClick={() => navigate("/employer-home-page")}
+                        >
+                            Cancel
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
