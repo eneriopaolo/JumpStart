@@ -46,7 +46,7 @@ const JobFeed = () => {
 
     try {
       const token = String(localStorage.getItem("token")).replace(/['"]+/g, '');
-      
+      console.log("Token", token);
       const offerId = String(job._id).replace(/['"]+/g, '');
       console.log(offerId);
       

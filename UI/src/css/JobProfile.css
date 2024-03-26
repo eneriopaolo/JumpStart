@@ -1,5 +1,5 @@
 .profile-container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     margin-top: 20px;
     padding: 50px;
@@ -35,18 +35,28 @@
 }
 
 .about-section,
-.address-section {
+.education-section,
+.experience-section,
+.skills-section {
     margin-top: 20px;
 }
 
 .about-section h3,
-.address-section h3 {
+.education-section h3,
+.experience-section h3,
+.skills-section h3 {
     color: #333;
     font-size: 20px;
     margin-bottom: 10px;
 }
 
 .about-section p,
-.address-section p {
+.education-section p,
+.experience-section p,
+.skills-section p {
     line-height: 1.6;
+}
+
+.full-width {
+    width: 100%;
 }
