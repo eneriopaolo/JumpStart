@@ -61,9 +61,9 @@ const EmployerContent = () => {
       applications: prev.applications.map((app) =>
         app.applicant._id === application.applicant._id
           ? {
-              ...app,
-              applicationStatus: "Accepted",
-            }
+            ...app,
+            applicationStatus: "Accepted",
+          }
           : app
       ),
     }));
@@ -83,7 +83,7 @@ const EmployerContent = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-  
+
         const data = await response.json();
         localStorage.setItem("userData", JSON.stringify(data));
         console.log("THIS", JSON.parse(localStorage.getItem('userData')));
@@ -147,11 +147,11 @@ const EmployerContent = () => {
           applications: prevJob.applications.map((app) =>
             app._id === application._id
               ? {
-                  ...app,
-                  applicationStatus: "Accepted",
-                  applicantName:
-                    data.applicant?.name || app.applicantName || "Unknown",
-                }
+                ...app,
+                applicationStatus: "Accepted",
+                applicantName:
+                  data.applicant?.name || app.applicantName || "Unknown",
+              }
               : app
           ),
         }));
@@ -259,6 +259,26 @@ const EmployerContent = () => {
     setPopupMessage("");
   };
 
+  const handleDeleteJobOffer = async (offerId) => {
+    try {
+      const token = String(localStorage.getItem("token")).replace(/['"]+/g, "");
+      const response = await fetch(`http://localhost:3000/api/job/myoffer/${offerId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        setJobs(jobs.filter(job => job._id !== offerId));
+      } else {
+        console.error("Failed to delete job offer");
+      }
+    } catch (error) {
+      console.error("Error deleting job offer:", error);
+    }
+  };
+
   return (
     <div className="job-feed bg-gray-100 p-4 relative">
       <p className="mt-5">My Job Offers</p>
@@ -328,8 +348,8 @@ const EmployerContent = () => {
                 Offered By:{" "}
                 <span className="font-semibold">
                   {selectedJob.offeredBy &&
-                  selectedJob.offeredBy.profile &&
-                  selectedJob.offeredBy.profile.name
+                    selectedJob.offeredBy.profile &&
+                    selectedJob.offeredBy.profile.name
                     ? selectedJob.offeredBy.profile.name
                     : "Unknown"}
                 </span>
@@ -408,6 +428,16 @@ const EmployerContent = () => {
                         </div>
                       </div>
                     ))}
+
+                <button
+                  className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
+                  onClick={(e) => {
+                    e.stopPropagation(); 
+                    handleDeleteJobOffer(selectedJob._id);
+                  }}
+                >
+                  Delete Job Offer
+                </button>
               </div>
             </div>
           </div>
