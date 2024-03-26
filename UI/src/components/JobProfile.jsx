@@ -33,8 +33,8 @@ const JobProfile = () => {
                 <p>{aboutMeBio}</p>
             </div>
             <div className="address-section">
-                <h3>Address</h3>
-                <p>{skills}</p>
+                <h3>Skills</h3>
+                <p>{skills && skills.length ? skills.join(", ") : "None"}</p>
             </div>
         </div>
     );
