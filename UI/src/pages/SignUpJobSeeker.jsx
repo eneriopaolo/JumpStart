@@ -9,21 +9,27 @@ const SignUpJobSeeker = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [redirectToLogin, setRedirectToLogin] = useState(false); // State variable for redirection
 
+    const [nameError, setNameError] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
     const clearState = () => {
+        setNameError("");
         setEmailError("");
         setPasswordError("");
-        setConfirmPasswordError("")
+        setConfirmPasswordError("");
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent default form submission
-        clearState();   // Resets error message
+        clearState();           // Resets error message
+
+        const nameRegex = /^[\w\-.'\s]+$/.test(name);
         const passwordMatching = password === confirmPassword;
-        if (!passwordMatching) {
+        if (!nameRegex) {
+            setNameError("Invalid name.");
+        } else if (!passwordMatching) {
             setConfirmPasswordError("Password and Confirm Password should match.");
         } else {
             try {
@@ -67,6 +73,7 @@ const SignUpJobSeeker = () => {
                             className="w-full px-4 py-2 border border-gray-500 rounded-lg"
                             placeholder="Enter your name"
                         />
+                        {nameError && <span className="text-sm text-red-500">{nameError}</span>}
                     </div>               
                     <div className="flex flex-col space-y-2">
                         <label htmlFor="email" className="text-sm font-medium text-gray-700">
