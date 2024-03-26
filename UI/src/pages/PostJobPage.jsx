@@ -7,7 +7,7 @@ function PostJobPage() {
     const [formData, setFormData] = useState({
         jobTitle: "",
         jobDescription: "",
-        skillsRequired: "",
+        skillsRequired: [],
         experienceLevel: "Entry",
         salary: ""
     });
@@ -16,7 +16,8 @@ function PostJobPage() {
         const { name, value } = e.target;
         setFormData(prevState => ({
             ...prevState,
-            [name]: value
+            [name]: name === 'skillsRequired' ? value.split(',').map(skill => skill.trim()) : value
+            // if name is skillsRequired, split the values in it with a comma then trim each value in array with .map method, else then value is directly assigned
         }));
     };
 
@@ -39,7 +40,6 @@ function PostJobPage() {
                 })
             });
             if (response.ok) {
-                console.log("GUAMANA KJA NA TAKDNJAGBFJA");
                 navigate("/employer-home-page");
             } else {
                 console.error("Failed to post job offer");
