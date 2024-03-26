@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import EmployerNavBar from "./EmployerNavBar";
+import EmployerNavBar from "../components/EmployerNavBar";
 import { postJobOffer } from "../lib/joboffer.fetch"
 
 function PostJobPage() {
