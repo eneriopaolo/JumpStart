@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import EmployerNavBar from "../components/EmployerNavBar";
 import EmployerContent from "../components/EmployerContent";
 
-const JobSeekerHomePage = () => {
+const EmployerHomePage = () => {
   return (
     <div>
       <EmployerNavBar />
@@ -12,4 +12,4 @@ const JobSeekerHomePage = () => {
   );
 };
 
-export default JobSeekerHomePage;
+export default EmployerHomePage;
