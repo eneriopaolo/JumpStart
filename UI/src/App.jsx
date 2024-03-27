@@ -17,14 +17,14 @@ import ApplicationStatusPage from "./pages/ApplicationStatusPage";
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="container mx-auto">
+      <div className="min-h-screen">
         <Routes>
           <Route path="/signup" element={<TypeofUser />} />
           <Route exact path="/" element={<LoginPage />} />
           <Route path="/signup-employer" element={<SignUpEmployer />} />
           <Route path="/signup-jobseeker" element={<SignUpJobSeeker />} />
           <Route path="/jobseeker-home-page" element={<JobSeekerHomePage />} />
-          <Route path="/jobseeker-profile-page"element={<JobSeekerProfilePage />}/>
+          <Route path="/jobseeker-profile-page" element={<JobSeekerProfilePage />}/>
           <Route path="/employer-home-page" element={<EmployerHomePage />} />
           <Route path="/employer-profile-page" element={<EmployerProfilePage />} />
           <Route path="/find-job-page" element={<FindJobHomePage />} />
