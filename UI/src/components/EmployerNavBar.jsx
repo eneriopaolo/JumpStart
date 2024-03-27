@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import JumpStartLogo from "../assets/JumpStartLogo.png";
-
+import { IoLogOut } from "react-icons/io5";
 
 const EmployerNavBar = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
