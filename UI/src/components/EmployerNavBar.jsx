@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import JumpStartLogo from "../assets/JumpStartLogo.png";
 
 
 const EmployerNavBar = () => {
@@ -24,7 +25,7 @@ const EmployerNavBar = () => {
         {/* <img src="/logo.png" alt="Logo" className="h-8 mr-4" /> */}
         <p className="p-4 cursor-pointer text-white hover:text-green-900 hover:bg-green-700">
           <Link to="/employer-home-page" className="">
-            Logo
+            <img src={JumpStartLogo} className="rounded-full" alt="JumpStart Logo" style={{height: '50px', width: 'auto',background:"white"}}/>
           </Link>
         </p>
         <p className="p-4 cursor-pointer text-white hover:text-green-900 hover:bg-green-700">

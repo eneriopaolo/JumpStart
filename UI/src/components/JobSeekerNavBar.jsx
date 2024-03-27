@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { searchJobsByTitle } from "../lib/joboffer.fetch";
+import JumpStartLogo from "../assets/JumpStartLogo.png";
 
 const JobSeekerNavBar = ({updateJobData}) => {
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -31,7 +32,10 @@ const JobSeekerNavBar = ({updateJobData}) => {
         <div className="flex items-center justify-between bg-green-600 border-b border-gray-500 relative shadow-md">
             <div className="flex items-center">
                 {/* <img src="/logo.png" alt="Logo" className="h-8 mr-4" /> */}
-                <p className="p-4 cursor-pointer text-white hover:text-green-900 hover:bg-green-700"><Link to="/jobseeker-home-page" className="text-white">Logo</Link></p>
+                <p className="p-4 cursor-pointer text-white hover:text-green-900 hover:bg-green-700">
+                    <Link to="/jobseeker-home-page" className="">
+                    <img src={JumpStartLogo} className="rounded-full" alt="JumpStart Logo" style={{height: '50px', width: 'auto',background:"white"}}/>
+                    </Link></p>
                 <p className="p-4 cursor-pointer text-white hover:text-green-900 hover:bg-green-700"><Link to="/find-job-page" className="text-white">Find Jobs</Link></p>
             </div>
 
