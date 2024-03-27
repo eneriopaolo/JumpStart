@@ -10,6 +10,13 @@ const Login = () => {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
 
+    const [userFromBackend, setUserFromBackend] = useState({
+        _id: '',
+        name: '',
+        email: '',
+        // other profile data
+    });
+
     const clearLocalStorage = () => {
         localStorage.clear();
     };
@@ -31,6 +38,14 @@ const Login = () => {
                 for (const [key, value] of Object.entries(data)) {
                     localStorage.setItem(key, JSON.stringify(value));
                 }
+
+                const userData = JSON.parse(localStorage.getItem('userData'));
+                const currentUserData = JSON.parse(localStorage.getItem('currentUserData')) || {};
+                if (userData && userData._id) {
+                    currentUserData._id = userData._id;
+                localStorage.setItem('currentUserData', JSON.stringify(currentUserData));
+                }
+
                 setRedirectToHome(true);
             } else if (response.status === 401) {
                 setEmailError(data.errors.email);
@@ -45,6 +60,8 @@ const Login = () => {
 
     if (redirectToHome) {
         const userType = JSON.parse(localStorage.getItem('userType'));
+  
+
         if (userType === 'employer') {
             return <Navigate to="/employer-home-page" />;
         } else if (userType === 'jobseeker') {
