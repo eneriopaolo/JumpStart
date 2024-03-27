@@ -389,7 +389,7 @@ const EmployerContent = () => {
   };
 
   return (
-    <div className="job-feed bg-gray-100 p-4 relative">
+    <div className="job-feed bg-gray-200 p-4 relative min-h-screen">
       <p className="mt-5">My Job Offers</p>
       {Array.isArray(jobs) ? (
         jobs.map((job, index) => (

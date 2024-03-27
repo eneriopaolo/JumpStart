@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { searchJobsByTitle } from "../lib/joboffer.fetch";
-import { FaMagnifyingGlass } from "react-icons/fa6";
-import { IoLogOut } from "react-icons/io5";
+import JumpStartLogo from "../assets/JumpStartLogo.png";
 
 const JobSeekerNavBar = ({ updateJobData }) => {
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -33,8 +32,11 @@ const JobSeekerNavBar = ({ updateJobData }) => {
         <div className="flex items-center justify-between bg-green-600 border-b border-gray-500 relative shadow-md">
             <div className="flex items-center">
                 {/* <img src="/logo.png" alt="Logo" className="h-8 mr-4" /> */}
-                <p className="p-4 cursor-pointer text-white hover:text-green-900 hover:bg-green-700"><Link to="/jobseeker-home-page" className="text-white">Logo</Link></p>
-                <p className="p-4 cursor-pointer text-white hover:text-green-900 hover:bg-green-700"><Link to="/find-job-page" className="text-white">Find Jobs</Link></p>
+                <p className="p-4 cursor-pointer text-white hover:text-green-900 hover:bg-green-700">
+                    <Link to="/jobseeker-home-page" className="">
+                    <img src={JumpStartLogo} className="rounded-full" alt="JumpStart Logo" style={{height: '50px', width: 'auto',background:"white"}}/>
+                    </Link></p>
+                <p className="p-4 w-48 cursor-pointer text-white hover:text-green-900 hover:underline hover:font-bold"><Link to="/find-job-page" className="text-white">Find Jobs</Link></p>
             </div>
 
             <div className="flex justify-center">
@@ -54,7 +56,7 @@ const JobSeekerNavBar = ({ updateJobData }) => {
             </div>
 
             <div>
-                <button className="text-white text-center flex items-center justify-center w-48 min-w-20" onClick={toggleMenu}>
+                <button className="text-white text-center flex items-center justify-center h-12 w-48 min-w-20 border-l-2 hover:font-bold" onClick={toggleMenu}>
                     {userName} <span className="ml-2"></span>
                 </button>
 

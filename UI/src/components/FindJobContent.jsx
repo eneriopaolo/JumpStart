@@ -115,7 +115,7 @@ const FindJobContent = () => {
   };
 
   return (
-    <div className="flex bg-gray-100 p-4 relative">
+    <div className="flex bg-gray-200 p-4 relative min-h-screen">
       {/* Filter section */}
       <div className="w-1/4 mr-8">
         <div className="filter-section mb-6 mt-10 ">

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { IoLogOut } from "react-icons/io5";
+import JumpStartLogo from "../assets/JumpStartLogo.png";
 
 
 const EmployerNavBar = () => {
@@ -25,10 +25,10 @@ const EmployerNavBar = () => {
         {/* <img src="/logo.png" alt="Logo" className="h-8 mr-4" /> */}
         <p className="p-4 cursor-pointer text-white hover:text-green-900 hover:bg-green-700">
           <Link to="/employer-home-page" className="">
-            Logo
+            <img src={JumpStartLogo} className="rounded-full" alt="JumpStart Logo" style={{height: '50px', width: 'auto',background:"white"}}/>
           </Link>
         </p>
-        <p className="p-4 cursor-pointer text-white hover:text-green-900 hover:bg-green-700">
+        <p className="p-4 w-48 cursor-pointer text-white hover:text-green-900 hover:underline hover:font-bold">
           <Link
             to="/post-job-page"
             className="text-white"
@@ -38,7 +38,7 @@ const EmployerNavBar = () => {
         </p>
       </div>
       <div>
-          <button className="text-white text-center flex items-center justify-center w-48 min-w-20" onClick={toggleMenu}>
+          <button className="text-white text-center flex items-center justify-center h-12 w-48 min-w-20 border-l-2 hover:font-bold" onClick={toggleMenu}>
               {userName} <span className="ml-2"></span>
           </button>
 
