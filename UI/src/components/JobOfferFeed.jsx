@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
+import { viewMyApplications, sendJobApplication } from "../lib/jobapplication.fetch";
 
 function JobOfferFeed(props) {
     const [selectedJob, setSelectedJob] = useState(null);
@@ -17,47 +18,30 @@ function JobOfferFeed(props) {
         console.log("Applying for job:", job);
         console.log("Job Object:", job);
     
-        try {
-          const token = String(localStorage.getItem("token")).replace(/['"]+/g, '');
-          console.log("Token", token);
-          const offerId = String(job._id).replace(/['"]+/g, '');
-          console.log(offerId);
-          
-          const applicationResponse = await fetch(`http://localhost:3000/api/application`, {
-            headers: {
-              "Authorization": `Bearer ${token}`
-            }
-          });
+    try {
+        const offerId = String(job._id).replace(/['"]+/g, '');
+        const applicationResponse = await viewMyApplications();
+        const applications = await applicationResponse.json(); 
+        const hasApplied = applications.some(application => application.jobOffer._id === offerId);
       
-          const applications = await applicationResponse.json(); 
-          const hasApplied = applications.some(application => application.jobOffer._id === offerId);
-      
-          if (hasApplied) {
+        if (hasApplied) {
             setPopupMessage("You have already applied for this job.");
             setShowPopup(true);
             return;
-          }
-      
-        const response = await fetch(`http://localhost:3000/api/application/${offerId}`, {
-            method: 'POST',
-            headers: {
-              "Authorization": `Bearer ${token}`
-            },
-        });
-      
+        }
+        const response = await sendJobApplication(offerId);
         const data = await response.json();
-      
-            if (response.ok) {
+        if (response.ok) {
             setPopupMessage("Application sent successfully!");
             setShowPopup(true);
-            } else {
+        } else {
             setPopupMessage("Error sending application.");
             setShowPopup(true);
-            }
+        }
         } catch (error) {
-          setPopupMessage("Error sending application.");
-          setShowPopup(true);
-          console.error("Error sending application:", error);
+            setPopupMessage("Error sending application.");
+            setShowPopup(true);
+            console.error("Error sending application:", error);
         }
     };
     
