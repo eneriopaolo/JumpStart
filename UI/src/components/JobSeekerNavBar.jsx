@@ -1,20 +1,27 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import JobSearchBar from "./JobSearchBar";
+import { searchJobsByTitle } from "../lib/joboffer.fetch";
 
-const JobSeekerNavBar = () => {
+const JobSeekerNavBar = ({updateJobData}) => {
     const userData = JSON.parse(localStorage.getItem('userData'));
-
-    console.log("userData from localStorage:", userData); // Log userData
-
     const userName = userData ? userData.name : "ERROR"; // Default to "John Doe" if userData is not available
-    console.log("JobSeekerNavBar component rendered");
 
     const [menuOpen, setMenuOpen] = useState(false); // State variable to track menu open/close
+    const [jobTitle, setNewJobTitle] = useState("");
+
+    function handleInputChange(event) {
+        setNewJobTitle(event.target.value)
+    };
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
+
+    async function searchJobs() {
+        const response = await searchJobsByTitle(jobTitle);
+        const data = await response.json()
+        updateJobData(data);
+    }
 
     const clearLocalStorage = () => {
         localStorage.clear();
@@ -27,7 +34,22 @@ const JobSeekerNavBar = () => {
                 <p className="p-4 cursor-pointer text-gray-800 hover:text-red-900 hover:bg-blue-500"><Link to="/jobseeker-home-page" className="">Logo</Link></p>
                 <p className="p-4 cursor-pointer text-gray-800 hover:text-red-900 hover:bg-blue-500"><Link to="/find-job-page" className="text-gray-800 hover:text-gray-900">Find Jobs</Link></p>
             </div>
-            <JobSearchBar/>
+
+            <div className="flex justify-center">
+                <input
+                    type="text"
+                    placeholder="Enter Job Title..."
+                    value={jobTitle}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 mr-2 text-gray-800 placeholder-gray-500 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none focus:bg-white focus:border-blue-500"
+                />
+                <button
+                    className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none"
+                    onClick={searchJobs}
+                >
+                    Search
+                </button>
+            </div>
 
             <div>
                 <button className="text-gray-800 flex items-center justify-center min-w-20" onClick={toggleMenu}>
@@ -43,11 +65,10 @@ const JobSeekerNavBar = () => {
                     </div>
                 )}
             </div>
-
-            
-
         </div>
     );
 };
+
+
 
 export default JobSeekerNavBar;

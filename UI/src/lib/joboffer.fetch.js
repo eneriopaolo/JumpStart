@@ -57,7 +57,7 @@ async function searchJobsByTitle(title){
 
     const URI = 'http://localhost:3000/api/job/search/title';
     const response = await fetch(URI, reqOptions);
-    return response.json();
+    return response
 };
 
 export { 

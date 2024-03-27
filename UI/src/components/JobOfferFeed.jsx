@@ -15,9 +15,6 @@ function JobOfferFeed(props) {
     };
 
     const handleApplyNow = async (job) => {
-        console.log("Applying for job:", job);
-        console.log("Job Object:", job);
-    
     try {
         const offerId = String(job._id).replace(/['"]+/g, '');
         const applicationResponse = await viewMyApplications();
@@ -52,7 +49,6 @@ function JobOfferFeed(props) {
     return(
         <div className="job-feed bg-gray-100 p-4 relative">
             <p className="mt-5">Jobs You Might Like</p>
-            {console.log(props.jobs)}
             {Array.isArray(props.jobs) ?
                 (
                     props.jobs.map((job, index) => {

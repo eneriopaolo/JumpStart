@@ -6,13 +6,14 @@ import JobOfferFeed from "../components/JobOfferFeed";
 
 const JobSeekerHomePage = () => {
     const [jobData, setJobData] = useState([]);
-
+    const updateJobData = (data) => {
+        setJobData(data.reverse());
+    }
     useEffect(() => {
         const fetchJobData = async () => {
             try {
                 const response = await viewJobOffers();
                 const data = await response.json()
-
                 if (Array.isArray(data)) {
                     setJobData(data.reverse());
                 } else {
@@ -31,7 +32,7 @@ const JobSeekerHomePage = () => {
     };
     return (
         <>
-            <JobSeekerNavBar />
+            <JobSeekerNavBar updateJobData={updateJobData}/>
             <JobOfferFeed jobs={jobData}/>
         </>
     );
