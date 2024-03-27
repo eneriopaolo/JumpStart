@@ -38,7 +38,7 @@ const EmployerNavBar = () => {
         </p>
       </div>
       <div>
-          <button className="text-white text-center flex items-center justify-center w-48 min-w-20" onClick={toggleMenu}>
+          <button className="text-white text-center flex items-center justify-center h-12 w-48 min-w-20 border-l-2 hover:font-bold" onClick={toggleMenu}>
               {userName} <span className="ml-2"></span>
           </button>
 
