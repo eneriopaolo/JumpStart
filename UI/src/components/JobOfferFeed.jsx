@@ -47,7 +47,7 @@ function JobOfferFeed(props) {
         setPopupMessage("");
     };
     return(
-        <div className="job-feed bg-gray-200 p-4 relative min-h-screen">
+        <div className="job-feed bg-gray-200 p-4 relative min-h-screen border-x-2 border-slate-600">
             <p className="mt-5">Jobs You Might Like</p>
             {Array.isArray(props.jobs) ?
                 (
