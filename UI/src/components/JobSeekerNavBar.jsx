@@ -7,6 +7,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const JobSeekerNavBar = ({ updateJobData }) => {
     const userData = JSON.parse(localStorage.getItem('userData'));
+    localStorage.setItem("userData2", JSON.stringify(userData))
     const userName = userData ? userData.name : "ERROR"; // Default to "John Doe" if userData is not available
 
     const [menuOpen, setMenuOpen] = useState(false); // State variable to track menu open/close

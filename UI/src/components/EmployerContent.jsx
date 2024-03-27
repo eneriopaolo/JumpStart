@@ -91,7 +91,7 @@ const EmployerContent = () => {
         );
 
         const data = await response.json();
-        localStorage.setItem("userData", JSON.stringify(data));
+        localStorage.setItem("userData2", JSON.stringify(data));
         console.log("THIS", JSON.parse(localStorage.getItem("userData")));
       } catch (error) {
         console.error("Error fetching applicant data:", error);

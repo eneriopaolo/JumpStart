@@ -6,7 +6,7 @@ import "../css/JobProfile.css"; // Import CSS file
 
 const JobProfile = () => {
 
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    const userData = JSON.parse(localStorage.getItem('userData2'));
     const currentUserData = JSON.parse(localStorage.getItem('currentUserData')); // Assuming you have current user data stored
     const [editMode, setEditMode] = useState(false);
     const [newUsername, setNewUsername] = useState(userData ? userData.name : "");
@@ -59,6 +59,7 @@ const JobProfile = () => {
                 setEditMode(false);
                 // Update the bio in local storage if needed
                 const updatedUserData = { ...userData, name: newUsername, profile: { ...userData.profile, bio: newBio, education: newEducation, experience: newExperience, skills: newSkills } };
+                localStorage.setItem('userData2', JSON.stringify(updatedUserData));
                 localStorage.setItem('userData', JSON.stringify(updatedUserData));
             } else {
                 // Handle error responses
