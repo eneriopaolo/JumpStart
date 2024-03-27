@@ -92,7 +92,7 @@ const EmployerContent = () => {
       }
     }
     console.log("Where", localStorage.getItem('userData'));
-    navigate(`/view-profile-page`);
+    navigate(`/view-job-profile-page`);
   };
 
   const handleHire = async (application) => {
