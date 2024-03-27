@@ -17,7 +17,7 @@ import ApplicationStatusPage from "./pages/ApplicationStatusPage";
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="min-h-screen">
+      <div className="min-h-screen container mx-auto">
         <Routes>
           <Route path="/signup" element={<TypeofUser />} />
           <Route exact path="/" element={<LoginPage />} />
