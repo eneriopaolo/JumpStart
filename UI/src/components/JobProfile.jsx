@@ -4,6 +4,7 @@ import "../css/JobProfile.css"; // Import CSS file
 const JobProfile = () => {
 
     const userData = JSON.parse(localStorage.getItem('userData'));
+    const currentUserData = JSON.parse(localStorage.getItem('currentUserData')); // Assuming you have current user data stored
     const [editMode, setEditMode] = useState(false);
     const [newUsername, setNewUsername] = useState(userData ? userData.name : "");
     const [newBio, setNewBio] = useState(userData ? userData.profile.bio : "");
@@ -12,6 +13,7 @@ const JobProfile = () => {
     const [newSkills, setNewSkills] = useState(userData ? userData.profile.skills : []);
 
     console.log("userData from localStorage:", userData); // Log userData
+    console.log("currentuserData from localStorage:", currentUserData); // Log userData
 
     const userName = userData ? userData.name : "ERROR"; // Default to "John Doe" if userData is not available
     const email = userData ? userData.email : "ERROR"; // Default to "John Doe" if userData is not available
@@ -22,6 +24,7 @@ const JobProfile = () => {
 
     console.log("JobSeekerNavBar component rendered");
 
+    const isCurrentUser = currentUserData && currentUserData._id === userData._id;
 
     const handleEditClick = () => {
         setEditMode(true);
@@ -94,10 +97,7 @@ const JobProfile = () => {
                     </div>
                 </div>
                 <div className="ml-auto space-x-2">
-                    {!editMode && <button onClick={handleEditClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>}
-                    {/* <button onClick={editMode ? handleSaveClick : handleEditClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        {editMode ? "Save" : "Edit"}
-                    </button> */}
+                    {isCurrentUser && !editMode && <button onClick={handleEditClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>}
                 </div>
             </div>
 
