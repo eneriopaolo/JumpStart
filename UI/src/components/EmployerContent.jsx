@@ -315,11 +315,6 @@ const EmployerContent = () => {
     selectedJob ? selectedJob.skillsRequired : []
   );
 
-  const description = userData ? userData.profile.bio : "ERROR"; // Default to "John Doe" if userData is not available
-  const category = userData ? userData.profile.education : "ERROR"; // Default to "John Doe" if userData is not available
-  const salary = userData ? userData.profile.experience : 0; // Default to "John Doe" if userData is not available
-  const skillsreq = userData ? userData.profile.skills : []; // Default to "John Doe" if userData is not available
-
   const handleEditClick = () => {
     setEditMode(true);
   };
