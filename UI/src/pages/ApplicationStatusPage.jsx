@@ -65,7 +65,7 @@ const ApplicationStatusPage = () => {
   };
 
   return (
-    <div className="application-status-page bg-gray-100 p-4 relative">
+    <div className="application-status-page bg-gray-200 p-4 relative min-h-screen">
       <h1 className="text-2xl font-bold mb-4">Application Status</h1>
       <button><Link to="/jobseeker-home-page">Back</Link></button>
       {isLoading ? (

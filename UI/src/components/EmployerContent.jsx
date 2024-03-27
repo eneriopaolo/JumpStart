@@ -61,9 +61,9 @@ const EmployerContent = () => {
       applications: prev.applications.map((app) =>
         app.applicant._id === application.applicant._id
           ? {
-            ...app,
-            applicationStatus: "Accepted",
-          }
+              ...app,
+              applicationStatus: "Accepted",
+            }
           : app
       ),
     }));
@@ -77,21 +77,27 @@ const EmployerContent = () => {
     );
     if (application.applicant) {
       try {
-        const token = String(localStorage.getItem("token")).replace(/['"]+/g, "");
-        const response = await fetch(`http://localhost:3000/api/profile/jobseeker/${application.applicant}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const token = String(localStorage.getItem("token")).replace(
+          /['"]+/g,
+          ""
+        );
+        const response = await fetch(
+          `http://localhost:3000/api/profile/jobseeker/${application.applicant}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const data = await response.json();
         localStorage.setItem("userData", JSON.stringify(data));
-        console.log("THIS", JSON.parse(localStorage.getItem('userData')));
+        console.log("THIS", JSON.parse(localStorage.getItem("userData")));
       } catch (error) {
         console.error("Error fetching applicant data:", error);
       }
     }
-    console.log("Where", localStorage.getItem('userData'));
+    console.log("Where", localStorage.getItem("userData"));
     navigate(`/view-job-profile-page`);
   };
 
@@ -147,11 +153,11 @@ const EmployerContent = () => {
           applications: prevJob.applications.map((app) =>
             app._id === application._id
               ? {
-                ...app,
-                applicationStatus: "Accepted",
-                applicantName:
-                  data.applicant?.name || app.applicantName || "Unknown",
-              }
+                  ...app,
+                  applicationStatus: "Accepted",
+                  applicantName:
+                    data.applicant?.name || app.applicantName || "Unknown",
+                }
               : app
           ),
         }));
@@ -260,21 +266,28 @@ const EmployerContent = () => {
   };
 
   const handleDeleteJobOffer = async (offerId) => {
-    const isConfirmed = window.confirm("Are you sure you want to delete this job offer?");
-
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this job offer?"
+    );
 
     if (isConfirmed) {
       try {
-        const token = String(localStorage.getItem("token")).replace(/['"]+/g, "");
-        const response = await fetch(`http://localhost:3000/api/job/myoffer/${offerId}`, {
-          method: 'DELETE',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const token = String(localStorage.getItem("token")).replace(
+          /['"]+/g,
+          ""
+        );
+        const response = await fetch(
+          `http://localhost:3000/api/job/myoffer/${offerId}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (response.ok) {
-          setJobs(jobs.filter(job => job._id !== offerId));
+          setJobs(jobs.filter((job) => job._id !== offerId));
           handleClose();
         } else {
           console.error("Failed to delete job offer");
@@ -285,8 +298,98 @@ const EmployerContent = () => {
     }
   };
 
+  const userData = JSON.parse(localStorage.getItem("userData"));
+
+  const [editMode, setEditMode] = useState(false);
+
+  const [newJobDescription, setNewJobDescription] = useState(
+    selectedJob ? selectedJob.jobDescription : ""
+  );
+  const [newJobCategory, setNewJobCategory] = useState(
+    selectedJob ? selectedJob.jobCategory : ""
+  );
+  const [newSalaryPerMonth, setNewSalaryPerMonth] = useState(
+    selectedJob ? selectedJob.salaryPerMonth : 0
+  );
+  const [newSkillsRequired, setNewSkillsRequired] = useState(
+    selectedJob ? selectedJob.skillsRequired : []
+  );
+
+  const description = userData ? userData.profile.bio : "ERROR"; // Default to "John Doe" if userData is not available
+  const category = userData ? userData.profile.education : "ERROR"; // Default to "John Doe" if userData is not available
+  const salary = userData ? userData.profile.experience : 0; // Default to "John Doe" if userData is not available
+  const skillsreq = userData ? userData.profile.skills : []; // Default to "John Doe" if userData is not available
+
+  const handleEditClick = () => {
+    setEditMode(true);
+  };
+
+  useEffect(() => {
+    if (selectedJob) {
+      setNewJobDescription(selectedJob.jobDescription || "");
+      setNewJobCategory(selectedJob.jobCategory || "");
+      setNewSalaryPerMonth(selectedJob.salaryPerMonth || 0);
+      setNewSkillsRequired(selectedJob.skillsRequired || []);
+    }
+  }, [selectedJob]);
+
+  const handleSaveClick = async () => {
+    try {
+      // Send PATCH request to update user profile
+      const token = String(localStorage.getItem("token")).replace(/['"]+/g, "");
+      const response = await fetch(
+        `http://localhost:3000/api/job/myoffer/${selectedJob._id}`,
+        {
+          // Updated to use selectedJob._id
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            jobDescription: newJobDescription, // Assuming these are the fields you want to update
+            jobCategory: newJobCategory,
+            salaryPerMonth: newSalaryPerMonth,
+            skillsRequired: newSkillsRequired,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        // Update local storage or any other state as needed
+        setEditMode(false);
+        // Update the job description in local storage if needed
+        const updatedJobData = {
+          ...selectedJob,
+          jobDescription: newJobDescription,
+          jobCategory: newJobCategory,
+          salaryPerMonth: newSalaryPerMonth,
+          skillsRequired: newSkillsRequired,
+        };
+        setSelectedJob(updatedJobData);
+        setEditMode(false);
+
+        window.location.reload();
+      } else {
+        // Handle error responses
+        console.error("Failed to update job offer");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const handleCancelClick = () => {
+    setEditMode(false);
+    // Reset the newBio state to the original bio
+    setNewJobDescription(selectedJob ? selectedJob.jobDescription : "");
+    setNewJobCategory(selectedJob ? selectedJob.jobCategory : "");
+    setNewSalaryPerMonth(selectedJob ? selectedJob.salaryPerMonth : "");
+    setNewSkillsRequired(selectedJob ? selectedJob.skillsRequired : []);
+  };
+
   return (
-    <div className="job-feed bg-gray-100 p-4 relative">
+    <div className="job-feed bg-gray-200 p-4 relative min-h-screen">
       <p className="mt-5">My Job Offers</p>
       {Array.isArray(jobs) ? (
         jobs.map((job, index) => (
@@ -304,7 +407,7 @@ const EmployerContent = () => {
                   : "Unknown"}
               </span>
             </p>
-            <p>{job.jobDescription} </p>
+            <p>{job.jobDescription}</p>
             <br />
             <p className="text-gray-600 text-lg mb-4">
               <span>Salary: {job.salaryPerMonth}, </span>
@@ -354,28 +457,79 @@ const EmployerContent = () => {
                 Offered By:{" "}
                 <span className="font-semibold">
                   {selectedJob.offeredBy &&
-                    selectedJob.offeredBy.profile &&
-                    selectedJob.offeredBy.profile.name
+                  selectedJob.offeredBy.profile &&
+                  selectedJob.offeredBy.profile.name
                     ? selectedJob.offeredBy.profile.name
                     : "Unknown"}
                 </span>
               </p>
               <div className="border-b mb-8"></div>
-              <p className="text-gray-700 text-xl mb-6">
-                {selectedJob.jobDescription}
-              </p>
+
+              {editMode ? (
+                <textarea
+                  value={newJobDescription}
+                  onChange={(e) => setNewJobDescription(e.target.value)}
+                  className="w-full ext-gray-700 mb-6 text-xl"
+                />
+              ) : (
+                <p className="text-gray-700 text-xl mb-6">
+                  {selectedJob && selectedJob.jobDescription}
+                </p>
+              )}
+
               <div className="border-b mb-8"></div>
               <div className="flex justify-between text-gray-600 mb-4">
                 <span className="text-xl">
-                  Salary: {selectedJob.salaryPerMonth}
-                </span>
-                <span className="text-xl">
+                  Salary:
+                  {editMode ? (
+                    <textarea
+                      value={newSalaryPerMonth}
+                      onChange={(e) => setNewSalaryPerMonth(e.target.value)}
+                      className="w-full rounded border-grey border-2 pl-2 pt-1"
+                    />
+                  ) : (
+                    <p className="text-gray-700 text-xl mb-6">
+                      {selectedJob && selectedJob.salaryPerMonth}
+                    </p>
+                  )}
                   Skills Required:{" "}
-                  {selectedJob.skillsRequired.join(", ") || "NONE"}
+                  {editMode ? (
+                    <textarea
+                      value={newSkillsRequired}
+                      onChange={(e) =>
+                        setNewSkillsRequired(e.target.value.split(", "))
+                      }
+                      className="w-full rounded border-grey border-2 pl-2 pt-1"
+                    />
+                  ) : (
+                    <p className="text-gray-700 text-xl mb-6">
+                      {selectedJob &&
+                      Array.isArray(selectedJob.skillsRequired) &&
+                      selectedJob.skillsRequired.length > 0
+                        ? selectedJob.skillsRequired.join(", ")
+                        : "NONE"}
+                    </p>
+                  )}
+                  Experience Required:
+                  {editMode ? (
+                    <select
+                      value={newJobCategory}
+                      onChange={(e) => setNewJobCategory(e.target.value)}
+                      className="w-full rounded border-grey border-2 pl-1 pb-1"
+                    >
+                      <option value="entry">Entry Level</option>
+                      <option value="intermediate">Intermediate Level</option>
+                      <option value="expert">Expert Level</option>
+                    </select>
+                  ) : (
+                    <p className="text-gray-700 text-xl mb-6">
+                      {selectedJob && selectedJob.jobCategory}
+                    </p>
+                  )}
                 </span>
-                <span className="text-xl">
-                  Experience Required: {selectedJob.jobCategory}
-                </span>
+                <span className="text-xl"></span>
+
+                <span className="text-xl"></span>
               </div>
               <div className="border-b mb-8"></div>
               <span className="flex justify-between text-gray-600 mb-4 text-xl">
@@ -435,8 +589,36 @@ const EmployerContent = () => {
                       </div>
                     ))}
 
+                {!editMode && (
+                  <button
+                    onClick={handleEditClick}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5"
+                  >
+                    Edit
+                  </button>
+                )}
+
+                <div className="flex justify-center space-x-5">
+                  {editMode && (
+                    <button
+                      onClick={handleCancelClick}
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5 w-full"
+                    >
+                      Cancel
+                    </button>
+                  )}
+                  {editMode && (
+                    <button
+                      onClick={handleSaveClick}
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5 w-full"
+                    >
+                      Save
+                    </button>
+                  )}
+                </div>
+
                 <button
-                  className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
+                  className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 mt-5"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleDeleteJobOffer(selectedJob._id);
@@ -469,4 +651,3 @@ const EmployerContent = () => {
 };
 
 export default EmployerContent;
-

@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { FaPencilAlt } from "react-icons/fa";
+import { IoIosSave } from "react-icons/io";
+import { MdCancel } from "react-icons/md";
 import "../css/JobProfile.css"; // Import CSS file
 
 const JobProfile = () => {
@@ -97,7 +100,7 @@ const JobProfile = () => {
                     </div>
                 </div>
                 <div className="ml-auto space-x-2">
-                    {isCurrentUser && !editMode && <button onClick={handleEditClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>}
+                    {isCurrentUser && !editMode && <button onClick={handleEditClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><FaPencilAlt /></button>}
                 </div>
             </div>
 
@@ -162,8 +165,8 @@ const JobProfile = () => {
                 )}
             </div>
             <div className="flex justify-center space-x-5 mt-5">
-                {editMode && <button onClick={handleCancelClick} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">Cancel</button>}
-                {editMode && <button onClick={handleSaveClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save</button>}
+                {editMode && <button onClick={handleCancelClick} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"><MdCancel /></button>}
+                {editMode && <button onClick={handleSaveClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"><IoIosSave className="mr-2" />Save</button>}
             </div>
         </div>
     );
