@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { viewMyApplications } from "../lib/jobapplication.fetch";
 import { viewEmployerProfile } from "../lib/profile.fetch";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const ApplicationStatusPage = () => {
   const [applications, setApplications] = useState([]);
@@ -17,7 +17,6 @@ const ApplicationStatusPage = () => {
     const fetchApplications = async () => {
       setIsLoading(true);
       try {
-        const token = String(localStorage.getItem("token")).replace(/['"]+/g, "");
         const response = await viewMyApplications();
         const data = await response.json();
         setApplications(data);
@@ -36,10 +35,7 @@ const ApplicationStatusPage = () => {
 
     const fetchEmployerNames = async () => {
       try {
-        const token = String(localStorage.getItem("token")).replace(/['"]+/g, "");
-
         const employerIds = [...new Set(applications.map(application => application.jobOffer.offeredBy))];
-
         const namesPromises = employerIds.map(async (employerId) => {
           const response = await viewEmployerProfile(employerId);
           const data = await response.json();
@@ -61,7 +57,7 @@ const ApplicationStatusPage = () => {
   return (
     <div className="application-status-page bg-gray-100 p-4 relative">
       <h1 className="text-2xl font-bold mb-4">Application Status</h1>
-      
+      <button><Link to ="/jobseeker-home-page">Back</Link></button>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
