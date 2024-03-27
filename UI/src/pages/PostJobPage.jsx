@@ -1,9 +1,13 @@
 import React, {useState} from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import EmployerNavBar from "../components/EmployerNavBar";
 import { postJobOffer } from "../lib/joboffer.fetch"
 
 function PostJobPage() {
+    if(!localStorage.getItem("token")){
+        localStorage.clear();
+        return <Navigate to="/"/>
+      };
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         jobTitle: "",

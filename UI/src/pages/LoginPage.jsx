@@ -22,6 +22,7 @@ const Login = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         clearState();
+        clearLocalStorage();
 
         try {
             const response = await loginUser(email, password);

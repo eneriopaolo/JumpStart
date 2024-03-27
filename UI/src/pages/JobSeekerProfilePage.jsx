@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Navigate} from "react-router-dom";
 import JobSeekerNavBar from "../components/JobSeekerNavBar";
 import JobProfile from "../components/JobProfile";
 
 const JobSeekerProfilePage = () => {
+    if(!localStorage.getItem("token")){
+        localStorage.clear();
+        return <Navigate to="/"/>
+      };
     return (
         <div>
             <JobSeekerNavBar />

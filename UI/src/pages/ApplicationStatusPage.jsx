@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { viewMyApplications } from "../lib/jobapplication.fetch";
 import { viewEmployerProfile } from "../lib/profile.fetch";
+import { Navigate } from "react-router-dom";
 
 const ApplicationStatusPage = () => {
   const [applications, setApplications] = useState([]);
   const [employerNames, setEmployerNames] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  if(!localStorage.getItem("token")){
+    localStorage.clear();
+    return <Navigate to="/"/>
+  };
 
   useEffect(() => {
     const fetchApplications = async () => {
