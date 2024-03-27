@@ -11,9 +11,7 @@ const JobSearchBar = () => {
 
     function searchJobs() {
         let data = searchJobsByTitle(jobTitle)
-        console.log(data)
         setJobs(data)
-        console.log(jobs)
     }
 
     return (

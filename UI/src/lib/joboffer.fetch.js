@@ -1,4 +1,4 @@
-async function postJobOffer(title, desc, category, salary, skills){
+async function postJobOffer(title, desc, category, salary, skills){   
     const token = String(localStorage.getItem("token")).replace(/['"]+/g, '');
     const myHeaders = {
         "Content-Type": "application/json",
@@ -21,7 +21,7 @@ async function postJobOffer(title, desc, category, salary, skills){
     };
 
     const URI = 'http://localhost:3000/api/job';
-    const response = await fetch(URI, reqOptions)
+    const response = await fetch(URI, reqOptions);
     return response
 };
 
@@ -44,7 +44,7 @@ async function searchJobsByTitle(title){
     const URI = 'http://localhost:3000/api/job/search/title';
     const response = await fetch(URI, reqOptions);
     return response.json();
-}
+};
 
 export { 
     searchJobsByTitle,

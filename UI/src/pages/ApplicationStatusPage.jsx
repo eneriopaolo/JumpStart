@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { viewMyApplications } from "../lib/jobapplication.fetch";
+import { viewEmployerProfile } from "../lib/profile.fetch";
 
 const ApplicationStatusPage = () => {
   const [applications, setApplications] = useState([]);
@@ -10,12 +12,7 @@ const ApplicationStatusPage = () => {
       setIsLoading(true);
       try {
         const token = String(localStorage.getItem("token")).replace(/['"]+/g, "");
-        const response = await fetch("http://localhost:3000/api/application", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
+        const response = await viewMyApplications();
         const data = await response.json();
         setApplications(data);
         setIsLoading(false);
@@ -38,11 +35,7 @@ const ApplicationStatusPage = () => {
         const employerIds = [...new Set(applications.map(application => application.jobOffer.offeredBy))];
 
         const namesPromises = employerIds.map(async (employerId) => {
-          const response = await fetch(`http://localhost:3000/api/profile/employer/${employerId}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+          const response = await viewEmployerProfile(employerId);
           const data = await response.json();
           return { [employerId]: data.name };
         });
