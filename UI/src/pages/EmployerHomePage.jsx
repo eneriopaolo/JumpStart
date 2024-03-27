@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Navigate } from "react-router-dom";
 import EmployerNavBar from "../components/EmployerNavBar";
 import EmployerContent from "../components/EmployerContent";
@@ -9,10 +9,10 @@ const EmployerHomePage = () => {
     return <Navigate to="/"/>
   };
   return (
-    <div>
+    <>
       <EmployerNavBar />
       <EmployerContent />
-    </div>
+    </>
   );
 };
 

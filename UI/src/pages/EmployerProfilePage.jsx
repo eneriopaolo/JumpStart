@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from "react";
-import { searchJobsByTitle } from "../lib/joboffer.fetch";
+import React from "react";
 import { Navigate } from "react-router-dom";
 import "../css/JobProfile.css"; // Import CSS file
 import EmployerNavBar from "../components/EmployerNavBar";
@@ -11,11 +10,10 @@ const EmployerProfilePage = () => {
         return <Navigate to="/"/>
       };
     return (
-        <div>
+        <>
             <EmployerNavBar />
             <EmployerProfile />
-            
-        </div>
+        </>
     );
 };
 

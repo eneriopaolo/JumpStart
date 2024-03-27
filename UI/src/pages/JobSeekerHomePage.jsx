@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Navigate } from "react-router-dom";
 import JobSeekerNavBar from "../components/JobSeekerNavBar";
 import JobFeed from "../components/JobFeed";
@@ -9,10 +9,10 @@ const JobSeekerHomePage = () => {
         return <Navigate to="/"/>
       };
     return (
-        <div>
+        <>
             <JobSeekerNavBar />
             <JobFeed/>
-        </div>
+        </>
     );
 };
 
