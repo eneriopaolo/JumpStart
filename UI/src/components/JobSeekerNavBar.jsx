@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { searchJobsByTitle } from "../lib/joboffer.fetch";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { IoLogOut } from "react-icons/io5";
 
-const JobSeekerNavBar = ({updateJobData}) => {
+const JobSeekerNavBar = ({ updateJobData }) => {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const userName = userData ? userData.name : "ERROR"; // Default to "John Doe" if userData is not available
 
@@ -47,7 +49,7 @@ const JobSeekerNavBar = ({updateJobData}) => {
                     className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none"
                     onClick={searchJobs}
                 >
-                    Search
+                    <FaMagnifyingGlass />
                 </button>
             </div>
 
@@ -61,7 +63,12 @@ const JobSeekerNavBar = ({updateJobData}) => {
                         {/* Add additional buttons here */}
                         <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200"><Link to="/jobseeker-profile-page" className="">Profile</Link></button>
                         <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200"><Link to="/view-application-status" className="">Application Status</Link></button>
-                        <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200" onClick={clearLocalStorage}><Link to="/" className="">Logout</Link></button>
+                        <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200" onClick={clearLocalStorage}><Link to="/">
+                            <div className="flex items-center justify-between">
+                                <span>Logout</span>
+                                <IoLogOut />
+                            </div>
+                        </Link></button>
                     </div>
                 )}
             </div>
