@@ -55,7 +55,7 @@ const SignUpJobSeeker = () => {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-500">
+        <div className="flex flex-col items-center justify-center h-screen bg-gray-400">
             <div className="w-full max-w-md px-8 py-12 bg-white rounded-lg shadow-md">
                 <div className="text-center mb-8">
                     <h1 className="text-2xl font-bold text-gray-800 mb-4">Sign Up as a Job Seeker</h1>
@@ -122,14 +122,14 @@ const SignUpJobSeeker = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full py-2 px-4 text-center bg-red-700 text-white rounded-lg hover:bg-red-900"
+                        className="w-full py-2 px-4 text-center bg-green-600 text-white rounded-lg hover:bg-green-900"
                     >
                         Sign Up
                     </button>
                     <div className="text-center mt-4">
                         <p className="text-sm text-gray-500">
                             Already have an account?
-                            <Link to="/" className="text-red-700 px-1 hover:underline">
+                            <Link to="/" className="text-green-700 px-1 hover:underline">
                                 Log In
                             </Link>
                         </p>

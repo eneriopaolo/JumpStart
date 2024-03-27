@@ -70,7 +70,7 @@ const Login = () => {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-500">
+        <div className="flex flex-col items-center justify-center h-screen bg-gray-400">
             <div className="w-full max-w-md px-8 py-12 bg-white rounded-lg shadow-md">
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-gray-800">Log in to JumpStart</h1>
@@ -108,7 +108,7 @@ const Login = () => {
 
                     <button
                         type="submit"
-                        className="w-full py-2 px-4 text-center bg-red-700 text-white rounded-lg hover:bg-red-900"
+                        className="w-full py-2 px-4 text-center bg-green-600 text-white rounded-lg hover:bg-green-900"
                     >
                         Continue
                     </button>
@@ -116,7 +116,7 @@ const Login = () => {
                     <div className="text-center mt-12">
                         <p className="text-sm text-gray-500">
                             Don't have an account?
-                            <Link to="/signup" className="text-sm text-red-700 px-1 hover:underline">
+                            <Link to="/signup" className="text-sm text-green-700 px-1 hover:underline">
                                 Sign Up
                             </Link>
                         </p>

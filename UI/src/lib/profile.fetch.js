@@ -12,7 +12,7 @@ async function viewJobSeekerProfile(id){
     return response
 };
 
-async function viewEmployerProfile(userid){
+async function viewEmployerProfile(id){
     const token = String(localStorage.getItem("token")).replace(/['"]+/g, '');
     const reqHeaders = {"Authorization": `Bearer ${token}`};
 
