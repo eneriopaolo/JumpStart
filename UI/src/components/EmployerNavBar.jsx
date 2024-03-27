@@ -11,8 +11,9 @@ const EmployerNavBar = () => {
     setMenuOpen(!menuOpen);
   };
 
-  // console.log("userData from localStorage:", userData); // Log userData
-  // console.log(localStorage)
+  const clearLocalStorage = () => {
+    localStorage.clear();
+  };
 
   const userName = userData ? userData.name : "ERROR"; // Default to "ERROR" if userData is not available
   console.log("EmployerNavBar component rendered");
@@ -55,7 +56,7 @@ const EmployerNavBar = () => {
                   {/* Add additional buttons here */}
                   <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200"><Link to="/employer-profile-page" className="">Profile</Link></button>
                   <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200"><Link to="/view-application-status" className="">Application Status</Link></button>
-                  <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200" onClick={localStorage.clear()}><Link to="/" className="">Logout</Link></button>
+                  <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200" onClick={clearLocalStorage}><Link to="/" className="">Logout</Link></button>
               </div>
           )}
       </div>

@@ -16,6 +16,10 @@ const JobSeekerNavBar = () => {
         setMenuOpen(!menuOpen);
     };
 
+    const clearLocalStorage = () => {
+        localStorage.clear();
+    };
+
     return (
         <div className="flex items-center justify-between bg-white border-b border-gray-300 relative">
             <div className="flex items-center">
@@ -35,7 +39,7 @@ const JobSeekerNavBar = () => {
                         {/* Add additional buttons here */}
                         <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200"><Link to="/jobseeker-profile-page" className="">Profile</Link></button>
                         <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200"><Link to="/view-application-status" className="">Application Status</Link></button>
-                        <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200" onClick={localStorage.clear()}><Link to="/" className="">Logout</Link></button>
+                        <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200" onClick={clearLocalStorage}><Link to="/" className="">Logout</Link></button>
                     </div>
                 )}
             </div>
