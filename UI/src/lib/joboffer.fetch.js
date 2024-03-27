@@ -12,6 +12,20 @@ async function viewJobOffers(){
     return response
 };
 
+async function viewOwnJobOffers(){
+    const token = String(localStorage.getItem("token")).replace(/['"]+/g, '');
+    const reqHeaders = {"Authorization": `Bearer ${token}`};
+
+    let reqOptions = {
+        method: 'GET',
+        headers: reqHeaders
+    };
+
+    const URI = 'http://localhost:3000/api/job/myoffer';
+    const response = await fetch(URI, reqOptions);
+    return response
+};
+
 async function postJobOffer(title, desc, category, salary, skills){   
     const token = String(localStorage.getItem("token")).replace(/['"]+/g, '');
     const myHeaders = {
@@ -107,6 +121,7 @@ async function searchJobsBySalary(minSalary, maxSalary){
 
 export { 
     viewJobOffers,
+    viewOwnJobOffers,
     postJobOffer,
     searchJobsByTitle,
     searchJobsByCategory,
