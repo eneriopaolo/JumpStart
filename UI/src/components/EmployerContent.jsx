@@ -260,22 +260,28 @@ const EmployerContent = () => {
   };
 
   const handleDeleteJobOffer = async (offerId) => {
-    try {
-      const token = String(localStorage.getItem("token")).replace(/['"]+/g, "");
-      const response = await fetch(`http://localhost:3000/api/job/myoffer/${offerId}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    const isConfirmed = window.confirm("Are you sure you want to delete this job offer?");
 
-      if (response.ok) {
-        setJobs(jobs.filter(job => job._id !== offerId));
-      } else {
-        console.error("Failed to delete job offer");
+
+    if (isConfirmed) {
+      try {
+        const token = String(localStorage.getItem("token")).replace(/['"]+/g, "");
+        const response = await fetch(`http://localhost:3000/api/job/myoffer/${offerId}`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          setJobs(jobs.filter(job => job._id !== offerId));
+          handleClose();
+        } else {
+          console.error("Failed to delete job offer");
+        }
+      } catch (error) {
+        console.error("Error deleting job offer:", error);
       }
-    } catch (error) {
-      console.error("Error deleting job offer:", error);
     }
   };
 
@@ -432,7 +438,7 @@ const EmployerContent = () => {
                 <button
                   className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
                   onClick={(e) => {
-                    e.stopPropagation(); 
+                    e.stopPropagation();
                     handleDeleteJobOffer(selectedJob._id);
                   }}
                 >
