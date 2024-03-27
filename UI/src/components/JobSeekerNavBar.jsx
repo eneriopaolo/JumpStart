@@ -67,12 +67,7 @@ const JobSeekerNavBar = ({ updateJobData }) => {
                         {/* Add additional buttons here */}
                         <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200"><Link to="/jobseeker-profile-page" className="">Profile</Link></button>
                         <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200"><Link to="/view-application-status" className="">Application Status</Link></button>
-                        <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200" onClick={clearLocalStorage}><Link to="/">
-                            <div className="flex items-center justify-between">
-                                <span>Logout</span>
-                                <IoLogOut />
-                            </div>
-                        </Link></button>
+                        <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200" onClick={clearLocalStorage}><Link to="/" className="">Logout</Link></button>
                     </div>
                 )}
             </div>

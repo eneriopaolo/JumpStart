@@ -53,7 +53,7 @@ const JobProfile = () => {
                     name: newUsername
                 }),
             });
-            
+
             if (response.ok) {
                 // Update local storage or any other state as needed
                 setEditMode(false);
@@ -68,7 +68,7 @@ const JobProfile = () => {
             console.error('Error:', error);
         }
     };
-    
+
     const handleCancelClick = () => {
         setEditMode(false);
         // Reset the newBio state to the original bio
@@ -106,7 +106,7 @@ const JobProfile = () => {
 
             <div className="about-section">
                 <div className="text-gray-800 flex justify-between items-center">
-                    <h3>About Me</h3>  
+                    <h3>About Me</h3>
                 </div>
                 {editMode ? (
                     <textarea
@@ -117,7 +117,7 @@ const JobProfile = () => {
                 ) : (
                     <p>{aboutMeBio}</p>
                 )}
-                
+
             </div>
 
             <div className="education-section">
@@ -165,7 +165,7 @@ const JobProfile = () => {
                 )}
             </div>
             <div className="flex justify-center space-x-5 mt-5">
-                {editMode && <button onClick={handleCancelClick} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"><MdCancel /></button>}
+                {editMode && <button onClick={handleCancelClick} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded flex items-center"><span className="mr-2">Cancel</span><MdCancel /></button>}
                 {editMode && <button onClick={handleSaveClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"><span className="mr-2">Save</span><IoIosSave /></button>}
             </div>
         </div>
