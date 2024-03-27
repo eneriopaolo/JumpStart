@@ -60,7 +60,7 @@ const ApplicationStatusPage = () => {
       case 'Denied':
         return 'bg-red-200';
       default:
-        return 'bg-gray-200';
+        return 'bg-yellow-100';
     }
   };
 
