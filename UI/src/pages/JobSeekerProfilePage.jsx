@@ -7,7 +7,7 @@ const JobSeekerProfilePage = () => {
     return (
         <div>
             <JobSeekerNavBar />
-            <JobProfile/>
+            <JobProfile />
         </div>
     );
 };

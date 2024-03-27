@@ -37,6 +37,7 @@
 .about-section,
 .education-section,
 .experience-section,
+.address-section,
 .skills-section {
     margin-top: 20px;
 }
@@ -44,6 +45,7 @@
 .about-section h3,
 .education-section h3,
 .experience-section h3,
+.address-section h3,
 .skills-section h3 {
     color: #333;
     font-size: 20px;
@@ -53,6 +55,7 @@
 .about-section p,
 .education-section p,
 .experience-section p,
+.address-section p,
 .skills-section p {
     line-height: 1.6;
 }

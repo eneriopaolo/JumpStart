@@ -94,10 +94,10 @@ const JobProfile = () => {
                     </div>
                 </div>
                 <div className="ml-auto space-x-2">
-                    {editMode && <button onClick={handleCancelClick} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">Cancel</button>}
-                    <button onClick={editMode ? handleSaveClick : handleEditClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    {!editMode && <button onClick={handleEditClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>}
+                    {/* <button onClick={editMode ? handleSaveClick : handleEditClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         {editMode ? "Save" : "Edit"}
-                    </button>
+                    </button> */}
                 </div>
             </div>
 
@@ -160,6 +160,10 @@ const JobProfile = () => {
                 ) : (
                     <p>{skills && skills.length ? skills.join(", ") : "None"}</p>
                 )}
+            </div>
+            <div className="flex justify-center space-x-5 mt-5">
+                {editMode && <button onClick={handleCancelClick} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">Cancel</button>}
+                {editMode && <button onClick={handleSaveClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save</button>}
             </div>
         </div>
     );
