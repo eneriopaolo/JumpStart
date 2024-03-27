@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { searchJobsByCategory, searchJobsBySalary } from "../lib/joboffer.fetch";
+import { viewMyApplications, sendJobApplication } from "../lib/jobapplication.fetch";
 
 const FindJobContent = () => {
   const [jobs, setJobs] = useState([]); // Original list of jobs fetched from the API
@@ -14,21 +16,9 @@ const FindJobContent = () => {
   useEffect(() => {
     const fetchJobsByJobCategory = async () => {
       try {
-        const token = String(localStorage.getItem("token")).replace(/['"]+/g, '');
-        
-        const response = await fetch(`http://localhost:3000/api/job/search/category`, {
-          method: 'POST',
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ jobCategory: selectedJobCategory })
-        });
-
+        const response = await searchJobsByCategory(selectedJobCategory);
         const data = await response.json();
-        console.log("Category",data)
         setCategoryData(data);
-        console.log(categorydata)
 
         if (Array.isArray(data)) {
           return data;
@@ -44,19 +34,8 @@ const FindJobContent = () => {
 
     const fetchJobsBySalary = async () => {
       try {
-        const token = String(localStorage.getItem("token")).replace(/['"]+/g, '');
-        
-        const response = await fetch(`http://localhost:3000/api/job/search/salary`, {
-          method: 'POST',
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ min: minSalary, max: maxSalary })
-        });
-
+        const response = await searchJobsBySalary(minSalary, maxSalary)
         const data = await response.json();
-        console.log("Salary", data)
 
         if (Array.isArray(data)) {
           return data;
@@ -97,21 +76,9 @@ const FindJobContent = () => {
 
   // Placeholder for applying to a job
   const handleApplyNow = async (job) => {
-    console.log("Applying for job:", job);
-    console.log("Job Object:", job);
-
     try {
-      const token = String(localStorage.getItem("token")).replace(/['"]+/g, '');
-      
       const offerId = String(job._id).replace(/['"]+/g, '');
-      console.log(offerId);
-      
-      const applicationResponse = await fetch(`http://localhost:3000/api/application`, {
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      });
-  
+      const applicationResponse = await viewMyApplications();
       const applications = await applicationResponse.json(); 
       const hasApplied = applications.some(application => application.jobOffer._id === offerId);
   
@@ -120,16 +87,8 @@ const FindJobContent = () => {
         setShowPopup(true);
         return;
       }
-  
-      const response = await fetch(`http://localhost:3000/api/application/${offerId}`, {
-        method: 'POST',
-        headers: {
-          "Authorization": `Bearer ${token}`
-        },
-      });
-  
+      const response = await sendJobApplication(offerId);
       const data = await response.json();
-  
       if (response.ok) {
         setPopupMessage("Application sent successfully!");
         setShowPopup(true);
@@ -278,6 +237,3 @@ const FindJobContent = () => {
 };
 
 export default FindJobContent;
-
-
-                 
