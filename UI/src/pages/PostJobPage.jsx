@@ -63,7 +63,7 @@ function PostJobPage() {
         }
     };
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-500">
+        <div className="flex flex-col items-center justify-center h-screen bg-gray-400">
 
             <div className="w-full max-w-3xl px-8 py-10 bg-white rounded-lg shadow-md">
 
@@ -149,13 +149,13 @@ function PostJobPage() {
                     <div className="flex flex-col space-y-3 pt-5">
                         <button
                             type="submit"
-                            className="w-full py-2 px-4 text-center bg-red-700 text-white rounded-lg hover:bg-red-900"
+                            className="w-full py-2 px-4 text-center bg-green-600 text-white rounded-lg hover:bg-green-900 hover:font-bold"
                         >
                             Post Job Offer
                         </button>
                         <button
                             type="submit"
-                            className="w-full py-2 px-4 text-center bg-red-700 text-white rounded-lg hover:bg-red-900"
+                            className="w-full py-2 px-4 text-center bg-green-600 text-white rounded-lg hover:bg-green-900 hover:font-bold"
                             onClick={() => navigate("/employer-home-page")}
                         >
                             Cancel
