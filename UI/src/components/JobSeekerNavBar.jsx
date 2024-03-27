@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { searchJobsByTitle } from "../lib/joboffer.fetch";
 import JumpStartLogo from "../assets/JumpStartLogo.png";
 import { IoLogOut } from "react-icons/io5";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const JobSeekerNavBar = ({ updateJobData }) => {
     const userData = JSON.parse(localStorage.getItem('userData'));
