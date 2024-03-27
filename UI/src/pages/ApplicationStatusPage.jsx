@@ -45,7 +45,6 @@ const ApplicationStatusPage = () => {
         const namesArray = await Promise.all(namesPromises);
         const namesObject = Object.assign({}, ...namesArray);
         setEmployerNames(namesObject);
-        console.log(employerNames)
       } catch (error) {
         console.error("Error fetching employer names:", error);
       }
@@ -54,17 +53,31 @@ const ApplicationStatusPage = () => {
     fetchEmployerNames();
   }, [applications]);
 
+  const getBackgroundColor = (status) => {
+    switch (status) {
+      case 'Accepted':
+        return 'bg-green-200';
+      case 'Denied':
+        return 'bg-red-200';
+      default:
+        return 'bg-gray-200';
+    }
+  };
+
   return (
     <div className="application-status-page bg-gray-100 p-4 relative">
       <h1 className="text-2xl font-bold mb-4">Application Status</h1>
-      <button><Link to ="/jobseeker-home-page">Back</Link></button>
+      <button><Link to="/jobseeker-home-page">Back</Link></button>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
         <div>
           {applications.length > 0 ? (
             applications.map((application, index) => (
-              <div key={index} className="application-item bg-white rounded-lg shadow-md p-6 mb-4">
+              <div 
+                key={index} 
+                className={`application-item rounded-lg shadow-md p-6 mb-4 ${getBackgroundColor(application.applicationStatus)}`}
+              >
                 <h2 className="text-2xl font-bold mb-2">{application.jobOffer.jobTitle}</h2>
                 <p className="text-gray-700 mb-4">Offered By: <span className="font-semibold">{employerNames[application.jobOffer.offeredBy] || "Unknown"}</span></p>
                 <p>{application.jobOffer.jobDescription}</p>
