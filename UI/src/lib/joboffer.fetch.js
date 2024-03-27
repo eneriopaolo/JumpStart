@@ -60,8 +60,55 @@ async function searchJobsByTitle(title){
     return response
 };
 
+async function searchJobsByCategory(category){
+    const token = String(localStorage.getItem("token")).replace(/['"]+/g, '');
+    const myHeaders = {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+    };
+
+    let reqHeaders = new Headers(myHeaders);
+    let reqBody = JSON.stringify({"jobCategory": category});
+
+    let reqOptions = {
+        method: 'POST',
+        headers: reqHeaders,
+        body: reqBody
+    }
+
+    const URI = 'http://localhost:3000/api/job/search/category';
+    const response = await fetch(URI, reqOptions);
+    return response
+};
+
+async function searchJobsBySalary(minSalary, maxSalary){
+    const token = String(localStorage.getItem("token")).replace(/['"]+/g, '');
+    const myHeaders = {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+    };
+
+    let reqHeaders = new Headers(myHeaders);
+    let reqBody = JSON.stringify({
+        "min": minSalary,
+        "max": maxSalary
+    });
+
+    let reqOptions = {
+        method: 'POST',
+        headers: reqHeaders,
+        body: reqBody
+    }
+
+    const URI = 'http://localhost:3000/api/job/search/salary';
+    const response = await fetch(URI, reqOptions);
+    return response
+};
+
 export { 
     viewJobOffers,
+    postJobOffer,
     searchJobsByTitle,
-    postJobOffer
+    searchJobsByCategory,
+    searchJobsBySalary
 };
