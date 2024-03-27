@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import JumpStartLogo from "../assets/JumpStartLogo.png";
-
+import { IoLogOut } from "react-icons/io5";
 
 const EmployerNavBar = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -46,7 +46,12 @@ const EmployerNavBar = () => {
               <div className="absolute right-0 top-full bg-white border border-gray-300 w-48 z-10">
                   {/* Add additional buttons here */}
                   <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200"><Link to="/employer-profile-page" className="">Profile</Link></button>
-                  <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200" onClick={clearLocalStorage}><Link to="/" className="">Logout</Link></button>
+                  <button className="block w-full py-2 px-4 text-gray-800 hover:bg-gray-200" onClick={clearLocalStorage}><Link to="/">
+                  <div className="flex items-center justify-between">
+                    <span>Logout</span>
+                    <IoLogOut />
+                  </div>
+                    </Link></button>
               </div>
           )}
       </div>
