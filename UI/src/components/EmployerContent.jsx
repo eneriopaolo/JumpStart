@@ -485,7 +485,7 @@ const EmployerContent = () => {
                     <textarea
                       value={newSalaryPerMonth}
                       onChange={(e) => setNewSalaryPerMonth(e.target.value)}
-                      className="w-full "
+                      className="w-full rounded border-grey border-2 pl-2 pt-1"
                     />
                   ) : (
                     <p className="text-gray-700 text-xl mb-6">
@@ -499,7 +499,7 @@ const EmployerContent = () => {
                       onChange={(e) =>
                         setNewSkillsRequired(e.target.value.split(", "))
                       }
-                      className="w-full"
+                      className="w-full rounded border-grey border-2 pl-2 pt-1"
                     />
                   ) : (
                     <p className="text-gray-700 text-xl mb-6">
@@ -512,11 +512,15 @@ const EmployerContent = () => {
                   )}
                   Experience Required:
                   {editMode ? (
-                    <textarea
+                    <select
                       value={newJobCategory}
                       onChange={(e) => setNewJobCategory(e.target.value)}
-                      className="w-full"
-                    />
+                      className="w-full rounded border-grey border-2 pl-1 pb-1"
+                    >
+                      <option value="entry">Entry Level</option>
+                      <option value="intermediate">Intermediate Level</option>
+                      <option value="expert">Expert Level</option>
+                    </select>
                   ) : (
                     <p className="text-gray-700 text-xl mb-6">
                       {selectedJob && selectedJob.jobCategory}
