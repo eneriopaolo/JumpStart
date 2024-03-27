@@ -28,7 +28,7 @@ const EmployerNavBar = () => {
             <img src={JumpStartLogo} className="rounded-full" alt="JumpStart Logo" style={{height: '50px', width: 'auto',background:"white"}}/>
           </Link>
         </p>
-        <p className="p-4 cursor-pointer text-white hover:text-green-900 hover:bg-green-700">
+        <p className="p-4 w-48 cursor-pointer text-white hover:text-green-900 hover:underline hover:font-bold">
           <Link
             to="/post-job-page"
             className="text-white"
