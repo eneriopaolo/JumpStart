@@ -15,7 +15,7 @@ async function loginUser(email, password){
         body: reqBody
     };
 
-    const URI = 'http://localhost:3000/api/auth/login';
+    const URI = 'https://jumpstart-07yi.onrender.com/api/auth/login';
     const response = await fetch(URI, reqOptions);
     return response
 };
@@ -39,7 +39,7 @@ async function registerUser(email, name, password, userType){
         body: reqBody
     };
 
-    const URI = 'http://localhost:3000/api/auth/register';
+    const URI = 'https://jumpstart-07yi.onrender.com/api/auth/register';
     const response = await fetch(URI, reqOptions);
     return response
 };

@@ -7,7 +7,7 @@ async function viewJobSeekerProfile(id){
         headers: reqHeaders
     };
 
-    const URI = `http://localhost:3000/api/profile/jobseeker/${id}`;
+    const URI = `https://jumpstart-07yi.onrender.com/api/profile/jobseeker/${id}`;
     const response = await fetch(URI, reqOptions);
     return response
 };
@@ -21,7 +21,7 @@ async function viewEmployerProfile(id){
         headers: reqHeaders
     }
 
-    const URI = `http://localhost:3000/api/profile/employer/${id}`;
+    const URI = `https://jumpstart-07yi.onrender.com/api/profile/employer/${id}`;
     const response = await fetch(URI, reqOptions);
     return response
 };

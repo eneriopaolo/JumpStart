@@ -7,7 +7,7 @@ async function viewMyApplications() {
         headers: reqHeaders
     };
 
-    const URI = 'http://localhost:3000/api/application';
+    const URI = 'https://jumpstart-07yi.onrender.com/api/application';
     const response = await fetch(URI, reqOptions);
     return response
 };
@@ -21,7 +21,7 @@ async function sendJobApplication(offerid) {
         headers: reqHeaders
     };
 
-    const URI = `http://localhost:3000/api/application/${offerid}`;
+    const URI = `https://jumpstart-07yi.onrender.com/api/application/${offerid}`;
     const response = await fetch(URI, reqOptions)
     return response
 };
@@ -40,7 +40,7 @@ async function approveApplication(applicationID) {
         body: reqBody
     }
 
-    const URI = `http://localhost:3000/api/application/approve/${applicationID}`;
+    const URI = `https://jumpstart-07yi.onrender.com/api/application/approve/${applicationID}`;
     const response = await fetch(URI, reqOptions);
     return response
 };
@@ -59,7 +59,7 @@ async function denyApplication(applicationID) {
         body: reqBody
     }
 
-    const URI = `http://localhost:3000/api/application/deny/${applicationID}`;
+    const URI = `https://jumpstart-07yi.onrender.com/api/application/deny/${applicationID}`;
     const response = await fetch(URI, reqOptions);
     return response
 };

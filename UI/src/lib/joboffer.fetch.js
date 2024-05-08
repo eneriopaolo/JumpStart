@@ -7,7 +7,7 @@ async function viewJobOffers(){
         headers: reqHeaders
     };
 
-    const URI = 'http://localhost:3000/api/job';
+    const URI = 'https://jumpstart-07yi.onrender.com/api/job';
     const response = await fetch(URI, reqOptions);
     return response
 };
@@ -21,7 +21,7 @@ async function viewOwnJobOffers(){
         headers: reqHeaders
     };
 
-    const URI = 'http://localhost:3000/api/job/myoffer';
+    const URI = 'https://jumpstart-07yi.onrender.com/api/job/myoffer';
     const response = await fetch(URI, reqOptions);
     return response
 };
@@ -48,7 +48,7 @@ async function postJobOffer(title, desc, category, salary, skills){
         body: reqBody
     };
 
-    const URI = 'http://localhost:3000/api/job';
+    const URI = 'https://jumpstart-07yi.onrender.com/api/job';
     const response = await fetch(URI, reqOptions);
     return response
 };
@@ -69,7 +69,7 @@ async function searchJobsByTitle(title){
         body: reqBody
     };
 
-    const URI = 'http://localhost:3000/api/job/search/title';
+    const URI = 'https://jumpstart-07yi.onrender.com/api/job/search/title';
     const response = await fetch(URI, reqOptions);
     return response
 };
@@ -90,7 +90,7 @@ async function searchJobsByCategory(category){
         body: reqBody
     }
 
-    const URI = 'http://localhost:3000/api/job/search/category';
+    const URI = 'https://jumpstart-07yi.onrender.com/api/job/search/category';
     const response = await fetch(URI, reqOptions);
     return response
 };
@@ -114,7 +114,7 @@ async function searchJobsBySalary(minSalary, maxSalary){
         body: reqBody
     }
 
-    const URI = 'http://localhost:3000/api/job/search/salary';
+    const URI = 'https://jumpstart-07yi.onrender.com/api/job/search/salary';
     const response = await fetch(URI, reqOptions);
     return response
 };

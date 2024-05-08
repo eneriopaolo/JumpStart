@@ -13,7 +13,7 @@ const EmployerContent = () => {
     try {
       const token = String(localStorage.getItem("token")).replace(/['"]+/g, "");
 
-      const response = await fetch("http://localhost:3000/api/job/myoffer", {
+      const response = await fetch("https://jumpstart-07yi.onrender.com/api/job/myoffer", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -38,7 +38,7 @@ const EmployerContent = () => {
     try {
       const token = String(localStorage.getItem("token")).replace(/['"]+/g, "");
       const response = await fetch(
-        `http://localhost:3000/api/profile/jobseeker/${applicantId}`,
+        `https://jumpstart-07yi.onrender.com/api/profile/jobseeker/${applicantId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -82,7 +82,7 @@ const EmployerContent = () => {
           ""
         );
         const response = await fetch(
-          `http://localhost:3000/api/profile/jobseeker/${application.applicant}`,
+          `https://jumpstart-07yi.onrender.com/api/profile/jobseeker/${application.applicant}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -111,7 +111,7 @@ const EmployerContent = () => {
           ""
         );
 
-        const response = await fetch("http://localhost:3000/api/job/myoffer", {
+        const response = await fetch("https://jumpstart-07yi.onrender.com/api/job/myoffer", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -132,7 +132,7 @@ const EmployerContent = () => {
       const token = String(localStorage.getItem("token")).replace(/['"]+/g, "");
 
       const response = await fetch(
-        `http://localhost:3000/api/application/approve/${application._id}`,
+        `https://jumpstart-07yi.onrender.com/api/application/approve/${application._id}`,
         {
           method: "PATCH",
           headers: {
@@ -188,7 +188,7 @@ const EmployerContent = () => {
       const token = String(localStorage.getItem("token")).replace(/['"]+/g, "");
 
       const response = await fetch(
-        `http://localhost:3000/api/application/deny/${application._id}`,
+        `https://jumpstart-07yi.onrender.com/api/application/deny/${application._id}`,
         {
           method: "PATCH",
           headers: {
@@ -277,7 +277,7 @@ const EmployerContent = () => {
           ""
         );
         const response = await fetch(
-          `http://localhost:3000/api/job/myoffer/${offerId}`,
+          `https://jumpstart-07yi.onrender.com/api/job/myoffer/${offerId}`,
           {
             method: "DELETE",
             headers: {
@@ -333,7 +333,7 @@ const EmployerContent = () => {
       // Send PATCH request to update user profile
       const token = String(localStorage.getItem("token")).replace(/['"]+/g, "");
       const response = await fetch(
-        `http://localhost:3000/api/job/myoffer/${selectedJob._id}`,
+        `https://jumpstart-07yi.onrender.com/api/job/myoffer/${selectedJob._id}`,
         {
           // Updated to use selectedJob._id
           method: "PATCH",

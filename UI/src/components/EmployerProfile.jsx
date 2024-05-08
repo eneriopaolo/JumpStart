@@ -37,7 +37,7 @@ const EmployerProfile = () => {
       // Send PATCH request to update user profile
       const token = String(localStorage.getItem("token")).replace(/['"]+/g, "");
       const response = await fetch(
-        `http://localhost:3000/api/profile/employer/${userData._id}`,
+        `https://jumpstart-07yi.onrender.com/api/profile/employer/${userData._id}`,
         {
           method: "PATCH",
           headers: {
