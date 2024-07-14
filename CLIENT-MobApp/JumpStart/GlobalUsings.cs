@@ -10,4 +10,4 @@ global using CommunityToolkit.Mvvm;
 
 // Project Specific Files & Folders/Directories:
 global using JumpStart.Model;
-//global using JumpStart.ViewModel;
+global using JumpStart.ViewModel;

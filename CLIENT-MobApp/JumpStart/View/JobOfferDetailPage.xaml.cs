@@ -1,8 +1,8 @@
 ﻿namespace JumpStart
 {
-    public partial class JobOfferFeed : ContentPage
+    public partial class JobOfferDetailPage : ContentPage
     {
-        public JobOfferFeed()
+        public JobOfferDetailPage()
         {
             InitializeComponent();
         }

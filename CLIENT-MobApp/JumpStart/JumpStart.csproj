@@ -66,13 +66,14 @@
 
 	<ItemGroup>
 	  <Folder Include="Resources\Images\" />
-	  <Folder Include="Services\" />
-	  <Folder Include="ViewModel\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="View\JobOfferFeed.xaml.cs">
-	    <DependentUpon>JobOfferFeed.xaml</DependentUpon>
+	  <Compile Update="View\JobOfferDetailPage.xaml.cs">
+	    <DependentUpon>JobOfferDetailPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\JobOfferFeedPage.xaml.cs">
+	    <DependentUpon>JobOfferFeedPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="View\RegisterPage.xaml.cs">
 	    <DependentUpon>RegisterPage.xaml</DependentUpon>
@@ -83,7 +84,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="View\JobOfferFeed.xaml">
+	  <MauiXaml Update="View\JobOfferDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\JobOfferFeedPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\RegisterPage.xaml">
