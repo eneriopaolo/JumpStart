@@ -5,10 +5,10 @@
 
     <VerticalStackLayout Spacing="20" Padding="10">
         <Label FontSize="40" HorizontalTextAlignment="Center" Text="JumpStart"/>
-        <Entry Placeholder="Enter your Email" Keyboard="Email"/>
-        <Entry Placeholder="Enter your Name"/>
-        <Entry Placeholder="Enter your Password" IsPassword="True"/>
-        <Button Text="Register"></Button>
-        <Button Text="Login"></Button>
+        <Entry x:Name="emailEntry" Placeholder="Enter your Email" Keyboard="Email"/>
+        <Entry x:Name="nameEntry" Placeholder="Enter your Name"/>
+        <Entry x:Name="passwordEntry" Placeholder="Enter your Password" IsPassword="True"/>
+        <Button Text="Register" Clicked="OnRegisterClicked"></Button>
+        <Button Text="Login" Clicked="OnLoginClicked"></Button>
     </VerticalStackLayout>
 </ContentPage>
