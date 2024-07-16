@@ -3,17 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:JumpStart.Model"
              x:Class="JumpStart.JobOfferFeedPage">
-    <VerticalStackLayout>
-        <CollectionView>
-            <CollectionView.ItemsSource>
-            </CollectionView.ItemsSource>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:JobOffer">
-                    <HorizontalStackLayout>
-                        <!--This is where we will populate, bind and format data from response to display on the UI-->
-                    </HorizontalStackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+    <VerticalStackLayout Spacing="20" Padding="10">
+        <CollectionView x:Name="JobsCollectionView">
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <StackLayout>
+                    <Label Text="{Binding jobTitle}" FontSize="24" />
+                        <Label Text="{Binding jobDescription}" />
+                    <Label Text="{Binding salaryPerMonth}" />
+                        <Label Text="{Binding offeredBy.profile}"/>
+
+                   </StackLayout>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
     </VerticalStackLayout>
 </ContentPage>
+
+
+<!--<CollectionView>
+    <CollectionView.ItemsSource>
+    </CollectionView.ItemsSource>
+    <CollectionView.ItemTemplate>
+        <DataTemplate x:DataType="model:JobOffer">
+            <HorizontalStackLayout>
+                -->
+<!--This is where we will populate, bind and format data from response to display on the UI-->
+<!--
+            </HorizontalStackLayout>
+        </DataTemplate>
+    </CollectionView.ItemTemplate>
+</CollectionView>-->

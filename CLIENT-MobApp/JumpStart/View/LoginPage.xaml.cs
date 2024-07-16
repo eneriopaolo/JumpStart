@@ -9,9 +9,9 @@ namespace JumpStart
             InitializeComponent();
         }
 
-        private void OnLoginClicked(object sender, EventArgs e)
+        private async void OnLoginClicked(object sender, EventArgs e)
         {
-            // Add your login logic here
+            await Navigation.PushAsync(new JobOfferFeedPage());
         }
 
         private async void OnRegisterClicked(object sender, EventArgs e)
