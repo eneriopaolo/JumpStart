@@ -15,7 +15,7 @@ namespace JumpStart
             string name = nameEntry.Text;
             string password = passwordEntry.Text;
 
-            // Simple registration logic
+            // Simple registration logic no data save yet
             if (!string.IsNullOrWhiteSpace(email) && !string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(password))
             {
                 

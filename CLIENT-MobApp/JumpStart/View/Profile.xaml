@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JumpStart.ProfilePage">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="10">
+            <Label FontSize="40" HorizontalTextAlignment="Center" Text="Profile"/>
+            
+            <Frame Padding="10" HasShadow="True" CornerRadius="10">
+                <VerticalStackLayout Spacing="15">
+                    <Image x:Name="ProfileImage" 
+                           WidthRequest="150" 
+                           HeightRequest="150" 
+                           Aspect="AspectFill" 
+                           HorizontalOptions="Center"/>
+                    
+                    <Label x:Name="NameLabel" 
+                           FontSize="20" 
+                           TextColor="Black" 
+                           HorizontalTextAlignment="Center"/>
+                    
+                    <Label x:Name="EmailLabel" 
+                           FontSize="16" 
+                           TextColor="Gray" 
+                           HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Button Text="Edit Profile" Clicked="OnEditProfileClicked"/>
+            <Button Text="Log Out" Clicked="OnLogOutClicked"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
