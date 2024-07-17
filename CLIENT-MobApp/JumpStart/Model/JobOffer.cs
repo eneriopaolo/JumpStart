@@ -1,33 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace JumpStart.Model
 {
     public class JobOffer
     {
-        public string _id { get; set; }
-        public string jobTitle { get; set; }
-        public string jobDescription { get; set; }
-        public int salaryPerMonth { get; set; }
-        public string jobCategory { get; set; }
-        public List<string>? skillsRequired { get; set; }
-        public OfferedBy offeredBy { get; set; }
-        public List<string>? applications { get; set; }
-        public DateTime dateOffered { get; set; }
-        public class OfferedBy
-        {
-            public EmployerProfile profile { get; set; }
-        }
+        [JsonPropertyName("_id")]
+        public string Id { get; set; }
+
+        [JsonPropertyName("jobTitle")]
+        public string JobTitle { get; set; }
+
+        [JsonPropertyName("jobDescription")]
+        public string JobDescription { get; set; }
+
+        [JsonPropertyName("salaryPerMonth")]
+        public int SalaryPerMonth { get; set; }
+
+        [JsonPropertyName("jobCategory")]
+        public string JobCategory { get; set; }
+
+        [JsonPropertyName("skillsRequired")]
+        public List<string>? SkillsRequired { get; set; }
+
+        [JsonPropertyName("offeredBy")]
+        public EmployerProfile OfferedBy { get; set; }
+
+        [JsonPropertyName("applications")]
+        public List<string>? Applications { get; set; }
+
+        [JsonPropertyName("dateOffered")]
+        public DateTime DateOffered { get; set; }
+
         public class EmployerProfile
         {
-            public string _id { get; set; }
-            public string name { get; set; }
-            public string email { get; set; }
-            public string? address { get; set; }
-            public string? description { get; set; }
+            [JsonPropertyName("_id")]
+            public string Id { get; set; }
+
+            [JsonPropertyName("name")]
+            public string Name { get; set; }
+
+            [JsonPropertyName("email")]
+            public string Email { get; set; }
+
+            [JsonPropertyName("__v")]
+            public int Version { get; set; }
+
+            [JsonPropertyName("profile")]
+            public Profile Profile { get; set; }
+
+            public override string ToString()
+            {
+                return $"ID: {Id}, Name: {Name}, Email: {Email}, Profile: {Profile?.ToString() ?? "null"}";
+            }
+        }
+
+        public class Profile
+        {
+            [JsonPropertyName("address")]
+            public string? Address { get; set; }
+
+            [JsonPropertyName("description")]
+            public string? Description { get; set; }
+
+            public override string ToString()
+            {
+                return $"Address: {Address}, Description: {Description}";
+            }
         }
     }
 }

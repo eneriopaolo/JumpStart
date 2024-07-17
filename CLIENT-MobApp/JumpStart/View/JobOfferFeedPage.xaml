@@ -5,32 +5,24 @@
              x:Class="JumpStart.JobOfferFeedPage">
     <VerticalStackLayout Spacing="20" Padding="10">
         <CollectionView x:Name="JobsCollectionView">
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <StackLayout>
-                    <Label Text="{Binding jobTitle}" FontSize="24" />
-                        <Label Text="{Binding jobDescription}" />
-                    <Label Text="{Binding salaryPerMonth}" />
-                        <Label Text="{Binding offeredBy.profile}"/>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" BackgroundColor="LightGray" Margin="5" 
+                                 VerticalOptions="Start" HorizontalOptions="FillAndExpand">
 
-                   </StackLayout>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnJobTapped" CommandParameter="{Binding}" />
+                        </StackLayout.GestureRecognizers>
+
+                        <Label Text="{Binding JobTitle}" FontSize="24" />
+                        <Label Text="{Binding JobDescription}" />
+                        <Label Text="{Binding SalaryPerMonth}" />
+                        <Label Text="{Binding OfferedBy.Name}"/>
+                        <Label Text="{Binding OfferedBy.Profile.Address}" />
+                        <Label Text="{Binding OfferedBy.Profile.Description}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>
-
-
-<!--<CollectionView>
-    <CollectionView.ItemsSource>
-    </CollectionView.ItemsSource>
-    <CollectionView.ItemTemplate>
-        <DataTemplate x:DataType="model:JobOffer">
-            <HorizontalStackLayout>
-                -->
-<!--This is where we will populate, bind and format data from response to display on the UI-->
-<!--
-            </HorizontalStackLayout>
-        </DataTemplate>
-    </CollectionView.ItemTemplate>
-</CollectionView>-->
