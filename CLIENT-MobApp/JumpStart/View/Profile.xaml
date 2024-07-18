@@ -27,8 +27,8 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <Button Text="Edit Profile" Clicked="OnEditProfileClicked"/>
-            <Button Text="Log Out" Clicked="OnLogOutClicked"/>
+            <!--<Button Text="Edit Profile" Clicked="OnEditProfileClicked"/>
+            <Button Text="Log Out" Clicked="OnLogOutClicked"/>-->
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Microsoft.Maui.Controls;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Microsoft.Maui.Controls;
 
 namespace JumpStart
 {
@@ -17,6 +18,29 @@ namespace JumpStart
         {
             InitializeComponent();
             LoadJobs();
+            MessagingCenter.Subscribe<FilterPage, FilterOptions>(this, "ApplyFilters", (sender, filters) =>
+            {
+                ApplyFilters(filters);
+            });
+        }
+
+        private async void ApplyFilters(FilterOptions filters)
+        {
+            // Apply the filters to your job list
+            var jobs = await GetJobsAsync(url);
+            if (filters.Experience != null)
+            {
+                jobs = jobs.Where(j => j.JobCategory == filters.Experience).ToList();
+            }
+            if (filters.SalaryRange != null)
+            {
+                var range = filters.SalaryRange.Split('-');
+                int minSalary = int.Parse(range[0]);
+                int maxSalary = int.Parse(range[1]);
+                jobs = jobs.Where(j => j.SalaryPerMonth >= minSalary && j.SalaryPerMonth <= maxSalary).ToList();
+            }
+
+            JobsCollectionView.ItemsSource = jobs;
         }
 
         private async Task<string> FetchDataAsync(string url)
@@ -77,6 +101,11 @@ namespace JumpStart
                 // Display a simple alert when tapped
                 await DisplayAlert("Tapped", $"You tapped on job: {jobOffer.JobTitle} Salary: {jobOffer.SalaryPerMonth}", "OK");
             }
+        }
+
+        private async void OnFilterButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new FilterPage());
         }
     }
 }
