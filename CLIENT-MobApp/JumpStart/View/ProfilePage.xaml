@@ -5,8 +5,9 @@
 
     <ScrollView>
         <VerticalStackLayout Spacing="20" Padding="10">
+
             <Label FontSize="40" HorizontalTextAlignment="Center" Text="Profile"/>
-            
+
             <Frame Padding="10" HasShadow="True" CornerRadius="10">
                 <VerticalStackLayout Spacing="15">
                     <Image x:Name="ProfileImage" 
@@ -14,34 +15,49 @@
                            HeightRequest="150" 
                            Aspect="AspectFill" 
                            HorizontalOptions="Center"/>
-                    
+
                     <Label x:Name="NameLabel" 
                            FontSize="20" 
                            TextColor="Black" 
                            HorizontalTextAlignment="Center"/>
-                    
-                    <Label x:Name="EmailLabel" 
+
+                    <Label x:Name="EmailLabelEmp" 
                            FontSize="16" 
                            TextColor="Gray" 
                            HorizontalTextAlignment="Center"/>
                 </VerticalStackLayout>
             </Frame>
 
-			<Label FontSize="24" Text="Bio" />
-			<Editor x:Name="BioEditor" HeightRequest="100" />
+            <!-- Company and ID for Employers -->
+            <Label FontSize="24" Text="Company Name" />
+            <Label x:Name="CompanyNameLabel" FontSize="20" TextColor="Black" />
 
-			<Label FontSize="24" Text="Education" />
-			<Editor x:Name="EducationEditor" HeightRequest="100" />
+            <Label FontSize="24" Text="Email" />
+            <Editor x:Name="EmailEditor" FontSize="20" TextColor="Gray" HeightRequest="40" />
 
-			<Label FontSize="24" Text="Experience" />
-			<Editor x:Name="ExperienceEditor" HeightRequest="100" />
+            <Label FontSize="24" Text="Profile ID" />
+            <Label x:Name="ProfileIdLabel" FontSize="20" TextColor="Black" />
 
-			<Label FontSize="24" Text="Skills" />
-			<Editor x:Name="SkillsEditor" HeightRequest="100" />
+            <!-- Job Seeker Info -->
+            <Label FontSize="24" Text="Bio" />
+            <Editor x:Name="BioEditor" HeightRequest="100" />
 
-			<Button Text="Edit Profile" Clicked="OnEditProfileClicked" />
-			<Button Text="Log Out" Clicked="OnLogOutClicked" />
-			
+            <Label FontSize="24" Text="Education" />
+            <Editor x:Name="EducationEditor" HeightRequest="100" />
+
+            <Label FontSize="24" Text="Experience" />
+            <Editor x:Name="ExperienceEditor" HeightRequest="100" />
+
+            <Label FontSize="24" Text="Skills" />
+            <Editor x:Name="SkillsEditor" HeightRequest="100" />
+
+            <Button Text="Edit Profile" Clicked="OnEditProfileClicked" />
+            <Button Text="Log Out" Clicked="OnLogOutClicked" />
+
+            <!-- Employer Info -->
+            <Editor x:Name="AddressEditor" IsReadOnly="True" IsVisible="False" />
+            <Editor x:Name="DescriptionEditor" IsReadOnly="True" IsVisible="False" />
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

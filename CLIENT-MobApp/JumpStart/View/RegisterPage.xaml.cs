@@ -1,8 +1,7 @@
 ﻿using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Xaml;
 using System;
 using System.Net.Http;
-using System.Net.Http.Json;  // Required for PostAsJsonAsync
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace JumpStart
@@ -21,13 +20,13 @@ namespace JumpStart
             string email = emailEntry.Text;
             string name = nameEntry.Text;
             string password = passwordEntry.Text;
-            string userType = userTypePicker.SelectedItem?.ToString().ToLower() ?? "jobseeker";
+            string userType = userTypePicker.SelectedItem?.ToString() ?? "jobseeker";
 
             userType = userType switch
             {
                 "Job Seeker" => "jobseeker",
                 "Employer" => "employer",
-           
+                _ => "jobseeker"
             };
 
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(password))
@@ -42,37 +41,29 @@ namespace JumpStart
                 name = name,
                 password = password,
                 typeofuser = userType
-
-
             };
 
             try
             {
                 var response = await _httpClient.PostAsJsonAsync("https://jumpstart-07yi.onrender.com/api/auth/register", user);
+
                 if (response.IsSuccessStatusCode)
                 {
-                    // Log the successful response
-                    var content = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine("Registration successful. Response content: " + content);
-                    await DisplayAlert("Registration", "User registered successfully!", "OK");
-                    await Navigation.PopAsync();
+                    await DisplayAlert("Success", "Registration Successful!", "OK");
+                    await Navigation.PopAsync(); // Go back to login page
                 }
                 else
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine("Registration failed. Status code: " + response.StatusCode);
-                    Console.WriteLine("Error content: " + errorContent);
-                    await DisplayAlert("Error", errorContent, "OK");
+                    Console.WriteLine($"API Response: {errorContent}");
+                    await DisplayAlert("Error", $"API Error: {response.StatusCode} - {errorContent}", "OK");
                 }
             }
             catch (Exception ex)
             {
-                // Log any exceptions that occur
-                Console.WriteLine("Exception occurred: " + ex.Message);
-                await DisplayAlert("Error", ex.Message,  "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
-
         private async void OnLoginClicked(object sender, EventArgs e)
         {
             await Navigation.PopAsync(); // Navigate back to LoginPage

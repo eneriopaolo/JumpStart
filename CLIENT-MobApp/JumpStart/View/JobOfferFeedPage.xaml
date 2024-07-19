@@ -13,6 +13,15 @@
             <!-- For the CollectionView -->
         </Grid.RowDefinitions>
 
+        <!-- Profile Navigation Button -->
+        <Button Text="Profile" Clicked="OnProfileButtonClicked"
+                BackgroundColor="LightGreen" TextColor="White"
+                HeightRequest="40" CornerRadius="5" Padding="10"
+                HorizontalOptions="Center" VerticalOptions="Start"
+                Margin="10"
+                Grid.Row="0"/>
+
+
         <!-- Filter Button -->
         <Button Text="Filter" Clicked="OnFilterButtonClicked"
                 BackgroundColor="LightBlue" TextColor="White"

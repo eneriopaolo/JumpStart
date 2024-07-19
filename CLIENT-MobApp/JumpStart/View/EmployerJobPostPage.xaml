@@ -4,11 +4,16 @@
              xmlns:model="clr-namespace:JumpStart.Model"
              x:Class="JumpStart.EmployerJobPostPage">
 
+
+
+
+
     <VerticalStackLayout>
+
         <Label 
-            Text="Post a Job Offer"
-            FontSize="24"
-            HorizontalOptions="Center" />
+        Text="Post a Job Offer"
+        FontSize="24"
+        HorizontalOptions="Center" />
 
         <Label Text="Job Title" />
         <Entry x:Name="jobTitleEntry" Placeholder="Enter job title" />

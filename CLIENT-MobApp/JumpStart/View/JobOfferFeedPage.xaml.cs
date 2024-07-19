@@ -135,5 +135,11 @@ namespace JumpStart
         {
             await Navigation.PushModalAsync(new ViewJobApplicationsPage());
         }
+
+
+        private async void OnProfileButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ProfilePage());
+        }
     }
 }
