@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls;
+﻿using JumpStart.View;
+using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -117,6 +118,11 @@ namespace JumpStart
         private async void OnFilterButtonClicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new FilterPage());
+        }
+
+        private async void ViewOffer(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new ViewJobApplicationsPage());
         }
     }
 }

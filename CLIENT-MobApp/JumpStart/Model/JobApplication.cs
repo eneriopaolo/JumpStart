@@ -1,44 +1,84 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace JumpStart.Model
 {
     public class JobApplication
     {
-        public string _id { get; set; }
-        public Applicant applicant { get; set; }
-        public JobOffer jobOffer { get; set; }
-        public DateTime applicationDate { get; set; }
-        public string applicationStatus { get; set; }
+        [JsonPropertyName("_id")]
+        public string Id { get; set; }
+
+        [JsonPropertyName("applicant")]
+        public Applicant Applicantt { get; set; }
+
+        [JsonPropertyName("jobOffer")]
+        public JobOffer JobOfferr { get; set; }
+
+        [JsonPropertyName("applicationDate")]
+        public DateTime ApplicationDate { get; set; }
+
+        [JsonPropertyName("__v")]
+        public int Version { get; set; }
+
+        [JsonPropertyName("applicationStatus")]
+        public string ApplicationStatus { get; set; }
+
         public class Applicant
         {
-            public JobSeekerProfile profile { get; set; }
-            public string _id { get; set; }
-            public string name { get; set; }
-            public string email { get; set; }
+            [JsonPropertyName("profile")]
+            public Profile Profile { get; set; }
+
+            [JsonPropertyName("_id")]
+            public string Id { get; set; }
+
+            [JsonPropertyName("name")]
+            public string Name { get; set; }
+
+            [JsonPropertyName("email")]
+            public string Email { get; set; }
+
+            [JsonPropertyName("__v")]
+            public int Version { get; set; }
+        }
+
+        public class Profile
+        {
+            [JsonPropertyName("skills")]
+            public List<string> Skills { get; set; }
+
+            [JsonPropertyName("bio")]
+            public string Bio { get; set; }
         }
 
         public class JobOffer
         {
-            public string _id { get; set; }
-            public string jobTitle { get; set; }
-            public string jobDescription { get; set; }
-            public int salaryPerMonth { get; set; }
-            public List<string> skillsRequired { get; set; }
-            public string offeredBy { get; set; }
-            public List<string>? applications { get; set; }
-            public DateTime dateOffered { get; set; }
-        }
+            [JsonPropertyName("_id")]
+            public string Id { get; set; }
 
-        public class JobSeekerProfile
-        {
-            public string? bio { get; set; }
-            public string? education { get; set; }
-            public string? experience { get; set; }
-            public List<string>? skills { get; set; }
+            [JsonPropertyName("jobTitle")]
+            public string JobTitle { get; set; }
+
+            [JsonPropertyName("jobDescription")]
+            public string JobDescription { get; set; }
+
+            [JsonPropertyName("salaryPerMonth")]
+            public int SalaryPerMonth { get; set; }
+
+            [JsonPropertyName("skillsRequired")]
+            public List<string> SkillsRequired { get; set; }
+
+            [JsonPropertyName("offeredBy")]
+            public string OfferedBy { get; set; }
+
+            [JsonPropertyName("applications")]
+            public List<string> Applications { get; set; }
+
+            [JsonPropertyName("dateOffered")]
+            public DateTime DateOffered { get; set; }
+
+            [JsonPropertyName("__v")]
+            public int Version { get; set; }
         }
     }
 }
