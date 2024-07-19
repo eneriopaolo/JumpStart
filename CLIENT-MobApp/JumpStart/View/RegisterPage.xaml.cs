@@ -27,7 +27,7 @@ namespace JumpStart
             {
                 "Job Seeker" => "jobseeker",
                 "Employer" => "employer",
-                _ => "jobseeker"
+           
             };
 
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(password))
@@ -48,7 +48,7 @@ namespace JumpStart
 
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("http://localhost:3000/api/auth/register", user);
+                var response = await _httpClient.PostAsJsonAsync("https://jumpstart-07yi.onrender.com/api/auth/register", user);
                 if (response.IsSuccessStatusCode)
                 {
                     // Log the successful response
