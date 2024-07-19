@@ -4,6 +4,30 @@
              xmlns:model="clr-namespace:JumpStart.Model"
              x:Class="JumpStart.JobOfferDetailPage">
     <VerticalStackLayout>
-
+        <CollectionView x:Name="JobOfferCollectionView"
+            Grid.Row="1"
+            VerticalOptions="FillAndExpand"
+            BackgroundColor="Grey">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="0" Margin="5"
+                           HasShadow="True"
+                           BorderColor="Gray"
+                           CornerRadius="10">
+                        <StackLayout Padding="10" BackgroundColor="White"
+                                     VerticalOptions="Start" HorizontalOptions="FillAndExpand">
+                            <Label Text="{Binding JobTitle}" FontSize="24" FontAttributes="Bold" TextColor="Black"/>
+                            <Label Text="{Binding JobDescription}" TextColor="DarkGray"/>
+                            <Label Text="{Binding SalaryPerMonth}" TextColor="Green"/>
+                            <Label Text="{Binding JobCategory}" TextColor="Red"/>
+                            <Label Text="{Binding OfferedBy.Name}" TextColor="Black"/>
+                            <Label Text="{Binding OfferedBy.Profile.Address}" TextColor="DarkGray"/>
+                            <Label Text="{Binding OfferedBy.Profile.Description}" TextColor="DarkGray"/>
+                        </StackLayout>
+                        
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>

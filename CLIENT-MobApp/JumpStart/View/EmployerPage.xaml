@@ -42,9 +42,9 @@
                         <StackLayout Padding="10" BackgroundColor="White"
                              VerticalOptions="Start" HorizontalOptions="FillAndExpand">
 
-                            <!--<StackLayout.GestureRecognizers>
+                            <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnMyOfferTapped" CommandParameter="{Binding}" />
-                            </StackLayout.GestureRecognizers>-->
+                            </StackLayout.GestureRecognizers>
 
                             <Label Text="{Binding JobTitle}" FontSize="24" FontAttributes="Bold" TextColor="Black"/>
                             <Label Text="{Binding JobDescription}" TextColor="DarkGray"/>
@@ -53,20 +53,6 @@
                             <Label Text="{Binding OfferedBy.Name}" TextColor="Black"/>
                             <Label Text="{Binding OfferedBy.Profile.Address}" TextColor="DarkGray"/>
                             <Label Text="{Binding OfferedBy.Profile.Description}" TextColor="DarkGray"/>
-
-                            <StackLayout BackgroundColor="Green">
-                                <Label Text="Accept" TextColor="White" HorizontalTextAlignment="Center"/>
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnAcceptClicked" CommandParameter="{Binding}" />
-                                </StackLayout.GestureRecognizers>
-                            </StackLayout>
-
-                            <StackLayout BackgroundColor="Red">
-                                <Label Text="Deny" TextColor="White" HorizontalTextAlignment="Center"/>
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnDenyClicked" CommandParameter="{Binding}" />
-                                </StackLayout.GestureRecognizers>
-                            </StackLayout>
 
                         </StackLayout>
                     </Frame>

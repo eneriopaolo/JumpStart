@@ -85,6 +85,15 @@ namespace JumpStart
             await Navigation.PushAsync(new EmployerJobPostPage());
         }
 
+        private async void OnMyOfferTapped(object sender, TappedEventArgs e)
+        {
+            if (e.Parameter is EmployerOffer joboffer)
+            {
+                string jobOfferID = joboffer.Id;
+                await Navigation.PushAsync(new JobOfferDetailPage(jobOfferID));
+            }
+        }
+
         private async void OnAcceptClicked(object sender, TappedEventArgs e)
         {
             if (e.Parameter is JobOffer joboffer)
