@@ -41,8 +41,9 @@ namespace JumpStart
                 email = email,
                 name = name,
                 password = password,
-                
- 
+                typeofuser = userType
+
+
             };
 
             try
