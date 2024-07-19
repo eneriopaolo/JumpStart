@@ -121,7 +121,7 @@ namespace JumpStart
             {
                 string jobOfferID = joboffer.Id;
                 await JobApplicationService.SendApplication(jobOfferID);
-                await DisplayAlert("Tapped", "You have successfully sent a job application.", "OK");
+                await DisplayAlert("Application Sent", "You have successfully sent a job application.", "OK");
             }  
         }
 

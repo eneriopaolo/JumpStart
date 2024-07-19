@@ -27,7 +27,7 @@ namespace JumpStart
             {
                 "Job Seeker" => "jobseeker",
                 "Employer" => "employer",
-                _ => "jobseeker"
+           
             };
 
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(password))

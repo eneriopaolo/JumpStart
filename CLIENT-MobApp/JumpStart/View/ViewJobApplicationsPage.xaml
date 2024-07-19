@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JumpStart.View.ViewJobApplicationsPage"
+             xmlns:model="clr-namespace:JumpStart.Model"
+             Title="View Job Applications">
+    <Grid Padding="10">
+        <!-- Define row heights for CollectionView -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <!-- For the CollectionView -->
+        </Grid.RowDefinitions>
+
+        <!-- Collection View -->
+        <CollectionView x:Name="ApplicationCollectionView"
+                        Grid.Row="0"
+                        VerticalOptions="FillAndExpand"
+                        BackgroundColor="Black">
+            <!-- Added background color for visibility -->
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="0" Margin="5"
+                           HasShadow="True"
+                           BorderColor="Gray"
+                           CornerRadius="10">
+                        <StackLayout Padding="10" BackgroundColor="White"
+                                     VerticalOptions="Start" HorizontalOptions="FillAndExpand">
+                            <!--<StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnJobTapped" CommandParameter="{Binding}" />
+                            </StackLayout.GestureRecognizers>-->
+
+                            <Label Text="{Binding JobOfferr.JobTitle}" FontSize="24" FontAttributes="Bold" TextColor="Black"/>
+                            <Label Text="{Binding JobOfferr.JobDescription}" TextColor="DarkGray"/>
+                            <Label Text="{Binding JobOfferr.SalaryPerMonth, StringFormat='Salary: {0}'}" TextColor="Green"/>
+                            <Label Text="{Binding JobOfferr.OfferedBy, StringFormat='Offered By: {0}'}" TextColor="Red"/>
+                            <Label Text="{Binding ApplicationStatus, StringFormat='Status: {0}'}" FontSize="18" FontAttributes="Italic" TextColor="Orange"/>
+                            <Label Text="{Binding ApplicationDate, StringFormat='Date: {0:MM/dd/yyyy}'}" FontSize="16" TextColor="Gray"/>
+
+                            <Label Text="{Binding Applicantt.Name, StringFormat='Applicant: {0}'}" TextColor="Black"/>
+                            <Label Text="{Binding Applicantt.Email, StringFormat='Email: {0}'}" TextColor="DarkGray"/>
+                            <Label Text="{Binding Applicantt.Profile.Bio, StringFormat='Bio: {0}'}" TextColor="DarkGray"/>
+                            <Label Text="{Binding Applicantt.Profile.Skills, StringFormat='Skills: {0}'}" TextColor="DarkGray"/>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
