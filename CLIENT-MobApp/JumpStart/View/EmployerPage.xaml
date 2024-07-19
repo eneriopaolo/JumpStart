@@ -3,17 +3,75 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:JumpStart.Model"
              x:Class="JumpStart.EmployerPage">
-    
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome, Employer!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        
+    <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+             <!--For the Filter Button--> 
+            <RowDefinition Height="*"/>
+             <!--For the CollectionView--> 
+        </Grid.RowDefinitions>
 
-        <Button
-            Text="Post Jobs"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"
-            Clicked="OnPostJobsClicked"/>
-    </VerticalStackLayout>
+        <!--Filter Button--> 
+        <Button Text="Post Job" Clicked="OnPostJobsClicked"
+        BackgroundColor="LightBlue" TextColor="White"
+        HeightRequest="40" CornerRadius="5" Padding="10"
+        HorizontalOptions="End" VerticalOptions="Start"
+        Margin="10"
+        Grid.Row="0"/>
+        <Label Text="View Your Applications" 
+        BackgroundColor="LightBlue" TextColor="White"
+        HeightRequest="40" Padding="10"
+        HorizontalOptions="Start" VerticalOptions="Start"
+        Margin="10"
+        Grid.Row="0"/>
+        <!--Place the button in the first row-->
+
+
+        <CollectionView x:Name="MyOffersCollectionView"
+                Grid.Row="1"
+                VerticalOptions="FillAndExpand"
+                BackgroundColor="Grey">
+            <!--Added background color for visibility-->
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="0" Margin="5"
+                   HasShadow="True"
+                   BorderColor="Gray"
+                   CornerRadius="10">
+                        <StackLayout Padding="10" BackgroundColor="White"
+                             VerticalOptions="Start" HorizontalOptions="FillAndExpand">
+
+                            <!--<StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnMyOfferTapped" CommandParameter="{Binding}" />
+                            </StackLayout.GestureRecognizers>-->
+
+                            <Label Text="{Binding JobTitle}" FontSize="24" FontAttributes="Bold" TextColor="Black"/>
+                            <Label Text="{Binding JobDescription}" TextColor="DarkGray"/>
+                            <Label Text="{Binding SalaryPerMonth}" TextColor="Green"/>
+                            <Label Text="{Binding JobCategory}" TextColor="Red"/>
+                            <Label Text="{Binding OfferedBy.Name}" TextColor="Black"/>
+                            <Label Text="{Binding OfferedBy.Profile.Address}" TextColor="DarkGray"/>
+                            <Label Text="{Binding OfferedBy.Profile.Description}" TextColor="DarkGray"/>
+
+                            <StackLayout BackgroundColor="Green">
+                                <Label Text="Accept" TextColor="White" HorizontalTextAlignment="Center"/>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnAcceptClicked" CommandParameter="{Binding}" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+
+                            <StackLayout BackgroundColor="Red">
+                                <Label Text="Deny" TextColor="White" HorizontalTextAlignment="Center"/>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnDenyClicked" CommandParameter="{Binding}" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>
