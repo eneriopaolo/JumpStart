@@ -40,14 +40,19 @@ namespace JumpStart
                     var loginResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
                     if (loginResponse != null)
                     {
-                        // Save token and user ID
+                        // Save token, user ID, and user type
                         string tokenFilePath = Path.Combine(FileSystem.AppDataDirectory, "token.txt");
                         string userIdFilePath = Path.Combine(FileSystem.AppDataDirectory, "userId.txt");
+                        string userTypeFilePath = Path.Combine(FileSystem.AppDataDirectory, "userType.txt");
 
                         File.WriteAllText(tokenFilePath, loginResponse.token);
                         File.WriteAllText(userIdFilePath, loginResponse.userData._id);
+                        File.WriteAllText(userTypeFilePath, loginResponse.userType);
 
-                        // Navigate to the main page
+                        // Show an alert with the user type
+                        await DisplayAlert("Logged In", $"Logged in as {loginResponse.userType}", "OK");
+
+                        // Navigate to the appropriate page
                         if (loginResponse.userType == "jobseeker")
                         {
                             await Navigation.PushAsync(new JobOfferFeedPage());
@@ -77,6 +82,8 @@ namespace JumpStart
                 await DisplayAlert("Error", ex.Message, "OK");
             }
         }
+
+
 
         private async void OnRegisterClicked(object sender, EventArgs e)
         {

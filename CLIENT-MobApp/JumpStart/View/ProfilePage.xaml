@@ -27,26 +27,28 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- job seeker info -->
-            
-            <Label FontSize="24" Text="Bio" />
-            <Editor x:Name="BioEditor" HeightRequest="100" />
+            <!-- Job Seeker Info -->
+            <Label x:Name="BioLabel" FontSize="24" Text="Bio" IsVisible="False"/>
+            <Editor x:Name="BioEditor" HeightRequest="100" IsVisible="False" />
 
-            <Label FontSize="24" Text="Education" />
-            <Editor x:Name="EducationEditor" HeightRequest="100" />
+            <Label x:Name="EducationLabel" FontSize="24" Text="Education" IsVisible="False"/>
+            <Editor x:Name="EducationEditor" HeightRequest="100" IsVisible="False" />
 
-            <Label FontSize="24" Text="Experience" />
-            <Editor x:Name="ExperienceEditor" HeightRequest="100" />
+            <Label x:Name="ExperienceLabel" FontSize="24" Text="Experience" IsVisible="False"/>
+            <Editor x:Name="ExperienceEditor" HeightRequest="100" IsVisible="False" />
 
-            <Label FontSize="24" Text="Skills" />
-            <Editor x:Name="SkillsEditor" HeightRequest="100" />
+            <Label x:Name="SkillsLabel" FontSize="24" Text="Skills" IsVisible="False"/>
+            <Editor x:Name="SkillsEditor" HeightRequest="100" IsVisible="False" />
+
+            <!-- Employer Info -->
+            <Label x:Name="AddressLabel" FontSize="24" Text="Address" IsVisible="False"/>
+            <Editor x:Name="AddressEditor" HeightRequest="100" IsVisible="False" />
+
+            <Label x:Name="DescriptionLabel" FontSize="24" Text="Description" IsVisible="False"/>
+            <Editor x:Name="DescriptionEditor" HeightRequest="100" IsVisible="False" />
 
             <Button Text="Edit Profile" Clicked="OnEditProfileClicked" />
             <Button Text="Log Out" Clicked="OnLogOutClicked" />
-
-            <!-- employer info -->
-            <Editor x:Name="AddressEditor" IsReadOnly="True" IsVisible="False" />
-            <Editor x:Name="DescriptionEditor" IsReadOnly="True" IsVisible="False" />
 
         </VerticalStackLayout>
     </ScrollView>

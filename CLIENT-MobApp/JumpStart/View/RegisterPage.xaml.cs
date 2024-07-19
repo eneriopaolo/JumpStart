@@ -20,7 +20,7 @@ namespace JumpStart
             string email = emailEntry.Text;
             string name = nameEntry.Text;
             string password = passwordEntry.Text;
-            string userType = userTypePicker.SelectedItem?.ToString().ToLower() ?? "jobseeker";
+            string userType = userTypePicker.SelectedItem?.ToString() ?? "jobseeker";
 
             userType = userType switch
             {
