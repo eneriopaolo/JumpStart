@@ -21,6 +21,14 @@ namespace JumpStart
             string email = emailEntry.Text;
             string name = nameEntry.Text;
             string password = passwordEntry.Text;
+            string userType = userTypePicker.SelectedItem?.ToString().ToLower() ?? "jobseeker";
+
+            userType = userType switch
+            {
+                "Job Seeker" => "jobseeker",
+                "Employer" => "employer",
+                _ => "jobseeker"
+            };
 
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(password))
             {
@@ -33,7 +41,8 @@ namespace JumpStart
                 email = email,
                 name = name,
                 password = password,
-                typeofuser = "jobseeker"
+                
+ 
             };
 
             try
@@ -59,7 +68,7 @@ namespace JumpStart
             {
                 // Log any exceptions that occur
                 Console.WriteLine("Exception occurred: " + ex.Message);
-                await DisplayAlert("Error", "An unexpected error occurred.", "OK");
+                await DisplayAlert("Error", ex.Message,  "OK");
             }
         }
 

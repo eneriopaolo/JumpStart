@@ -85,6 +85,7 @@ namespace JumpStart
             public string token { get; set; }
             public string user { get; set; }
             public UserData userData { get; set; }
+            public string TypeofUser {  get; set; }
 
             public class UserData
             {

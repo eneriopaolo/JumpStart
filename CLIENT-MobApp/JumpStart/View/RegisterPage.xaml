@@ -8,6 +8,14 @@
         <Entry x:Name="emailEntry" Placeholder="Enter your Email" Keyboard="Email"/>
         <Entry x:Name="nameEntry" Placeholder="Enter your Name"/>
         <Entry x:Name="passwordEntry" Placeholder="Enter your Password" IsPassword="True"/>
+
+        <Picker x:Name="userTypePicker">
+            <Picker.Items>
+                <x:String>Job Seeker</x:String>
+                <x:String>Employer</x:String>
+            </Picker.Items>
+        </Picker>
+        
         <Button Text="Register" Clicked="OnRegisterClicked"></Button>
         <Button Text="Login" Clicked="OnLoginClicked"></Button>
     </VerticalStackLayout>
