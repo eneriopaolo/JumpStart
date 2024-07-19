@@ -25,9 +25,8 @@ namespace JumpStart
 
             userType = userType switch
             {
-                "Job Seeker" => "jobseeker",
-                "Employer" => "employer",
-                _ => "jobseeker"
+                "job seeker" => "jobseeker",
+                "employer" => "employer"
             };
 
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(password))
