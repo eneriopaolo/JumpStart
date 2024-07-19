@@ -1,6 +1,6 @@
 using Microsoft.Maui.Controls;
 using JumpStart.View;
-using JumpStart.Services
+using JumpStart.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
