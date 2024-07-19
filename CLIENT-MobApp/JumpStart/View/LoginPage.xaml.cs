@@ -52,7 +52,19 @@ namespace JumpStart
 
 
                         //nav to mainpage
-                        await Navigation.PushAsync(new JobOfferFeedPage());
+                        if (loginResponse.userType == "jobseeker")
+                        {
+                            await Navigation.PushAsync(new JobOfferFeedPage());
+                        }
+                        else if (loginResponse.userType == "employer")
+                        {
+                            await Navigation.PushAsync(new EmployerPage());
+                        }
+                        else
+                        {
+                            await DisplayAlert("Alert", "Unknown user type.", "OK");
+                        }
+
                     }
 
                     else
@@ -85,7 +97,7 @@ namespace JumpStart
             public string token { get; set; }
             public string user { get; set; }
             public UserData userData { get; set; }
-            public string TypeofUser {  get; set; }
+            public string userType {  get; set; }
 
             public class UserData
             {
