@@ -99,6 +99,5 @@ namespace JumpStart
                 // Handle the cancel button click event
                 await Navigation.PopAsync();
             }
-        
     }
 }

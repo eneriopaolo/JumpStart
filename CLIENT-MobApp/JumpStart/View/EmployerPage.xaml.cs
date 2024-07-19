@@ -60,5 +60,9 @@ namespace JumpStart
             // Navigate to the job posting page, if you have one
             // await Navigation.PushAsync(new JobPostingPage());
         }
+        private async void OnProfileButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ProfilePage());
+        }
     }
 }
