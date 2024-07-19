@@ -1,4 +1,6 @@
 using Microsoft.Maui.Controls;
+using JumpStart.View;
+using JumpStart.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +13,15 @@ namespace JumpStart
 {
     public partial class EmployerPage : ContentPage
     {
-        public string url = "https://jumpstart-07yi.onrender.com/api/job";
-        public string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjEyM0BnbWFpbC5jb20iLCJpYXQiOjE3MjE0MDE5ODksImV4cCI6MTcyMTY2MTE4OX0.ZCf97YHCzeOtjKNAud21L44C-Gzr1Z9EiqU47riafFs";
-        //public string token;
+        public string url = "https://jumpstart-07yi.onrender.com/api/job/myoffer";
+        //public string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhdEBnbWFpbC5jb20iLCJpYXQiOjE3MjExNDA0NjMsImV4cCI6MTcyMTM5OTY2M30.1usypNEWEjTugf-BKAaVBxNsTZi7ppfyDxTHLBM9R-c";
+        public string token;
         public EmployerPage()
         {
             InitializeComponent();
-            //LoadToken();
-            //LoadApplications();
+            LoadToken();
+            LoadMyOffers();
         }
-
 
         private void LoadToken()
         {
@@ -43,22 +44,69 @@ namespace JumpStart
                 return json;
             }
         }
-
-        public async Task<List<JobOffer>> GetJobsAsync(string url)
+        public async Task<List<EmployerOffer>> GetJobsAsync(string url)
         {
             var json = await FetchDataAsync(url);
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             };
-            return JsonSerializer.Deserialize<List<JobOffer>>(json, options);
+            return JsonSerializer.Deserialize<List<EmployerOffer>>(json, options);
         }
+        
+        private async void LoadMyOffers()
+        {
+            try
+            {
+                var jobs = await GetJobsAsync(url);
+
+                // Debugging: Print details to console
+                foreach (var job in jobs)
+                {
+                    Console.WriteLine($"Job Title: {job.JobTitle}");
+                    Console.WriteLine($"Job Description: {job.JobDescription}");
+                    //Console.WriteLine($"Salary: {job.SalaryPerMonth}");
+                    
+                    //Console.WriteLine($"Number of Applicants: {Convert.ToString(jobs.Count) ?? "null"}");
+                    //Console.WriteLine("-----");
+                }
+
+                MyOffersCollectionView.ItemsSource = jobs;
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                Console.WriteLine($"Error fetching jobs: {ex.Message}");
+            }
+        }
+
         private async void OnPostJobsClicked(object sender, EventArgs e)
         {
-            // Handle the button click event
             await Navigation.PushAsync(new EmployerJobPostPage());
-            // Navigate to the job posting page, if you have one
-            // await Navigation.PushAsync(new JobPostingPage());
+        }
+
+        private async void OnAcceptClicked(object sender, TappedEventArgs e)
+        {
+            if (e.Parameter is JobOffer joboffer)
+            {
+                string jobOfferID = joboffer.Id;
+                await JobApplicationService.ApproveApplication(jobOfferID);
+                await DisplayAlert("Tapped", "You have successfully sent accepted the application.", "OK");
+            }
+        }
+        private async void OnDenyClicked(object sender, TappedEventArgs e)
+        {
+            if (e.Parameter is JobOffer joboffer)
+            {
+                string jobOfferID = joboffer.Id;
+                await JobApplicationService.DenyApplication(jobOfferID);
+                await DisplayAlert("Tapped", "You have successfully sent declined the application.", "OK");
+            }
+        }
+
+        private async void OnProfileButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ProfilePage());
         }
         private async void OnProfileButtonClicked(object sender, EventArgs e)
         {
