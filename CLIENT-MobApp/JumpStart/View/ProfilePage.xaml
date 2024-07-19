@@ -27,8 +27,21 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <!--<Button Text="Edit Profile" Clicked="OnEditProfileClicked"/>
-            <Button Text="Log Out" Clicked="OnLogOutClicked"/>-->
+			<Label FontSize="24" Text="Bio" />
+			<Editor x:Name="BioEditor" HeightRequest="100" />
+
+			<Label FontSize="24" Text="Education" />
+			<Editor x:Name="EducationEditor" HeightRequest="100" />
+
+			<Label FontSize="24" Text="Experience" />
+			<Editor x:Name="ExperienceEditor" HeightRequest="100" />
+
+			<Label FontSize="24" Text="Skills" />
+			<Editor x:Name="SkillsEditor" HeightRequest="100" />
+
+			<Button Text="Edit Profile" Clicked="OnEditProfileClicked" />
+			<Button Text="Log Out" Clicked="OnLogOutClicked" />
+			
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
