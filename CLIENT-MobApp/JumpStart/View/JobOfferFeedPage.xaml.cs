@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls;
+﻿using JumpStart.Services;
+using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -112,6 +113,16 @@ namespace JumpStart
                 // Display a simple alert when tapped
                 await DisplayAlert("Tapped", $"You tapped on job: {jobOffer.JobTitle} Salary: {jobOffer.SalaryPerMonth}", "OK");
             }
+        }
+
+        private async void OnApplicationButtonClicked(object sender, TappedEventArgs e)
+        {
+            if (e.Parameter is JobOffer joboffer)
+            {
+                string jobOfferID = joboffer.Id;
+                await JobApplicationService.SendApplication(jobOfferID);
+                await DisplayAlert("Tapped", "You have successfully sent a job application.", "OK");
+            }  
         }
 
         private async void OnFilterButtonClicked(object sender, EventArgs e)

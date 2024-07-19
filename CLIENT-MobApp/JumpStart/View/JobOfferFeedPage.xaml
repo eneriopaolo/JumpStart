@@ -48,6 +48,13 @@
                             <Label Text="{Binding OfferedBy.Name}" TextColor="Black"/>
                             <Label Text="{Binding OfferedBy.Profile.Address}" TextColor="DarkGray"/>
                             <Label Text="{Binding OfferedBy.Profile.Description}" TextColor="DarkGray"/>
+                            <StackLayout BackgroundColor="Black">
+                                <Label Text="Send Application" TextColor="White" HorizontalTextAlignment="Center"/>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnApplicationButtonClicked" CommandParameter="{Binding}" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+
                         </StackLayout>
                     </Frame>
                 </DataTemplate>
