@@ -12,13 +12,11 @@ namespace JumpStart
 
         public LoginPage()
         {
-
             InitializeComponent();
         }
 
         private async void OnLoginClicked(object sender, EventArgs e)
         {
-
             string email = emailEntry.Text;
             string password = passwordEntry.Text;
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
@@ -35,23 +33,21 @@ namespace JumpStart
 
             try
             {
-
                 var response = await _httpClient.PostAsJsonAsync("https://jumpstart-07yi.onrender.com/api/auth/login", user);
 
                 if (response.IsSuccessStatusCode)
                 {
-
                     var loginResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
                     if (loginResponse != null)
                     {
-                        //save token
+                        // Save token and user ID
                         string tokenFilePath = Path.Combine(FileSystem.AppDataDirectory, "token.txt");
+                        string userIdFilePath = Path.Combine(FileSystem.AppDataDirectory, "userId.txt");
+
                         File.WriteAllText(tokenFilePath, loginResponse.token);
+                        File.WriteAllText(userIdFilePath, loginResponse.userData._id);
 
-                        //await DisplayAlert("Long", "User logged in successfully", "OK");
-
-
-                        //nav to mainpage
+                        // Navigate to the main page
                         if (loginResponse.userType == "jobseeker")
                         {
                             await Navigation.PushAsync(new JobOfferFeedPage());
@@ -64,40 +60,34 @@ namespace JumpStart
                         {
                             await DisplayAlert("Alert", "Unknown user type.", "OK");
                         }
-
                     }
-
                     else
                     {
-                        await DisplayAlert("Alert", "Failed to parse login Response.", "OK");
+                        await DisplayAlert("Alert", "Failed to parse login response.", "OK");
                     }
                 }
-
                 else
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();
                     await DisplayAlert("Error", errorContent, "OK");
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                  await DisplayAlert("Alert", "Failed to parse login Response.", "OK");
-
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
         private async void OnRegisterClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new RegisterPage());
-
         }
 
         private class LoginResponse
         {
             public string token { get; set; }
-            public string user { get; set; }
+            public string userType { get; set; }
             public UserData userData { get; set; }
-            public string userType {  get; set; }
 
             public class UserData
             {
