@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JumpStart.LoadingPage"
+             BackgroundColor="White">
+
+	<VerticalStackLayout x:Name="LayoutContainer"
+                         Spacing="20"
+                         VerticalOptions="CenterAndExpand"
+                         HorizontalOptions="CenterAndExpand">
+		<ActivityIndicator x:Name="LoadingIndicator"
+                           IsRunning="True"
+                           Color="lightblue"
+                           WidthRequest="100"
+                           HeightRequest="100" />
+		<Label x:Name="LoadingLabel"
+               Text="Loading, please wait..."
+               FontSize="25"
+               TextColor="Gray" />
+	</VerticalStackLayout>
+
+</ContentPage>
