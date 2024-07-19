@@ -28,6 +28,11 @@ namespace JumpStart
             if (File.Exists(tokenFilePath))
             {
                 _token = File.ReadAllText(tokenFilePath);
+                Console.WriteLine($"Loaded Token: {_token}");
+            }
+            else
+            {
+                Console.WriteLine("Token file not found.");
             }
         }
 
@@ -37,6 +42,11 @@ namespace JumpStart
             if (File.Exists(userIdFilePath))
             {
                 _userId = File.ReadAllText(userIdFilePath);
+                Console.WriteLine($"Loaded User ID: {_userId}");
+            }
+            else
+            {
+                Console.WriteLine("User ID file not found.");
             }
         }
 
@@ -46,6 +56,11 @@ namespace JumpStart
             if (File.Exists(userTypeFilePath))
             {
                 _userType = File.ReadAllText(userTypeFilePath);
+                Console.WriteLine($"Loaded User Type: {_userType}");
+            }
+            else
+            {
+                Console.WriteLine("User Type file not found.");
             }
         }
 
@@ -61,18 +76,11 @@ namespace JumpStart
             {
                 _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
 
-                HttpResponseMessage response;
-                if (_userType == "jobseeker")
-                {
-                    response = await _httpClient.GetAsync($"https://jumpstart-07yi.onrender.com/api/profile/jobseeker/{_userId}");
-                    SetJobSeekerUI();
-                }
-                else
-                {
-                    response = await _httpClient.GetAsync($"https://jumpstart-07yi.onrender.com/api/profile/employer/{_userId}");
-                    SetEmployerUI();
-                }
+                string apiUrl = _userType == "jobseeker"
+                    ? $"https://jumpstart-07yi.onrender.com/api/profile/jobseeker/{_userId}"
+                    : $"https://jumpstart-07yi.onrender.com/api/profile/employer/{_userId}";
 
+                var response = await _httpClient.GetAsync(apiUrl);
                 var responseContent = await response.Content.ReadAsStringAsync();
 
                 if (response.IsSuccessStatusCode)
@@ -83,27 +91,38 @@ namespace JumpStart
                         if (profileData != null)
                         {
                             NameLabel.Text = profileData.Name ?? string.Empty;
-                            EmailLabel.Text = profileData.Email ?? string.Empty;
+                            EmailEditor.Text = profileData.Email ?? string.Empty;
                             BioEditor.Text = profileData.Profile?.Bio ?? string.Empty;
                             EducationEditor.Text = profileData.Profile?.Education ?? string.Empty;
                             ExperienceEditor.Text = profileData.Profile?.Experience ?? string.Empty;
                             SkillsEditor.Text = string.Join(", ", profileData.Profile?.Skills ?? Array.Empty<string>());
                         }
+                        else
+                        {
+                            await DisplayAlert("Error", "Profile data is null.", "OK");
+                        }
                     }
-                    else
+                    else if (_userType == "employer")
                     {
                         var profileData = await response.Content.ReadFromJsonAsync<EmployerProfile>();
                         if (profileData != null)
                         {
                             NameLabel.Text = profileData.Name ?? string.Empty;
-                            EmailLabel.Text = profileData.Email ?? string.Empty;
+                            EmailEditor.Text = profileData.Email ?? string.Empty;
+                            CompanyNameLabel.Text = profileData.Name ?? string.Empty;
+                            ProfileIdLabel.Text = profileData._id ?? string.Empty;
                             AddressEditor.Text = profileData.Profile?.Address ?? string.Empty;
                             DescriptionEditor.Text = profileData.Profile?.Description ?? string.Empty;
+                        }
+                        else
+                        {
+                            await DisplayAlert("Error", "Profile data is null.", "OK");
                         }
                     }
                 }
                 else
                 {
+                    Console.WriteLine($"API Response: {responseContent}");
                     await DisplayAlert("Error", $"API Error: {response.StatusCode} - {responseContent}", "OK");
                 }
             }
@@ -111,40 +130,6 @@ namespace JumpStart
             {
                 await DisplayAlert("Error", ex.Message, "OK");
             }
-        }
-
-        private void SetJobSeekerUI()
-        {
-            BioLabel.IsVisible = true;
-            BioEditor.IsVisible = true;
-            EducationLabel.IsVisible = true;
-            EducationEditor.IsVisible = true;
-            ExperienceLabel.IsVisible = true;
-            ExperienceEditor.IsVisible = true;
-            SkillsLabel.IsVisible = true;
-            SkillsEditor.IsVisible = true;
-
-            AddressLabel.IsVisible = false;
-            AddressEditor.IsVisible = false;
-            DescriptionLabel.IsVisible = false;
-            DescriptionEditor.IsVisible = false;
-        }
-
-        private void SetEmployerUI()
-        {
-            BioLabel.IsVisible = false;
-            BioEditor.IsVisible = false;
-            EducationLabel.IsVisible = false;
-            EducationEditor.IsVisible = false;
-            ExperienceLabel.IsVisible = false;
-            ExperienceEditor.IsVisible = false;
-            SkillsLabel.IsVisible = false;
-            SkillsEditor.IsVisible = false;
-
-            AddressLabel.IsVisible = true;
-            AddressEditor.IsVisible = true;
-            DescriptionLabel.IsVisible = true;
-            DescriptionEditor.IsVisible = true;
         }
 
         private async void OnEditProfileClicked(object sender, EventArgs e)
@@ -155,49 +140,95 @@ namespace JumpStart
                 return;
             }
 
-            var updatedProfile = new
+            if (_userType == "jobseeker")
             {
-                name = NameLabel.Text ?? string.Empty,
-                profile = new
+                if (NameLabel == null || BioEditor == null || EducationEditor == null || ExperienceEditor == null || SkillsEditor == null)
                 {
-                    bio = _userType == "jobseeker" ? BioEditor.Text ?? string.Empty : null,
-                    education = _userType == "jobseeker" ? EducationEditor.Text ?? string.Empty : null,
-                    experience = _userType == "jobseeker" ? ExperienceEditor.Text ?? string.Empty : null,
-                    skills = _userType == "jobseeker" ? SkillsEditor.Text?.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries) ?? Array.Empty<string>() : null,
-                    address = _userType == "employer" ? AddressEditor.Text : null,
-                    description = _userType == "employer" ? DescriptionEditor.Text : null
-                }
-            };
-
-            try
-            {
-                _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
-                HttpResponseMessage response;
-                if (_userType == "jobseeker")
-                {
-                    response = await _httpClient.PatchAsJsonAsync($"https://jumpstart-07yi.onrender.com/api/profile/jobseeker/{_userId}", updatedProfile);
-                }
-                else
-                {
-                    response = await _httpClient.PatchAsJsonAsync($"https://jumpstart-07yi.onrender.com/api/profile/employer/{_userId}", updatedProfile);
+                    await DisplayAlert("Error", "One or more fields are not initialized.", "OK");
+                    return;
                 }
 
-                var responseContent = await response.Content.ReadAsStringAsync();
+                var updatedProfile = new
+                {
+                    name = NameLabel.Text ?? string.Empty,
+                    email = EmailEditor.Text ?? string.Empty,
+                    profile = new
+                    {
+                        bio = BioEditor.Text ?? string.Empty,
+                        education = EducationEditor.Text ?? string.Empty,
+                        experience = ExperienceEditor.Text ?? string.Empty,
+                        skills = SkillsEditor.Text?.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries) ?? Array.Empty<string>()
+                    }
+                };
 
-                if (response.IsSuccessStatusCode)
+                try
                 {
-                    await DisplayAlert("Success", "Profile Updated!", "OK");
+                    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
+                    var response = await _httpClient.PatchAsJsonAsync($"https://jumpstart-07yi.onrender.com/api/profile/jobseeker/{_userId}", updatedProfile);
+                    var responseContent = await response.Content.ReadAsStringAsync();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        await DisplayAlert("Success", "Profile Updated!", "OK");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"API Response: {responseContent}");
+                        await DisplayAlert("Error", $"API Error: {response.StatusCode} - {responseContent}", "OK");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    await DisplayAlert("Error", $"API Error: {response.StatusCode} - {responseContent}", "OK");
+                    await DisplayAlert("Error", ex.Message, "OK");
                 }
             }
-            catch (Exception ex)
+            else if (_userType == "employer")
             {
-                await DisplayAlert("Error", ex.Message, "OK");
+                if (NameLabel == null || AddressEditor == null || DescriptionEditor == null || EmailEditor == null)
+                {
+                    await DisplayAlert("Error", "One or more fields are not initialized.", "OK");
+                    return;
+                }
+
+                var updatedProfile = new
+                {
+                    name = NameLabel.Text ?? string.Empty,
+                    email = EmailEditor.Text ?? string.Empty,
+                    profile = new
+                    {
+                        address = AddressEditor.Text ?? string.Empty,
+                        description = DescriptionEditor.Text ?? string.Empty
+                    }
+                };
+
+                try
+                {
+                    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
+                    var response = await _httpClient.PatchAsJsonAsync($"https://jumpstart-07yi.onrender.com/api/profile/employer/{_userId}", updatedProfile);
+                    var responseContent = await response.Content.ReadAsStringAsync();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        await DisplayAlert("Success", "Profile Updated!", "OK");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"API Response: {responseContent}");
+                        await DisplayAlert("Error", $"API Error: {response.StatusCode} - {responseContent}", "OK");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", ex.Message, "OK");
+                }
+            }
+            else
+            {
+                await DisplayAlert("Error", "Unknown user type.", "OK");
             }
         }
+
+
 
         private async void OnLogOutClicked(object sender, EventArgs e)
         {
@@ -216,7 +247,7 @@ namespace JumpStart
 
     public class EmployerProfile
     {
-        public EmployerProfileDetails Profile { get; set; }
+        public ProfileDetails Profile { get; set; }
         public string _id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
@@ -224,15 +255,11 @@ namespace JumpStart
 
     public class ProfileDetails
     {
-        public string[] Skills { get; set; }
+        public string Address { get; set; }
+        public string Description { get; set; }
         public string Bio { get; set; }
         public string Education { get; set; }
         public string Experience { get; set; }
-    }
-
-    public class EmployerProfileDetails
-    {
-        public string Address { get; set; }
-        public string Description { get; set; }
+        public string[] Skills { get; set; }
     }
 }

@@ -3,17 +3,54 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:JumpStart.Model"
              x:Class="JumpStart.EmployerPage">
-    
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome, Employer!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
 
-        <Button
-            Text="Post Jobs"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"
-            Clicked="OnPostJobsClicked"/>
-    </VerticalStackLayout>
+    <AbsoluteLayout>
+
+        <!-- Semi-Transparent Overlay -->
+        <BoxView
+            Color="#80000000" <!-- Semi-transparent black -->
+            AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+            AbsoluteLayout.LayoutFlags="All"/>
+
+            <!-- Background Video Element -->
+            <MediaElement
+            x:Name="BackgroundVideo"
+            Source="https://yourvideo-url.com/video.mp4" <!-- Replace with your video URL -->
+                Aspect="AspectFill"
+            AutoPlay="True"
+            Loop="True"
+            AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+            AbsoluteLayout.LayoutFlags="All"/>
+
+                <!-- Overlaying Content -->
+                <VerticalStackLayout 
+            Spacing="20" 
+            Padding="10"
+            AbsoluteLayout.LayoutBounds="0.5, 0.5, AutoSize, AutoSize"
+            AbsoluteLayout.LayoutFlags="PositionProportional">
+
+                    <Label 
+                Text="Welcome, Employer!"
+                FontSize="32"
+                TextColor="White"
+                HorizontalOptions="Center" 
+                VerticalOptions="Center" />
+
+                    <Button
+                Text="Post Jobs"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Clicked="OnPostJobsClicked"/>
+
+                    <HorizontalStackLayout HorizontalOptions="Center">
+                        <!-- Profile Navigation Button -->
+                        <Button Text="Profile" Clicked="OnProfileButtonClicked"
+                BackgroundColor="LightGreen" TextColor="White"
+                HeightRequest="40" CornerRadius="5" Padding="10"
+                HorizontalOptions="Center" VerticalOptions="Start"
+                Margin="20"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+    </AbsoluteLayout>
 </ContentPage>
