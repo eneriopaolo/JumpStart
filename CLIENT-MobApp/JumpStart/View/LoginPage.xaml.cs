@@ -36,7 +36,7 @@ namespace JumpStart
             try
             {
 
-                var response = await _httpClient.PostAsJsonAsync("http://localhost:3000/api/auth/login", user);
+                var response = await _httpClient.PostAsJsonAsync("https://jumpstart-07yi.onrender.com/api/auth/login", user);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -48,7 +48,7 @@ namespace JumpStart
                         string tokenFilePath = Path.Combine(FileSystem.AppDataDirectory, "token.txt");
                         File.WriteAllText(tokenFilePath, loginResponse.token);
 
-                        await DisplayAlert("Long", "User logged in successfully", "OK");
+                        //await DisplayAlert("Long", "User logged in successfully", "OK");
 
 
                         //nav to mainpage

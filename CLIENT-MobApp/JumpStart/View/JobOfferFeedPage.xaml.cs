@@ -12,16 +12,27 @@ namespace JumpStart
     public partial class JobOfferFeedPage : ContentPage
     {
         public string url = "https://jumpstart-07yi.onrender.com/api/job";
-        public string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhdEBnbWFpbC5jb20iLCJpYXQiOjE3MjExNDA0NjMsImV4cCI6MTcyMTM5OTY2M30.1usypNEWEjTugf-BKAaVBxNsTZi7ppfyDxTHLBM9R-c";
+        //public string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhdEBnbWFpbC5jb20iLCJpYXQiOjE3MjExNDA0NjMsImV4cCI6MTcyMTM5OTY2M30.1usypNEWEjTugf-BKAaVBxNsTZi7ppfyDxTHLBM9R-c";
+        public string token;
 
         public JobOfferFeedPage()
         {
             InitializeComponent();
+            LoadToken();
             LoadJobs();
             MessagingCenter.Subscribe<FilterPage, FilterOptions>(this, "ApplyFilters", (sender, filters) =>
             {
                 ApplyFilters(filters);
             });
+        }
+
+        private void LoadToken()
+        {
+            string tokenFilePath = Path.Combine(FileSystem.AppDataDirectory, "token.txt");
+            if (File.Exists(tokenFilePath))
+            {
+                token = File.ReadAllText(tokenFilePath);
+            }
         }
 
         private async void ApplyFilters(FilterOptions filters)
