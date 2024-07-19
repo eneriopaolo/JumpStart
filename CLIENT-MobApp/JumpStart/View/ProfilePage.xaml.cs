@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.IO;
 using System;
+using Microsoft.Maui;
 
 namespace JumpStart
 {
@@ -96,6 +97,26 @@ namespace JumpStart
                             EducationEditor.Text = profileData.Profile?.Education ?? string.Empty;
                             ExperienceEditor.Text = profileData.Profile?.Experience ?? string.Empty;
                             SkillsEditor.Text = string.Join(", ", profileData.Profile?.Skills ?? Array.Empty<string>());
+
+                            // Hide employer fields
+                            CompanyNameLabel.IsVisible = false;
+                            CompanyNameEditor.IsVisible = false;
+                            ProfileIdLabel.IsVisible = false;
+                            ProfileIdLabelValue.IsVisible = false;
+                            AddressLabel.IsVisible = false;
+                            AddressEditor.IsVisible = false;
+                            DescriptionLabel.IsVisible = false;
+                            DescriptionEditor.IsVisible = false;
+
+                            // Show job seeker fields
+                            BioLabel.IsVisible = true;
+                            BioEditor.IsVisible = true;
+                            EducationLabel.IsVisible = true;
+                            EducationEditor.IsVisible = true;
+                            ExperienceLabel.IsVisible = true;
+                            ExperienceEditor.IsVisible = true;
+                            SkillsLabel.IsVisible = true;
+                            SkillsEditor.IsVisible = true;
                         }
                         else
                         {
@@ -109,10 +130,29 @@ namespace JumpStart
                         {
                             NameLabel.Text = profileData.Name ?? string.Empty;
                             EmailEditor.Text = profileData.Email ?? string.Empty;
-                            CompanyNameLabel.Text = profileData.Name ?? string.Empty;
-                            ProfileIdLabel.Text = profileData._id ?? string.Empty;
+                            CompanyNameEditor.Text = profileData.Profile?.CompanyName ?? string.Empty;
+                            ProfileIdLabelValue.Text = profileData._id ?? string.Empty;
                             AddressEditor.Text = profileData.Profile?.Address ?? string.Empty;
                             DescriptionEditor.Text = profileData.Profile?.Description ?? string.Empty;
+
+                            // Show employer fields
+                            CompanyNameLabel.IsVisible = true;
+                            CompanyNameEditor.IsVisible = true;
+                            ProfileIdLabel.IsVisible = true;
+                            ProfileIdLabelValue.IsVisible = true;
+                            AddressLabel.IsVisible = true;
+                            AddressEditor.IsVisible = true;
+                            DescriptionLabel.IsVisible = true;
+
+                            // Hide job seeker fields
+                            BioLabel.IsVisible = false;
+                            BioEditor.IsVisible = false;
+                            EducationLabel.IsVisible = false;
+                            EducationEditor.IsVisible = false;
+                            ExperienceLabel.IsVisible = false;
+                            ExperienceEditor.IsVisible = false;
+                            SkillsLabel.IsVisible = false;
+                            SkillsEditor.IsVisible = false;
                         }
                         else
                         {
@@ -132,6 +172,7 @@ namespace JumpStart
             }
         }
 
+
         private async void OnEditProfileClicked(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(_token) || string.IsNullOrEmpty(_userId))
@@ -140,91 +181,55 @@ namespace JumpStart
                 return;
             }
 
-            if (_userType == "jobseeker")
+            // Prepare the profile data to be saved
+            var updatedProfile = new
             {
-                if (NameLabel == null || BioEditor == null || EducationEditor == null || ExperienceEditor == null || SkillsEditor == null)
+                name = NameLabel.Text ?? string.Empty,
+                email = EmailEditor.Text ?? string.Empty,
+                profile = new
                 {
-                    await DisplayAlert("Error", "One or more fields are not initialized.", "OK");
-                    return;
+                    bio = _userType == "jobseeker" ? BioEditor.Text ?? string.Empty : null,
+                    education = _userType == "jobseeker" ? EducationEditor.Text ?? string.Empty : null,
+                    experience = _userType == "jobseeker" ? ExperienceEditor.Text ?? string.Empty : null,
+                    skills = _userType == "jobseeker" ? SkillsEditor.Text?.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries) ?? Array.Empty<string>() : Array.Empty<string>(),
+                    address = _userType == "employer" ? AddressEditor.Text ?? string.Empty : null,
+                    description = _userType == "employer" ? DescriptionEditor.Text ?? string.Empty : null,
+                    companyName = _userType == "employer" ? CompanyNameEditor.Text ?? string.Empty : null
                 }
+            };
 
-                var updatedProfile = new
+            // Debug Alert
+            var profileInfo = $"Name: {updatedProfile.name}\n" +
+                              $"Email: {updatedProfile.email}\n" +
+                              $"Company Name: {updatedProfile.profile.companyName}\n" +
+                              $"Address: {updatedProfile.profile.address}\n" +
+                              $"Description: {updatedProfile.profile.description}";
+
+            await DisplayAlert("Saving Profile", profileInfo, "OK");
+
+            try
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
+                var apiUrl = _userType == "jobseeker"
+                    ? $"https://jumpstart-07yi.onrender.com/api/profile/jobseeker/{_userId}"
+                    : $"https://jumpstart-07yi.onrender.com/api/profile/employer/{_userId}";
+
+                var response = await _httpClient.PatchAsJsonAsync(apiUrl, updatedProfile);
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
                 {
-                    name = NameLabel.Text ?? string.Empty,
-                    email = EmailEditor.Text ?? string.Empty,
-                    profile = new
-                    {
-                        bio = BioEditor.Text ?? string.Empty,
-                        education = EducationEditor.Text ?? string.Empty,
-                        experience = ExperienceEditor.Text ?? string.Empty,
-                        skills = SkillsEditor.Text?.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries) ?? Array.Empty<string>()
-                    }
-                };
-
-                try
-                {
-                    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
-                    var response = await _httpClient.PatchAsJsonAsync($"https://jumpstart-07yi.onrender.com/api/profile/jobseeker/{_userId}", updatedProfile);
-                    var responseContent = await response.Content.ReadAsStringAsync();
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        await DisplayAlert("Success", "Profile Updated!", "OK");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"API Response: {responseContent}");
-                        await DisplayAlert("Error", $"API Error: {response.StatusCode} - {responseContent}", "OK");
-                    }
+                    await DisplayAlert("Success", "Profile Updated!", "OK");
                 }
-                catch (Exception ex)
+                else
                 {
-                    await DisplayAlert("Error", ex.Message, "OK");
+                    Console.WriteLine($"API Response: {responseContent}");
+                    await DisplayAlert("Error", $"API Error: {response.StatusCode} - {responseContent}", "OK");
                 }
             }
-            else if (_userType == "employer")
+            catch (Exception ex)
             {
-                if (NameLabel == null || AddressEditor == null || DescriptionEditor == null || EmailEditor == null)
-                {
-                    await DisplayAlert("Error", "One or more fields are not initialized.", "OK");
-                    return;
-                }
-
-                var updatedProfile = new
-                {
-                    name = NameLabel.Text ?? string.Empty,
-                    email = EmailEditor.Text ?? string.Empty,
-                    profile = new
-                    {
-                        address = AddressEditor.Text ?? string.Empty,
-                        description = DescriptionEditor.Text ?? string.Empty
-                    }
-                };
-
-                try
-                {
-                    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
-                    var response = await _httpClient.PatchAsJsonAsync($"https://jumpstart-07yi.onrender.com/api/profile/employer/{_userId}", updatedProfile);
-                    var responseContent = await response.Content.ReadAsStringAsync();
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        await DisplayAlert("Success", "Profile Updated!", "OK");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"API Response: {responseContent}");
-                        await DisplayAlert("Error", $"API Error: {response.StatusCode} - {responseContent}", "OK");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    await DisplayAlert("Error", ex.Message, "OK");
-                }
-            }
-            else
-            {
-                await DisplayAlert("Error", "Unknown user type.", "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -261,5 +266,6 @@ namespace JumpStart
         public string Education { get; set; }
         public string Experience { get; set; }
         public string[] Skills { get; set; }
+        public string CompanyName { get; set; }
     }
 }
