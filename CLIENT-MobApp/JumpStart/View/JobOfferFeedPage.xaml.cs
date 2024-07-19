@@ -104,18 +104,6 @@ namespace JumpStart
             }
         }
 
-        private async void OnJobTapped(object sender, TappedEventArgs e)
-        {
-            if (e.Parameter is JobOffer jobOffer)
-            {
-                // Use the tapped jobOffer object here
-                Console.WriteLine($"Tapped on Job: {jobOffer.JobTitle} Salary: {jobOffer.SalaryPerMonth}");
-
-                // Display a simple alert when tapped
-                await DisplayAlert("Tapped", $"You tapped on job: {jobOffer.JobTitle} Salary: {jobOffer.SalaryPerMonth}", "OK");
-            }
-        }
-
         private async void OnApplicationButtonClicked(object sender, TappedEventArgs e)
         {
             if (e.Parameter is JobOffer joboffer)

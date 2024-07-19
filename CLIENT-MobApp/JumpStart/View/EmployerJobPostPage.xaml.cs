@@ -72,8 +72,6 @@ namespace JumpStart
                 {
                     // Log the successful response
                     var content = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine("Registration successful. Response content: " + content);
-                    await DisplayAlert("Registration", "User registered successfully!", "OK");
                     await Navigation.PopAsync();
                 }
                 else
