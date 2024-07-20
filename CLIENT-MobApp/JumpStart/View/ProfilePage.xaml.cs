@@ -138,11 +138,12 @@ namespace JumpStart
                             // Show employer fields
                             CompanyNameLabel.IsVisible = true;
                             CompanyNameEditor.IsVisible = true;
-                            ProfileIdLabel.IsVisible = true;
-                            ProfileIdLabelValue.IsVisible = true;
+                            ProfileIdLabel.IsVisible = false;
+                            ProfileIdLabelValue.IsVisible = false;
                             AddressLabel.IsVisible = true;
                             AddressEditor.IsVisible = true;
                             DescriptionLabel.IsVisible = true;
+                            DescriptionEditor.IsVisible = true;
 
                             // Hide job seeker fields
                             BioLabel.IsVisible = false;
