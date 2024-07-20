@@ -22,9 +22,11 @@
                             <Label Text="{Binding OfferedBy.Name}" TextColor="Black"/>
                             <Label Text="{Binding OfferedBy.Profile.Address}" TextColor="DarkGray"/>
                             <Label Text="{Binding OfferedBy.Profile.Description}" TextColor="DarkGray"/>
-                            
-                            
-                            
+
+                            <Button Text="Delete Offer" Clicked="OnDeleteButtonClicked"/>
+
+
+
                         </StackLayout>
                     </Frame>
                 </DataTemplate>

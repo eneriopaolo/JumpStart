@@ -15,7 +15,7 @@
         <CollectionView x:Name="ApplicationCollectionView"
                         Grid.Row="0"
                         VerticalOptions="FillAndExpand"
-                        BackgroundColor="Black">
+                        BackgroundColor="#1E1E1E">
             <!-- Added background color for visibility -->
             <CollectionView.ItemTemplate>
                 <DataTemplate>
