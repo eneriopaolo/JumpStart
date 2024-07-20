@@ -33,44 +33,56 @@
             <Label x:Name="CompanyNameLabel" FontSize="24" Text="Company Name" IsVisible="False" />
             <Editor x:Name="CompanyNameEditor" 
                     FontSize="20" 
-                    TextColor="Black" 
+                    TextColor="Gray" 
                     IsVisible="False" />
 
             <Label x:Name="ProfileIdLabel" FontSize="24" Text="Profile ID" IsVisible="False" />
             <Label x:Name="ProfileIdLabelValue" 
                    FontSize="20" 
-                   TextColor="Black" 
+                   TextColor="Gray" 
                    IsVisible="False" />
 
             <Label x:Name="AddressLabel" FontSize="24" Text="Address" IsVisible="False" />
             <Editor x:Name="AddressEditor" 
                     HeightRequest="100" 
+                    FontSize="20" 
+                    TextColor="Gray" 
                     IsVisible="False" />
 
             <Label x:Name="DescriptionLabel" FontSize="24" Text="Description" IsVisible="False" />
             <Editor x:Name="DescriptionEditor" 
                     HeightRequest="100" 
+                    FontSize="20" 
+                    TextColor="Gray" 
                     IsVisible="False" />
 
             <!-- Job Seeker Fields -->
             <Label x:Name="BioLabel" FontSize="24" Text="Bio" IsVisible="False" />
             <Editor x:Name="BioEditor" 
                     HeightRequest="100" 
+                    TextColor="Gray" 
+                    FontSize="20" 
                     IsVisible="False" />
 
             <Label x:Name="EducationLabel" FontSize="24" Text="Education" IsVisible="False" />
             <Editor x:Name="EducationEditor" 
                     HeightRequest="100" 
+                    TextColor="Gray" 
+                    FontSize="20" 
                     IsVisible="False" />
 
             <Label x:Name="ExperienceLabel" FontSize="24" Text="Experience" IsVisible="False" />
             <Editor x:Name="ExperienceEditor" 
                     HeightRequest="100" 
+                    TextColor="Gray" 
+                    FontSize="20" 
                     IsVisible="False" />
 
             <Label x:Name="SkillsLabel" FontSize="24" Text="Skills" IsVisible="False" />
             <Editor x:Name="SkillsEditor" 
                     HeightRequest="100" 
+                    TextColor="Gray" 
+                    FontSize="20" 
                     IsVisible="False" />
 
             <!-- Common Buttons -->

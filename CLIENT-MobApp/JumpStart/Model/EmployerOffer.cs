@@ -90,5 +90,7 @@ namespace JumpStart.Model
             [JsonPropertyName("__v")]
             public int Version { get; set; }
         }
+
     }
+
 }

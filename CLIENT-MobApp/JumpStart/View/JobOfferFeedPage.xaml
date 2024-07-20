@@ -19,8 +19,7 @@
                 HeightRequest="40" CornerRadius="5" Padding="10"
                 HorizontalOptions="Center" VerticalOptions="Start"
                 Margin="10"
-                Grid.Row="0"
-                Grid.Column="0"/>
+                Grid.Row="0"/>
 
 
         <!-- Filter Button -->
@@ -30,7 +29,7 @@
                 HorizontalOptions="End" VerticalOptions="Start"
                 Margin="10"
                 Grid.Row="0"/>
-        <Button Text="View Your Applications" Clicked="ViewOffer"
+        <Button Text="Status" Clicked="ViewOffer"
         BackgroundColor="LightBlue" TextColor="White"
         HeightRequest="40" CornerRadius="5" Padding="10"
         HorizontalOptions="Start" VerticalOptions="Start"
@@ -41,7 +40,8 @@
         <!-- Collection View -->
         <CollectionView x:Name="JobsCollectionView"
                         Grid.Row="1"
-                        VerticalOptions="FillAndExpand">
+                        VerticalOptions="FillAndExpand"
+                        BackgroundColor="#1E1E1E">
             <!-- Added background color for visibility -->
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -51,6 +51,10 @@
                            CornerRadius="10">
                         <StackLayout Padding="10" BackgroundColor="White"
                                      VerticalOptions="Start" HorizontalOptions="FillAndExpand">
+
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnJobTapped" CommandParameter="{Binding}" />
+                            </StackLayout.GestureRecognizers>
 
                             <Label Text="{Binding JobTitle}" FontSize="24" FontAttributes="Bold" TextColor="Black"/>
                             <Label Text="{Binding JobDescription}" TextColor="DarkGray"/>

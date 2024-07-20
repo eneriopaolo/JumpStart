@@ -3,11 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:JumpStart.Model"
              x:Class="JumpStart.JobOfferDetailPage">
-    <VerticalStackLayout>
+    <VerticalStackLayout Padding="10">
         <CollectionView x:Name="JobOfferCollectionView"
-            Grid.Row="1"
-            VerticalOptions="FillAndExpand"
-            BackgroundColor="Grey">
+                        VerticalOptions="FillAndExpand"
+                        BackgroundColor="#1E1E1E">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame Padding="0" Margin="5"
@@ -23,8 +22,32 @@
                             <Label Text="{Binding OfferedBy.Name}" TextColor="Black"/>
                             <Label Text="{Binding OfferedBy.Profile.Address}" TextColor="DarkGray"/>
                             <Label Text="{Binding OfferedBy.Profile.Description}" TextColor="DarkGray"/>
+                            
+                            
+                            
                         </StackLayout>
-                        
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Add a CollectionView for displaying applicants -->
+        <CollectionView x:Name="ApplicantsCollectionView"
+                        VerticalOptions="FillAndExpand"
+                        BackgroundColor="#1E1E1E">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="0" Margin="5"
+                           HasShadow="True"
+                           BorderColor="Gray"
+                           CornerRadius="10">
+                        <StackLayout Padding="10" BackgroundColor="White"
+                                     VerticalOptions="Start" HorizontalOptions="FillAndExpand">
+                            <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+                            <Label Text="{Binding Email}" TextColor="DarkGray"/>
+                            <Label Text="{Binding Resume}" TextColor="Blue"/>
+                            <!-- Link or text -->
+                        </StackLayout>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

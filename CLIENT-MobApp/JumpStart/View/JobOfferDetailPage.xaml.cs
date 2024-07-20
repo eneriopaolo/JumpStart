@@ -7,13 +7,14 @@ namespace JumpStart
     {
         public string url = "";
         public string token = "";
+
         public JobOfferDetailPage(string jobOfferID)
         {
             InitializeComponent();
-            var job = LoadJobOffer($"https://jumpstart-07yi.onrender.com/api/job/myoffer/{jobOfferID}");
-            Console.WriteLine(job.JobTitle);
+            LoadJobOffer($"https://jumpstart-07yi.onrender.com/api/job/myoffer/{jobOfferID}");
         }
-        private async Task<EmployerOffer> LoadJobOffer(string url) 
+
+        private async Task LoadJobOffer(string url)
         {
             // Fetch Tokens
             string tokenFilePath = Path.Combine(FileSystem.AppDataDirectory, "token.txt");
@@ -35,9 +36,14 @@ namespace JumpStart
                 {
                     PropertyNameCaseInsensitive = true
                 };
-                return JsonSerializer.Deserialize<EmployerOffer>(json, options);
+                var jobOffer = JsonSerializer.Deserialize<EmployerOffer>(json, options);
+
+                // Bind the job offer details
+                JobOfferCollectionView.ItemsSource = new List<EmployerOffer> { jobOffer };
+
+                // Bind the list of applicants
+                ApplicantsCollectionView.ItemsSource = jobOffer.Applications;
             }
         }
     }
-
 }

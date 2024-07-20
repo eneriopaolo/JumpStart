@@ -4,7 +4,7 @@
              x:Class="JumpStart.LoginPage">
 
     <VerticalStackLayout Spacing="20" Padding="10">
-        <Label FontSize="40" HorizontalTextAlignment="Center" Text="JumpStart"/>
+        <Label FontSize="40" HorizontalTextAlignment="Center" Text="JumpStart" Padding="20,50,20,50"/>
         <Entry x:Name="emailEntry" Placeholder="Enter your Email" Keyboard="Email"/>
         <Entry x:Name="passwordEntry" Placeholder="Enter your Password" IsPassword="True"/>
         <Button Text="Login" Clicked="OnLoginClicked"></Button>

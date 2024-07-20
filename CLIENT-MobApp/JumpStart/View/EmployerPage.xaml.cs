@@ -53,7 +53,7 @@ namespace JumpStart
             };
             return JsonSerializer.Deserialize<List<EmployerOffer>>(json, options);
         }
-        
+
         private async void LoadMyOffers()
         {
             try
@@ -66,7 +66,7 @@ namespace JumpStart
                     Console.WriteLine($"Job Title: {job.JobTitle}");
                     Console.WriteLine($"Job Description: {job.JobDescription}");
                     //Console.WriteLine($"Salary: {job.SalaryPerMonth}");
-                    
+
                     //Console.WriteLine($"Number of Applicants: {Convert.ToString(jobs.Count) ?? "null"}");
                     //Console.WriteLine("-----");
                 }
@@ -117,6 +117,10 @@ namespace JumpStart
         {
             await Navigation.PushAsync(new ProfilePage());
         }
-       
+
+        //private async void OnDeleteJobPost(object sender, EventArgs e)
+        //{
+        //    public string delUrl = "https://jumpstart-07yi.onrender.com/api/job/myoffer/";
+        //}
     }
 }
