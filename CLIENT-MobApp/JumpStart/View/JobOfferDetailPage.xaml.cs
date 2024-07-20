@@ -71,7 +71,6 @@ namespace JumpStart
                 if (response.IsSuccessStatusCode)
                 {
                     await DisplayAlert("Success", "Job offer deleted successfully.", "OK");
-                    // Optionally, navigate back or refresh the page
                     await Navigation.PopAsync();
                 }
                 else
