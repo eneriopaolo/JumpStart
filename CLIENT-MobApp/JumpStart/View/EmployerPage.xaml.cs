@@ -14,7 +14,6 @@ namespace JumpStart
     public partial class EmployerPage : ContentPage
     {
         public string url = "https://jumpstart-07yi.onrender.com/api/job/myoffer";
-        //public string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhdEBnbWFpbC5jb20iLCJpYXQiOjE3MjExNDA0NjMsImV4cCI6MTcyMTM5OTY2M30.1usypNEWEjTugf-BKAaVBxNsTZi7ppfyDxTHLBM9R-c";
         public string token;
         public EmployerPage()
         {
@@ -65,10 +64,6 @@ namespace JumpStart
                 {
                     Console.WriteLine($"Job Title: {job.JobTitle}");
                     Console.WriteLine($"Job Description: {job.JobDescription}");
-                    //Console.WriteLine($"Salary: {job.SalaryPerMonth}");
-
-                    //Console.WriteLine($"Number of Applicants: {Convert.ToString(jobs.Count) ?? "null"}");
-                    //Console.WriteLine("-----");
                 }
 
                 MyOffersCollectionView.ItemsSource = jobs;
@@ -117,10 +112,5 @@ namespace JumpStart
         {
             await Navigation.PushAsync(new ProfilePage());
         }
-
-        //private async void OnDeleteJobPost(object sender, EventArgs e)
-        //{
-        //    public string delUrl = "https://jumpstart-07yi.onrender.com/api/job/myoffer/";
-        //}
     }
 }

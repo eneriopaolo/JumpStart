@@ -25,9 +25,6 @@
                            CornerRadius="10">
                         <StackLayout Padding="10" BackgroundColor="White"
                                      VerticalOptions="Start" HorizontalOptions="FillAndExpand">
-                            <!--<StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnJobTapped" CommandParameter="{Binding}" />
-                            </StackLayout.GestureRecognizers>-->
 
                             <Label Text="{Binding JobOfferr.JobTitle}" FontSize="24" FontAttributes="Bold" TextColor="Black"/>
                             <Label Text="{Binding JobOfferr.JobDescription}" TextColor="DarkGray"/>

@@ -16,7 +16,6 @@ namespace JumpStart
     {
         private readonly HttpClient _httpClient = new HttpClient();
         public string url = "https://jumpstart-07yi.onrender.com/api/job";
-        //public string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjEyM0BnbWFpbC5jb20iLCJpYXQiOjE3MjE0MDE5ODksImV4cCI6MTcyMTY2MTE4OX0.ZCf97YHCzeOtjKNAud21L44C-Gzr1Z9EiqU47riafFs";
         public string token;
         public EmployerJobPostPage()
         {

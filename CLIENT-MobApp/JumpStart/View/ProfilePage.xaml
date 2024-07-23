@@ -87,7 +87,6 @@
 
             <!-- Common Buttons -->
             <Button Text="Edit Profile" Clicked="OnEditProfileClicked" />
-            <!--<Button Text="Log Out" Clicked="OnLogOutClicked" />-->
 
         </VerticalStackLayout>
     </ScrollView>

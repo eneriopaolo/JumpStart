@@ -49,9 +49,6 @@ namespace JumpStart
                         File.WriteAllText(userIdFilePath, loginResponse.userData._id);
                         File.WriteAllText(userTypeFilePath, loginResponse.userType);
 
-                        //// Show an alert with the user type
-                        //await DisplayAlert("Logged In", $"Logged in as {loginResponse.userType}", "OK");
-
                         // Navigate to the appropriate page
                         if (loginResponse.userType == "jobseeker")
                         {
@@ -74,7 +71,6 @@ namespace JumpStart
                 else
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();
-                    //await DisplayAlert("Error", errorContent, "OK");
                     await DisplayAlert("Error", "Try Again", "OK");
                 }
             }
